@@ -8,7 +8,6 @@ const format = require('fmt-obj');
 const sourcePath = path.join(__dirname, 'src');
 const buildPath = path.join(__dirname, 'build');
 const context = __dirname;
-// TODO: Build config based on passed parameters to function.
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -55,8 +54,6 @@ const postCssLoader = {
 
 export = (options?: Options) => {
     options = _.merge({}, defaultOptions, options);
-    console.log(format(options)); // TODO: Show in verbose mode
-    debugger;
     const config: any = {
         context: context,
         entry: {
@@ -75,13 +72,12 @@ export = (options?: Options) => {
         target: 'web',
         resolve: {
             extensions: ['.ts', '.js'],
-            // TODO: in prod mode use jsnext:main feature to reduce size
             // Fix webpack's default behavior to not load packages with jsnext:main module
-            // https://github.com/Microsoft/TypeScript/issues/11677
-            mainFields: (() => {
-                if (options.prod) return ['jsnext:main', 'browser', 'main'];
-                return ['browser', 'main'];
-            })()
+            mainFields: [
+                ...(options.prod ? ['jsnext:main'] : []),
+                'browser',
+                'main'
+            ]
         },
         watchOptions: watchOptions,
         module: {
@@ -89,12 +85,13 @@ export = (options?: Options) => {
                 {
                     test: /\.ts$/,
                     use: [
+                        ...(options.hmr ? [{ loader: '@angularclass/hmr-loader' }] : []),
                         {
                             loader: 'awesome-typescript-loader',
                             options: {
                                 useTranspileModule: true,
                                 transpileOnly: true,
-                            }
+                            },
                         }
                     ],
                 },
@@ -146,6 +143,7 @@ export = (options?: Options) => {
         },
         plugins: [
             ...(options.dashboard ? [new DashboardPlugin()] : []),
+            ...(options.hmr ? [new webpack.NamedModulesPlugin()] : []),
             new webpack.DllReferencePlugin({
                 context: context,
                 manifest: (manifest => fs.existsSync(manifest) ? require(manifest) : {})(`${buildPath}/vendors.json`)

@@ -12,10 +12,10 @@ export = (config: any) => {
     karma.set({
         files: [
             { pattern: 'build/vendors.js', watched: false },
-            { pattern: 'src/specs.ts' },
+            { pattern: 'src/spec.module.js' },
         ],
         preprocessors: {
-            '**/specs.ts': ['webpack', 'sourcemap']
+            '**/spec.module.js': ['webpack', 'sourcemap']
         },
         browsers: ['Nightmare'],
         frameworks: [
@@ -32,6 +32,7 @@ export = (config: any) => {
             width: 800,
             height: 600,
             show: false,
+            devTools: false
         },
         webpack: webpackConfig({ hmr: false, test: true }),
         webpackMiddleware: {
@@ -41,9 +42,6 @@ export = (config: any) => {
 
     if (process.argv.indexOf('--coverage') !== -1) {
         config.set({
-            preprocessors: {
-                '**/specs.ts': ['coverage', 'webpack', 'sourcemap']
-            },
             reporters: ['mocha', 'coverage', 'remap-coverage'],
             coverageReporter: {
                 type: 'in-memory'
