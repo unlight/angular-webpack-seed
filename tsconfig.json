@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": false,
+    "pretty": true,
+    "outDir": "build",
+    "lib": [
+      "es7",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/main.ts"
+  ]
+}
