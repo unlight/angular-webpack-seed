@@ -12,8 +12,8 @@ if (process.env.NODE_ENV === 'production') {
     platformBrowserDynamic().bootstrapModule(AppModule);
 } else {
 
-    const { removeNgStyles, createNewHosts, bootloader } = require('@angularclass/hmr');
-    const { AppComponent } = require('./app/app.component');
+    const { removeNgStyles, createNewHosts, bootloader } = require('@angularclass/hmr') as any;
+    const { AppComponent } = require('./app/app.component') as any;
 
     @NgModule({
         imports: [AppModule],
@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
         }
 
         hmrOnDestroy(store) {
-            var cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
+            const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
             store.disposeOldHosts = createNewHosts(cmpLocation)
             removeNgStyles();
         }

@@ -26,6 +26,7 @@ interface Options {
     prod?: boolean;
     dev?: boolean;
     hmr?: boolean;
+    aot?: boolean;
 }
 
 const defaultOptions = {
@@ -39,18 +40,16 @@ const defaultOptions = {
     },
     get hmr() {
         return this.dev;
+    },
+    get aot() {
+        return this.prod;
     }
 };
 
-const postCssLoader = {
-    loader: 'postcss-loader',
-    options: {
-        plugins: [
-            // require('postcss-url')(), // plugin to rebase, inline or copy on url().
-            require('autoprefixer')('last 3 versions'),
-        ]
-    }
-};
+const postPlugins = [
+    // require('postcss-url')(), // plugin to rebase, inline or copy on url().
+    require('autoprefixer')('last 3 versions'),
+];
 
 export = (options?: Options) => {
     options = _.merge({}, defaultOptions, options);
@@ -85,20 +84,22 @@ export = (options?: Options) => {
                 {
                     test: /\.ts$/,
                     use: [
-                        ...(options.hmr ? [{ loader: '@angularclass/hmr-loader' }] : []),
+                        ...(options.hmr ? [{
+                            loader: '@angularclass/hmr-loader'
+                        }] : []),
                         {
                             loader: 'awesome-typescript-loader',
                             options: {
                                 useTranspileModule: true,
                                 transpileOnly: true,
-                            },
+                            }
                         }
                     ],
                 },
                 {
                     test: /component\.html$/,
                     loader: 'html-loader',
-                    options: { minimize: false }, // TODO: minimize in prod
+                    options: { minimize: false }, // TODO: minimize in prod, dont because aot
                 },
                 {
                     test: /index\.html$/,
@@ -109,7 +110,7 @@ export = (options?: Options) => {
                     test: /\.component\.scss$/,
                     use: [
                         { loader: 'raw-loader' },
-                        postCssLoader,
+                        { loader: 'postcss-loader', options: { plugins: postPlugins } },
                         { loader: 'sass-loader' },
                     ]
                 },
@@ -120,11 +121,10 @@ export = (options?: Options) => {
                         {
                             loader: 'style-loader' // creates style nodes from JS strings
                         },
-
                         {
                             loader: 'css-loader' // translates CSS into CommonJS
                         },
-                        postCssLoader,
+                        { loader: 'postcss-loader', options: { plugins: postPlugins } },
                         { loader: 'sass-loader' },
                     ]
                 },
@@ -177,7 +177,8 @@ export = (options?: Options) => {
             entry: {
                 vendors: [
                     'core-js/es6',
-                    'core-js/es7',
+                    'core-js/es7/reflect',
+                    'core-js/es7/array',
                     'tslib',
                     'zone.js/dist/zone',
                     'rxjs',
