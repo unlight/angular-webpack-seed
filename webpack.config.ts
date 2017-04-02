@@ -12,6 +12,7 @@ const context = __dirname;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const CssEntryPlugin = require('css-entry-webpack-plugin');
 
 const watchOptions = {
     aggregateTimeout: 150,
@@ -19,7 +20,7 @@ const watchOptions = {
 };
 
 interface Options {
-    vendors?: boolean;
+    vendorLibs?: boolean;
     dashboard?: boolean;
     test?: boolean;
     coverage?: boolean;
@@ -27,10 +28,12 @@ interface Options {
     dev?: boolean;
     hmr?: boolean;
     aot?: boolean;
+    vendorStyle?: boolean;
 }
 
 const defaultOptions = {
-    vendors: process.argv.indexOf('--env.vendors') !== -1,
+    vendorLibs: process.argv.indexOf('--env.vendorLibs') !== -1,
+    vendorStyle: process.argv.indexOf('--env.vendorStyle') !== -1,
     dashboard: process.argv.indexOf('--env.dashboard') !== -1,
     test: false,
     coverage: false,
@@ -107,6 +110,11 @@ export = (options?: Options) => {
                     options: { minimize: false },
                 },
                 {
+                    test: /\.css$/, use: [
+                        { loader: 'css-loader' }
+                    ]
+                },
+                {
                     test: /\.component\.scss$/,
                     use: [
                         { loader: 'raw-loader' },
@@ -128,6 +136,13 @@ export = (options?: Options) => {
                         { loader: 'sass-loader' },
                     ]
                 },
+                {
+                    test: /\.(woff|woff2|eot|ttf)?$/,
+                    loader: 'file-loader',
+                    options: {
+                        name: 'i/[name]-[hash:6].[ext]'
+                    }
+                },
                 ...(options.coverage ? [
                     {
                         enforce: 'post',
@@ -146,7 +161,7 @@ export = (options?: Options) => {
             ...(options.hmr ? [new webpack.NamedModulesPlugin()] : []),
             new webpack.DllReferencePlugin({
                 context: context,
-                manifest: (manifest => fs.existsSync(manifest) ? require(manifest) : {})(`${buildPath}/vendors.json`)
+                manifest: (manifest => fs.existsSync(manifest) ? require(manifest) : {})(`${buildPath}/vendorLibs.json`)
             }),
             new webpack.WatchIgnorePlugin([
                 /node_modules/
@@ -172,10 +187,10 @@ export = (options?: Options) => {
         }
     };
 
-    if (options.vendors) {
+    if (options.vendorLibs) {
         _.assign(config, {
             entry: {
-                vendors: [
+                vendorLibs: [
                     'core-js/es6',
                     'core-js/es7/reflect',
                     'core-js/es7/array',
@@ -191,17 +206,36 @@ export = (options?: Options) => {
                     '@angular/platform-browser-dynamic',
                     '@angular/router',
                 ],
+
             },
             devtool: 'source-map',
             output: {
                 path: buildPath,
                 filename: '[name].js',
-                library: 'lib_[name]',
+                library: '[name]',
             },
             plugins: [
                 new webpack.DllPlugin({
-                    name: 'lib_[name]',
+                    name: '[name]',
                     path: path.join(buildPath, '[name].json')
+                })
+            ]
+        });
+    } else if (options.vendorStyle) {
+        const rules = config.module.rules;
+        _.assign(config, {
+            entry: {
+                style: ['@blueprintjs/core/dist/blueprint.css']
+            },
+            module: {
+                rules: rules.filter(x => String(x.test).indexOf('woff|woff2|eot|ttf') !== -1
+                    || String(x.test).indexOf('.css$') !== -1),
+            },
+            plugins: [
+                new CssEntryPlugin({
+                    output: {
+                        filename: '[name].css'
+                    }
                 })
             ]
         });
