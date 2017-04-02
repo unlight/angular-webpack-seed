@@ -27,12 +27,12 @@ npm run start
 
 TASKS
 ---
-| Task                  | Description                                |
-|:----------------------|:-------------------------------------------|
-| `npm run start`       | Local dev server                           |
-| `npm run clean`       | Clean generated folders                    |
-| `npm run lint`        | Lint code (single run mode)                |
-| `npm run t`           | Run unit testing in single run mode        |
+| Task             | Description                         |
+|:-----------------|:------------------------------------|
+| `npm run start`  | Local dev server                    |
+| `npm run clean`  | Clean generated folders             |
+| `npm run eslint` | Lint code (single run mode)         |
+| `npm run t`      | Run unit testing in single run mode |
 
 DEVELOPMENT TIPS
 ---
@@ -52,7 +52,6 @@ TODO
 * more postcss plugin
 * separate css file (text extract plugin)
 * test isolated modules
-* dev task: lint, ts check, webpack
 
 DEBUG
 ---
