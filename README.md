@@ -1,7 +1,38 @@
-# angular-webpack-seed
+angular-webpack-seed
+====================
+Angular 2 seed project
+
+STACK
+---
+* Webpack 2
+* TypeScript 2
+* Angular 4+
+* Karma / Nightmare 2 (Electron based)
+* Gulp 4
+* ESLint with some plugins
 
 FEATURES
 ---
+* Fastest typescripts compilation (because of --isolatedModules)
+* Faster unit testing (NightmareJS runs 2 times than PhantomJS)
+* Hot reload, HMR (Hot Module Replacement)
+
+QUICK START
+---
+```
+git clone https://github.com/unlight/angular-webpack-seed && cd angular-webpack-seed
+npm i 
+npm run start
+```
+
+TASKS
+---
+| Task                  | Description                                |
+|:----------------------|:-------------------------------------------|
+| `npm run start`       | Local dev server                           |
+| `npm run clean`       | Clean generated folders                    |
+| `npm run lint`        | Lint code (single run mode)                |
+| `npm run t`           | Run unit testing in single run mode        |
 
 DEVELOPMENT TIPS
 ---
@@ -18,12 +49,10 @@ TODO
 ---
 * angular2 mocks lib
 * aot
-* css entry point
-* more css plugin
+* more postcss plugin
 * separate css file (text extract plugin)
 * test isolated modules
 * dev task: lint, ts check, webpack
-* more eslint plugins
 
 DEBUG
 ---

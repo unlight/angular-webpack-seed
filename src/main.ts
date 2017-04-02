@@ -25,23 +25,23 @@ if (process.env.NODE_ENV === 'production') {
             private readonly appRef: ApplicationRef
         ) { }
 
-        hmrOnInit(store) {
+        hmrOnInit(store: any) {
             // https://github.com/angularclass/angular2-hmr
         }
 
-        hmrOnDestroy(store) {
+        hmrOnDestroy(store: any) {
             const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-            store.disposeOldHosts = createNewHosts(cmpLocation)
+            store.disposeOldHosts = createNewHosts(cmpLocation);
             removeNgStyles();
         }
 
-        hmrAfterDestroy(store) {
-            store.disposeOldHosts()
+        hmrAfterDestroy(store: any) {
+            store.disposeOldHosts();
             delete store.disposeOldHosts;
         }
     }
     // Boot on document ready.
-    bootloader(function main() {
+    bootloader(() => {
         return platformBrowserDynamic().bootstrapModule(MainModule);
     });
 
