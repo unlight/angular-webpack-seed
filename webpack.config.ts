@@ -87,9 +87,7 @@ export = (options?: Options) => {
                 {
                     test: /\.ts$/,
                     use: [
-                        ...(options.hmr ? [{
-                            loader: '@angularclass/hmr-loader'
-                        }] : []),
+                        ...(options.hmr ? [{ loader: '@angularclass/hmr-loader' }] : []),
                         {
                             loader: 'awesome-typescript-loader',
                             options: {
@@ -166,7 +164,7 @@ export = (options?: Options) => {
             new webpack.WatchIgnorePlugin([
                 /node_modules/
             ]),
-            ...(!options.test ? new HtmlWebpackPlugin({ template: 'src/index.html', minify: false }) : [])
+            ...(!options.test ? [new HtmlWebpackPlugin({ template: 'src/index.html', minify: false })] : [])
         ],
         devServer: {
             noInfo: false,
