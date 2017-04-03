@@ -1,7 +1,5 @@
 # angular-webpack-seed
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/unlight/angular-webpack-seed.svg)](https://greenkeeper.io/)
-
 TODO
 ---
 * css entry point
