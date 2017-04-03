@@ -29,7 +29,7 @@ TASKS
 ---
 | Task             | Description                         |
 |:-----------------|:------------------------------------|
-| `npm run start`  | Local dev server                    |
+| `npm run server`  | Local dev server                    |
 | `npm run clean`  | Clean generated folders             |
 | `npm run eslint` | Lint code (single run mode)         |
 | `npm run t`      | Run unit testing in single run mode |

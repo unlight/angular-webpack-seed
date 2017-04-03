@@ -1,12 +1,12 @@
 /// <reference path="node_modules/@types/node/index.d.ts" />
 import * as webpack from 'webpack';
 import * as fs from 'fs';
-import * as path from 'path';
+import * as Path from 'path';
 import _ = require('lodash');
 const format = require('fmt-obj');
 
-const sourcePath = path.join(__dirname, 'src');
-const buildPath = path.join(__dirname, 'build');
+const sourcePath = Path.join(__dirname, 'src');
+const buildPath = Path.join(__dirname, 'build');
 const context = __dirname;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -37,7 +37,7 @@ const defaultOptions = {
     dashboard: process.argv.indexOf('--env.dashboard') !== -1,
     test: false,
     coverage: false,
-    prod: process.argv.indexOf('-p') !== -1,
+    prod: process.argv.indexOf('-p') !== -1 || process.argv.indexOf('--env.prod') !== -1,
     get dev() {
         return !this.prod;
     },
@@ -157,14 +157,21 @@ export = (options?: Options) => {
         plugins: [
             ...(options.dashboard ? [new DashboardPlugin()] : []),
             ...(options.hmr ? [new webpack.NamedModulesPlugin()] : []),
-            new webpack.DllReferencePlugin({
-                context: context,
-                manifest: (manifest => fs.existsSync(manifest) ? require(manifest) : {})(`${buildPath}/vendorLibs.json`)
-            }),
             new webpack.WatchIgnorePlugin([
                 /node_modules/
             ]),
-            ...(!options.test ? [new HtmlWebpackPlugin({ template: 'src/index.html', minify: false })] : [])
+            ...(!options.test ? [new HtmlWebpackPlugin({ template: 'src/index.html', minify: false })] : []),
+            ...(options.prod ? [
+                new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
+                new webpack.LoaderOptionsPlugin({
+                    minimize: true,
+                    debug: false,
+                    options: { context }
+                }),
+                new webpack.DefinePlugin({
+                    'process.env.NODE_ENV': JSON.stringify('production')
+                })
+            ] : []),
         ],
         devServer: {
             noInfo: false,
@@ -211,14 +218,14 @@ export = (options?: Options) => {
                 path: buildPath,
                 filename: '[name].js',
                 library: '[name]',
-            },
-            plugins: [
-                new webpack.DllPlugin({
-                    name: '[name]',
-                    path: path.join(buildPath, '[name].json')
-                })
-            ]
+            }
         });
+        config.plugins.unshift(
+            new webpack.DllPlugin({
+                name: '[name]',
+                path: `${buildPath}/[name].json`
+            })
+        );
     } else if (options.vendorStyle) {
         const rules = config.module.rules;
         _.assign(config, {
@@ -237,6 +244,13 @@ export = (options?: Options) => {
                 })
             ]
         });
+    } else {
+        config.plugins.push(
+            new webpack.DllReferencePlugin({
+                context: context,
+                manifest: (manifest => fs.existsSync(manifest) ? require(manifest) : {})(`${buildPath}/vendorLibs.json`)
+            })
+        );
     }
 
     return config;

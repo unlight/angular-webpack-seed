@@ -19,7 +19,7 @@
     "server": "webpack-dev-server --hot --inline --progress --colors",
     "server:dashboard": "npm run server -- --env.dashboard",
     "build": "webpack --progress --colors",
-    "build:prod": "npm run build -- -p",
+    "build:prod": "npm run build -- --env.prod",
     "dashboard": "webpack-dashboard -- npm run server:dashboard",
     "up": "node node_modules/updtr/bin/updtr --test-stdout --save-exact -R simple --test \"npm run test\"",
     "build:vendor-libs": "npm run build -- --env.vendorLibs",
