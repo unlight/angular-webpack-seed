@@ -9,6 +9,9 @@
     "sourceMap": true,
     "declaration": false,
     "pretty": true,
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "isolatedModules": false,
     "outDir": "build",
     "lib": [
       "es7",
@@ -16,6 +19,6 @@
     ]
   },
   "include": [
-    "src/main.ts"
+    "src/**/*.ts"
   ]
 }

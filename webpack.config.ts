@@ -13,6 +13,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const CssEntryPlugin = require('css-entry-webpack-plugin');
+const aotLoader = require('@ultimate/aot-loader');
 
 const watchOptions = {
     aggregateTimeout: 150,
@@ -45,7 +46,7 @@ const defaultOptions = {
         return this.dev;
     },
     get aot() {
-        return this.prod;
+        return process.argv.indexOf('--env.aot') !== -1 || this.prod;
     }
 };
 
@@ -86,21 +87,25 @@ export = (options?: Options) => {
             rules: [
                 {
                     test: /\.ts$/,
-                    use: [
-                        ...(options.hmr ? [{ loader: '@angularclass/hmr-loader' }] : []),
-                        {
-                            loader: 'awesome-typescript-loader',
-                            options: {
-                                useTranspileModule: true,
-                                transpileOnly: true,
-                            }
+                    use: (() => {
+                        if (options.aot) {
+                            return [{ loader: '@ultimate/aot-loader' }];
                         }
-                    ],
+                        return [
+                            ...(options.hmr ? [{ loader: '@angularclass/hmr-loader' }] : []),
+                            {
+                                loader: 'awesome-typescript-loader',
+                                options: {
+                                    useTranspileModule: true,
+                                    transpileOnly: true,
+                                }
+                            }
+                        ]
+                    })(),
                 },
                 {
-                    test: /component\.html$/,
-                    loader: 'html-loader',
-                    options: { minimize: false }, // TODO: minimize in prod, dont because aot
+                    test: /\.component\.html$/,
+                    loader: 'raw-loader',
                 },
                 {
                     test: /index\.html$/,
@@ -108,13 +113,15 @@ export = (options?: Options) => {
                     options: { minimize: false },
                 },
                 {
-                    test: /\.css$/, use: [
+                    test: /\.css$/,
+                    use: [
                         { loader: 'css-loader' }
                     ]
                 },
                 {
                     test: /\.component\.scss$/,
                     use: [
+                        // { loader: 'to-string' },
                         { loader: 'raw-loader' },
                         { loader: 'postcss-loader', options: { plugins: postPlugins } },
                         { loader: 'sass-loader' },
@@ -124,12 +131,8 @@ export = (options?: Options) => {
                     test: /\.scss$/,
                     exclude: /\.component\.scss$/,
                     use: [
-                        {
-                            loader: 'style-loader' // creates style nodes from JS strings
-                        },
-                        {
-                            loader: 'css-loader' // translates CSS into CommonJS
-                        },
+                        { loader: 'style-loader' },
+                        { loader: 'css-loader' },
                         { loader: 'postcss-loader', options: { plugins: postPlugins } },
                         { loader: 'sass-loader' },
                     ]
@@ -154,25 +157,42 @@ export = (options?: Options) => {
                 ] : [])
             ],
         },
-        plugins: [
-            ...(options.dashboard ? [new DashboardPlugin()] : []),
-            ...(options.hmr ? [new webpack.NamedModulesPlugin()] : []),
-            new webpack.WatchIgnorePlugin([
-                /node_modules/
-            ]),
-            ...(!options.test ? [new HtmlWebpackPlugin({ template: 'src/index.html', minify: false })] : []),
-            ...(options.prod ? [
-                new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
-                new webpack.LoaderOptionsPlugin({
-                    minimize: true,
-                    debug: false,
-                    options: { context }
-                }),
-                new webpack.DefinePlugin({
-                    'process.env.NODE_ENV': JSON.stringify('production')
-                })
-            ] : []),
-        ],
+        plugins: (() => {
+            const result: any[] = [
+                new webpack.WatchIgnorePlugin([
+                    /node_modules/
+                ])
+            ];
+            if (options.dashboard) {
+                result.push(new DashboardPlugin());
+            }
+            if (options.hmr) {
+                result.push(new webpack.NamedModulesPlugin());
+            }
+            if (!options.test) {
+                result.push(new HtmlWebpackPlugin({ template: 'src/index.html', minify: false }));
+            }
+            if (options.aot) {
+                result.push(new aotLoader.AotPlugin({
+                    tsConfig: './tsconfig.json',
+                    entryModule: `./src/app/app.module#AppModule` // path is relative to tsConfig above
+                }));
+            }
+            if (options.prod) {
+                result.push(
+                    new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
+                    new webpack.LoaderOptionsPlugin({
+                        minimize: true,
+                        debug: false,
+                        options: { context }
+                    }),
+                    new webpack.DefinePlugin({
+                        'process.env.NODE_ENV': JSON.stringify('production')
+                    })
+                );
+            }
+            return result;
+        })(),
         devServer: {
             noInfo: false,
             contentBase: [buildPath],
@@ -238,9 +258,7 @@ export = (options?: Options) => {
             },
             plugins: [
                 new CssEntryPlugin({
-                    output: {
-                        filename: '[name].css'
-                    }
+                    output: { filename: '[name].css' }
                 })
             ]
         });

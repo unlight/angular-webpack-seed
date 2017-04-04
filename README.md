@@ -47,6 +47,7 @@ RESOURCES
 
 TODO
 ---
+* styles for prod
 * angular2 mocks lib
 * aot
 * more postcss plugin

@@ -1,7 +1,9 @@
 import 'core-js/es6';
-import 'core-js/es7';
+import 'core-js/es7/reflect';
+import 'core-js/es7/array';
 import 'zone.js/dist/zone';
-import './style.scss';
+
+// require('./style.scss');
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode, NgModule, ApplicationRef } from '@angular/core';
@@ -44,10 +46,4 @@ if (process.env.NODE_ENV === 'production') {
     bootloader(() => {
         return platformBrowserDynamic().bootstrapModule(MainModule);
     });
-
-    // if (module.hot) {
-    //     module.hot.accept(err => {
-    //         debugger;
-    //     });
-    // }
 }
