@@ -9,6 +9,8 @@
 </head>
 <body>
     <app>Loading...</app>
-    <script src="vendorLibs.js"></script>
+    <% if (htmlWebpackPlugin.options.config.dev) { %>
+        <script src="vendorLibs.js"></script>
+    <% } %>
 </body>
 </html>

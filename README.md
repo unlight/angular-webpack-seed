@@ -58,4 +58,5 @@ DEBUG
 ---
 ```
 inspect node_modules/webpack-dev-server/bin/webpack-dev-server
+inspect --debug-exception node_modules/webpack/bin/webpack.js --progress --colors --env.prod --display-modules
 ```

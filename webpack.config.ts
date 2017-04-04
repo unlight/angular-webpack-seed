@@ -3,7 +3,6 @@ import * as webpack from 'webpack';
 import * as fs from 'fs';
 import * as Path from 'path';
 import _ = require('lodash');
-const format = require('fmt-obj');
 
 const sourcePath = Path.join(__dirname, 'src');
 const buildPath = Path.join(__dirname, 'build');
@@ -65,7 +64,10 @@ export = (options?: Options) => {
         output: {
             path: buildPath,
             publicPath: '',
-            filename: '[name].js',
+            filename: (()=> {
+                if (options.prod) return '[name]-[hash:6].js';
+                return '[name].js';
+            })()
         },
         devtool: (() => {
             if (options.test) return 'inline-source-map';
@@ -77,7 +79,7 @@ export = (options?: Options) => {
             extensions: ['.ts', '.js'],
             // Fix webpack's default behavior to not load packages with jsnext:main module
             mainFields: [
-                ...(options.prod ? ['jsnext:main'] : []),
+                ...(options.prod ? ['es2015', 'jsnext:main', 'module'] : []),
                 'browser',
                 'main'
             ]
@@ -105,12 +107,13 @@ export = (options?: Options) => {
                 },
                 {
                     test: /\.component\.html$/,
-                    loader: 'raw-loader',
+                    use: [{ loader: 'raw-loader' }]
                 },
                 {
-                    test: /index\.html$/,
-                    loader: 'html-loader',
-                    options: { minimize: false },
+                    test: /index\.ejs$/,
+                    use: [
+                        { loader: 'ejs-loader' },
+                    ]
                 },
                 {
                     test: /\.css$/,
@@ -138,11 +141,8 @@ export = (options?: Options) => {
                     ]
                 },
                 {
-                    test: /\.(woff|woff2|eot|ttf)?$/,
-                    loader: 'file-loader',
-                    options: {
-                        name: 'i/[name]-[hash:6].[ext]'
-                    }
+                    test: /\.(woff|woff2|eot|ttf)$/,
+                    use: [{ loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }]
                 },
                 ...(options.coverage ? [
                     {
@@ -170,7 +170,12 @@ export = (options?: Options) => {
                 result.push(new webpack.NamedModulesPlugin());
             }
             if (!options.test) {
-                result.push(new HtmlWebpackPlugin({ template: 'src/index.html', minify: false }));
+                result.push(new HtmlWebpackPlugin({
+                    template: './src/index.ejs',
+                    minify: false,
+                    excludeChunks: [],
+                    config: options,
+                }));
             }
             if (options.aot) {
                 result.push(new aotLoader.AotPlugin({
@@ -230,6 +235,7 @@ export = (options?: Options) => {
                     '@angular/platform-browser',
                     '@angular/platform-browser-dynamic',
                     '@angular/router',
+                    // '@angularclass/hmr',
                 ],
 
             },
@@ -263,12 +269,14 @@ export = (options?: Options) => {
             ]
         });
     } else {
-        config.plugins.push(
-            new webpack.DllReferencePlugin({
-                context: context,
-                manifest: (manifest => fs.existsSync(manifest) ? require(manifest) : {})(`${buildPath}/vendorLibs.json`)
-            })
-        );
+        if (!options.prod) {
+            config.plugins.push(
+                new webpack.DllReferencePlugin({
+                    context: context,
+                    manifest: (p => fs.existsSync(p) ? require(p) : {})(`${buildPath}/vendorLibs.json`)
+                })
+            );
+        }
     }
 
     return config;
