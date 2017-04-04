@@ -60,6 +60,27 @@ export = (options?: Options) => {
         context: context,
         entry: {
             app: './src/main.ts',
+            libs: [
+                'core-js/es6',
+                'core-js/es7/reflect',
+                'core-js/es7/array',
+                'tslib',
+                'zone.js/dist/zone',
+                'rxjs',
+                '@angular/common',
+                '@angular/compiler',
+                '@angular/core',
+                '@angular/forms',
+                '@angular/http',
+                '@angular/platform-browser',
+                '@angular/platform-browser-dynamic',
+                '@angular/router',
+                // HMR related
+                '@angularclass/hmr',
+                'webpack-dev-server/client',
+                'events',
+            ],
+            style: ['@blueprintjs/core/dist/blueprint.css']
         },
         output: {
             path: buildPath,
@@ -201,6 +222,7 @@ export = (options?: Options) => {
             hot: true,
             inline: true,
             stats: 'normal',
+            // stats: { reasons: true, maxModules: 10000 },
             watchOptions: watchOptions,
         },
         node: {
@@ -214,45 +236,25 @@ export = (options?: Options) => {
 
     if (options.vendorLibs) {
         _.assign(config, {
-            entry: {
-                vendorLibs: [
-                    'core-js/es6',
-                    'core-js/es7/reflect',
-                    'core-js/es7/array',
-                    'tslib',
-                    'zone.js/dist/zone',
-                    'rxjs',
-                    '@angular/common',
-                    '@angular/compiler',
-                    '@angular/core',
-                    '@angular/forms',
-                    '@angular/http',
-                    '@angular/platform-browser',
-                    '@angular/platform-browser-dynamic',
-                    '@angular/router',
-                    // '@angularclass/hmr',
-                ],
-
-            },
+            entry: _.pick(config.entry, ['libs']), // check name near DllReferencePlugin
             devtool: 'source-map',
             output: {
                 path: buildPath,
                 filename: '[name].js',
                 library: '[name]',
-            }
+            },
+            plugins: [
+                new webpack.DllPlugin({
+                    name: '[name]',
+                    path: `${buildPath}/[name].json`
+                })
+            ]
         });
-        config.plugins.unshift(
-            new webpack.DllPlugin({
-                name: '[name]',
-                path: `${buildPath}/[name].json`
-            })
-        );
+        config.module.rules = [];
     } else if (options.vendorStyle) {
         const rules = config.module.rules;
         _.assign(config, {
-            entry: {
-                style: ['@blueprintjs/core/dist/blueprint.css']
-            },
+            entry: _.pick(config.entry, ['style']),
             module: {
                 rules: rules.filter(x => String(x.test).indexOf('woff|woff2|eot|ttf') !== -1
                     || String(x.test).indexOf('.css$') !== -1),
@@ -265,10 +267,15 @@ export = (options?: Options) => {
         });
     } else {
         if (!options.prod) {
+            config.entry = _.pick(config.entry, ['app']);
+            const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
+            if (!fs.existsSync(libs)) {
+                throw new Error(`Cannot link '${libs}', file do not exists.`);
+            }
             config.plugins.push(
                 new webpack.DllReferencePlugin({
                     context: context,
-                    manifest: (p => fs.existsSync(p) ? require(p) : {})(`${buildPath}/vendorLibs.json`)
+                    manifest: require(libs)
                 })
             );
         }
