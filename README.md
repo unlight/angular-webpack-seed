@@ -5,7 +5,6 @@ Angular 2 seed project
 STACK
 ---
 * Angular 4+
-* AoT (with routes lazy loading)
 * TypeScript 2
 * Webpack 2
 * Karma / NightmareJS 2 (Electron)
@@ -17,6 +16,7 @@ FEATURES
 * Fastest typescripts compilation (because of transpileOnly)
 * Faster unit testing (NightmareJS runs 2 times faster than PhantomJS)
 * Hot reload, HMR (Hot Module Replacement)
+* AoT (with routes lazy loading)
 
 QUICK START
 ---
@@ -48,10 +48,11 @@ RESOURCES
 
 TODO
 ---
-* styles for prod
+* styles for dev/prod
+* separate css file (text extract plugin)
+* code split + lazy loading
 * angular2 mocks lib
 * more postcss plugin
-* separate css file (text extract plugin)
 * test isolated modules
 * lazy load route (dev mode)
 

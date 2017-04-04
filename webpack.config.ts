@@ -95,12 +95,31 @@ export = (options?: Options) => {
             if (options.prod) return 'source-map';
             return false;
         })(),
+        devServer: {
+            noInfo: false,
+            contentBase: [buildPath],
+            port: 8087,
+            historyApiFallback: true,
+            hot: true,
+            inline: true,
+            stats: 'normal',
+            // stats: { reasons: true, maxModules: 10000 },
+            watchOptions: watchOptions,
+        },
+        node: {
+            // workaround for webpack-dev-server issue
+            // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
+            fs: 'empty',
+            net: 'empty',
+            // Buffer: false,
+        },
         target: 'web',
         resolve: {
             extensions: ['.ts', '.js'],
         },
         watchOptions: watchOptions,
         module: {
+            exprContextCritical: false,
             rules: [
                 {
                     test: /\.ts$/,
@@ -212,26 +231,20 @@ export = (options?: Options) => {
                     })
                 );
             }
+            if (options.dev && !options.test) {
+                const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
+                if (!fs.existsSync(libs)) {
+                    throw new Error(`Cannot link '${libs}', file do not exists.`);
+                }
+                config.plugins.push(
+                    new webpack.DllReferencePlugin({
+                        context: context,
+                        manifest: require(libs)
+                    })
+                );
+            }
             return result;
-        })(),
-        devServer: {
-            noInfo: false,
-            contentBase: [buildPath],
-            port: 8087,
-            historyApiFallback: true,
-            hot: true,
-            inline: true,
-            stats: 'normal',
-            // stats: { reasons: true, maxModules: 10000 },
-            watchOptions: watchOptions,
-        },
-        node: {
-            // workaround for webpack-dev-server issue
-            // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
-            fs: 'empty',
-            net: 'empty',
-            // Buffer: false,
-        }
+        })()
     };
 
     if (options.vendorLibs) {
@@ -267,18 +280,6 @@ export = (options?: Options) => {
         });
     } else {
         config.entry = _.pick(config.entry, ['app']);
-        if (!options.prod) {
-            const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
-            if (!fs.existsSync(libs)) {
-                throw new Error(`Cannot link '${libs}', file do not exists.`);
-            }
-            config.plugins.push(
-                new webpack.DllReferencePlugin({
-                    context: context,
-                    manifest: require(libs)
-                })
-            );
-        }
     }
 
     return config;

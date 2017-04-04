@@ -1,6 +1,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { WelcomeComponent } from './welcome.component';
+import { AppModule } from '../app.module';
 
 describe('welcome component', () => {
 
@@ -10,7 +11,7 @@ describe('welcome component', () => {
     beforeEach(async(() => {
         TestBed
             .configureTestingModule({
-                imports: [AboutModule],
+                imports: [AppModule],
                 schemas: [NO_ERRORS_SCHEMA]
             })
             .compileComponents()
