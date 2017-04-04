@@ -64,7 +64,7 @@ export = (options?: Options) => {
         output: {
             path: buildPath,
             publicPath: '',
-            filename: (()=> {
+            filename: (() => {
                 if (options.prod) return '[name]-[hash:6].js';
                 return '[name].js';
             })()
@@ -77,12 +77,6 @@ export = (options?: Options) => {
         target: 'web',
         resolve: {
             extensions: ['.ts', '.js'],
-            // Fix webpack's default behavior to not load packages with jsnext:main module
-            mainFields: [
-                ...(options.prod ? ['es2015', 'jsnext:main', 'module'] : []),
-                'browser',
-                'main'
-            ]
         },
         watchOptions: watchOptions,
         module: {
@@ -101,7 +95,8 @@ export = (options?: Options) => {
                                     useTranspileModule: true,
                                     transpileOnly: true,
                                 }
-                            }
+                            },
+                            { loader: 'angular2-template-loader' }
                         ]
                     })(),
                 },

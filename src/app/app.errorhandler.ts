@@ -7,6 +7,6 @@ export class AppErrorHandler extends ErrorHandler {
     }
 
     handleError(err: any) {
-        throw err;
+        console.error(err);
     }
 }

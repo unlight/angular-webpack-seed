@@ -1,13 +1,11 @@
-/// <reference path="../../typings.d.ts" />
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { AboutModule } from './about.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AboutComponent } from './about.component';
+import { WelcomeComponent } from './welcome.component';
 
-describe('About component', () => {
+describe('welcome component', () => {
 
-    let component: AboutComponent;
-    let fixture: ComponentFixture<AboutComponent>;
+    let component: WelcomeComponent;
+    let fixture: ComponentFixture<WelcomeComponent>;
 
     beforeEach(async(() => {
         TestBed
@@ -17,7 +15,7 @@ describe('About component', () => {
             })
             .compileComponents()
             .then(() => {
-                fixture = TestBed.createComponent(AboutComponent);
+                fixture = TestBed.createComponent(WelcomeComponent);
                 component = fixture.componentInstance;
             });
     }));

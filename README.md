@@ -13,8 +13,8 @@ STACK
 
 FEATURES
 ---
-* Fastest typescripts compilation (because of --isolatedModules)
-* Faster unit testing (NightmareJS runs 2 times than PhantomJS)
+* Fastest typescripts compilation (because of transpileOnly)
+* Faster unit testing (NightmareJS runs 2 times faster than PhantomJS)
 * Hot reload, HMR (Hot Module Replacement)
 
 QUICK START

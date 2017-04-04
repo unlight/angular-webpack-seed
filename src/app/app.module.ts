@@ -5,34 +5,24 @@ import { Routes, RouterModule } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy, APP_BASE_HREF, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppErrorHandler } from './app.errorhandler';
-import { AboutComponent } from './about/about.component';
-import { AboutModule } from './about/about.module';
+import { WelcomeComponent } from './welcome/welcome.component';
+
 
 const routes: Routes = [
-    {
-        path: 'about',
-        component: AboutComponent
-        // loadChildren: () => {
-        //     return new Promise((resolve, reject) => {
-        //         FuseBox.import('./about.module.js', () => {
-        //             const { AboutModule } = FuseBox.import('./app/about/about.module');
-        //             resolve(AboutModule);
-        //         });
-        //     });
-        // }
-    },
+  { path: '', component: WelcomeComponent },
+  { path: 'welcome', component: WelcomeComponent },
+  { path: 'feature', loadChildren: './feature/feature.module#FeatureModule' }
 ];
 
 @NgModule({
     imports: [
-        CommonModule,
         BrowserModule,
         FormsModule,
-        AboutModule,
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot(routes)
     ],
     declarations: [
         AppComponent,
+        WelcomeComponent,
     ],
     bootstrap: [AppComponent],
     providers: [
