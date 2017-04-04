@@ -9,7 +9,7 @@
     "sourceMap": true,
     "declaration": false,
     "pretty": true,
-    "suppressExcessPropertyErrors": true,
+    "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false,
     "isolatedModules": false,
     "outDir": "build",

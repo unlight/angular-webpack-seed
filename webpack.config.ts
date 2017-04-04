@@ -266,8 +266,8 @@ export = (options?: Options) => {
             ]
         });
     } else {
+        config.entry = _.pick(config.entry, ['app']);
         if (!options.prod) {
-            config.entry = _.pick(config.entry, ['app']);
             const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
             if (!fs.existsSync(libs)) {
                 throw new Error(`Cannot link '${libs}', file do not exists.`);

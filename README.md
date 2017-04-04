@@ -4,12 +4,13 @@ Angular 2 seed project
 
 STACK
 ---
-* Webpack 2
-* TypeScript 2
 * Angular 4+
-* Karma / Nightmare 2 (Electron based)
+* AoT (with routes lazy loading)
+* TypeScript 2
+* Webpack 2
+* Karma / NightmareJS 2 (Electron)
 * Gulp 4
-* ESLint with some plugins
+* ESLint with useful plugins
 
 FEATURES
 ---
@@ -49,10 +50,10 @@ TODO
 ---
 * styles for prod
 * angular2 mocks lib
-* aot
 * more postcss plugin
 * separate css file (text extract plugin)
 * test isolated modules
+* lazy load route (dev mode)
 
 DEBUG
 ---
