@@ -83,7 +83,10 @@ export = (options?: Options) => {
                 // Css related
                 'base64-js',
                 'buffer',
-                'ieee754'
+                'ieee754',
+                'css-loader/lib/css-base',
+                'style-loader/addStyles',
+                'style-loader/fixUrls',
             ],
             style: ['@blueprintjs/core/dist/blueprint.css']
         },
@@ -142,6 +145,7 @@ export = (options?: Options) => {
                                     transpileOnly: true,
                                 }
                             },
+                            { loader: 'angular-router-loader' },
                             { loader: 'angular2-template-loader' }
                         ]
                     })(),

@@ -49,11 +49,11 @@ RESOURCES
 
 TODO
 ---
-* code split + lazy loading
 * angular2 mocks lib
 * more postcss plugin
 * test isolated modules
 * lazy load route (dev mode)
+* automatic rebuild vendors when lib updated (gulp prerequisites)
 
 DEBUG
 ---
