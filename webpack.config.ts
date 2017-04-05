@@ -142,7 +142,9 @@ export = (options?: Options) => {
                 },
                 {
                     test: /\.component\.html$/,
-                    use: [{ loader: 'raw-loader' }]
+                    use: [
+                        { loader: 'raw-loader' }
+                    ]
                 },
                 {
                     test: /index\.ejs$/,
@@ -159,7 +161,6 @@ export = (options?: Options) => {
                 {
                     test: /\.component\.scss$/,
                     use: [
-                        // { loader: 'to-string' },
                         { loader: 'raw-loader' },
                         { loader: 'postcss-loader', options: { plugins: postPlugins } },
                         { loader: 'sass-loader' },
@@ -177,7 +178,9 @@ export = (options?: Options) => {
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf)$/,
-                    use: [{ loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }]
+                    use: [
+                        { loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }
+                    ]
                 },
                 ...(options.coverage ? [
                     {
@@ -271,7 +274,7 @@ export = (options?: Options) => {
         if (options.test) {
             config.entry = 'lodash/noop';
         }
-        if (options.dev && !options.test) {
+        if (options.dev) {
             const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
             if (!fs.existsSync(libs)) {
                 throw new Error(`Cannot link '${libs}', file do not exists.`);

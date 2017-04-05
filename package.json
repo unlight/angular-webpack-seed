@@ -96,7 +96,6 @@
     "raw-loader": "0.5.1",
     "sass-loader": "6.0.3",
     "style-loader": "0.16.1",
-    "to-string-loader": "1.1.5",
     "ts-node": "3.0.2",
     "tslib": "1.6.0",
     "typescript": "2.2.2",

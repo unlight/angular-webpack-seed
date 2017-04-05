@@ -11,7 +11,7 @@ export = (config: any) => {
 
     karma.set({
         files: [
-            // { pattern: 'build/libs.js', watched: false },
+            { pattern: 'build/libs.js', watched: false },
             { pattern: 'src/spec.module.js' },
         ],
         preprocessors: {
