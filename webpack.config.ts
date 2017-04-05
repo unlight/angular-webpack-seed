@@ -268,6 +268,9 @@ export = (options?: Options) => {
         });
     } else {
         config.entry = _.pick(config.entry, ['app']);
+        if (options.test) {
+            config.entry = 'lodash/noop';
+        }
         if (options.dev && !options.test) {
             const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
             if (!fs.existsSync(libs)) {

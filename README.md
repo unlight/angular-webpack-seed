@@ -48,6 +48,7 @@ RESOURCES
 
 TODO
 ---
+* in tests also to dll reference
 * styles for dev/prod
 * separate css file (text extract plugin)
 * code split + lazy loading
