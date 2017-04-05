@@ -42,7 +42,7 @@
     "@angular/compiler-cli": "4.0.1",
     "@angularclass/hmr": "1.2.2",
     "@angularclass/hmr-loader": "3.0.2",
-    "@blueprintjs/core": "1.13.0",
+    "@blueprintjs/core": "1.14.0",
     "@types/jasmine": "2.5.47",
     "@types/karma": "0.13.34",
     "@types/lodash": "4.14.61",
