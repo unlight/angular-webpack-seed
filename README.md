@@ -38,6 +38,7 @@ TASKS
 DEVELOPMENT TIPS
 ---
 * Do not disable cache in devtools (network tab): this improves speed significantly, use Ctrl + F5 to clean cache.
+* Add new external libraries (npm modules) to vendor libs list (`entry.list`) and do `npm run build:vendor-libs`
 
 RESOURCES
 ---
@@ -48,8 +49,6 @@ RESOURCES
 
 TODO
 ---
-* styles for dev/prod
-* separate css file (text extract plugin)
 * code split + lazy loading
 * angular2 mocks lib
 * more postcss plugin

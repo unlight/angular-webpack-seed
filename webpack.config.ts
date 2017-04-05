@@ -80,6 +80,10 @@ export = (options?: Options) => {
                 '@angularclass/hmr',
                 'webpack-dev-server/client',
                 'events',
+                // Css related
+                'base64-js',
+                'buffer',
+                'ieee754'
             ],
             style: ['@blueprintjs/core/dist/blueprint.css']
         },
@@ -87,7 +91,7 @@ export = (options?: Options) => {
             path: buildPath,
             publicPath: '',
             filename: (() => {
-                if (options.prod) return '[name]-[hash:6].js';
+                if (options.prod) return '[name]-[chunkhash:6].js';
                 return '[name].js';
             })()
         },
@@ -171,12 +175,23 @@ export = (options?: Options) => {
                 {
                     test: /\.scss$/,
                     exclude: /\.component\.scss$/,
-                    use: [
-                        { loader: 'style-loader' },
-                        { loader: 'css-loader' },
-                        { loader: 'postcss-loader', options: { plugins: postPlugins } },
-                        { loader: 'sass-loader' },
-                    ]
+                    use: (() => {
+                        let result = [
+                            { loader: 'css-loader' },
+                            { loader: 'postcss-loader', options: { plugins: postPlugins } },
+                            { loader: 'sass-loader' },
+                        ];
+                        if (options.prod) {
+                            result = ExtractTextPlugin.extract({
+                                fallback: 'style-loader',
+                                // resolve-url-loader may be chained before sass-loader if necessary
+                                use: result
+                            });
+                        } else {
+                            result.unshift({ loader: 'style-loader' });
+                        }
+                        return result;
+                    })(),
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf)$/,
@@ -233,6 +248,13 @@ export = (options?: Options) => {
                     }),
                     new webpack.DefinePlugin({
                         'process.env.NODE_ENV': JSON.stringify('production')
+                    })
+                );
+            }
+            if (options.prod) {
+                result.push(
+                    new ExtractTextPlugin({
+                        filename: (get) => get('[name]-[contenthash:6].css')
                     })
                 );
             }
