@@ -231,18 +231,6 @@ export = (options?: Options) => {
                     })
                 );
             }
-            if (options.dev && !options.test) {
-                const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
-                if (!fs.existsSync(libs)) {
-                    throw new Error(`Cannot link '${libs}', file do not exists.`);
-                }
-                config.plugins.push(
-                    new webpack.DllReferencePlugin({
-                        context: context,
-                        manifest: require(libs)
-                    })
-                );
-            }
             return result;
         })()
     };
@@ -280,6 +268,18 @@ export = (options?: Options) => {
         });
     } else {
         config.entry = _.pick(config.entry, ['app']);
+        if (options.dev && !options.test) {
+            const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
+            if (!fs.existsSync(libs)) {
+                throw new Error(`Cannot link '${libs}', file do not exists.`);
+            }
+            config.plugins.push(
+                new webpack.DllReferencePlugin({
+                    context: context,
+                    manifest: require(libs)
+                })
+            );
+        }
     }
 
     return config;
