@@ -13,6 +13,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const CssEntryPlugin = require('css-entry-webpack-plugin');
 const aotLoader = require('@ultimate/aot-loader');
+// NormalModuleReplacementPlugin example https://github.com/mateuszmazurek/NormalModuleReplacementPlugin-test/blob/master/webpack.config.js
 
 const watchOptions = {
     aggregateTimeout: 150,
@@ -133,6 +134,7 @@ export = (options?: Options) => {
                                 loader: 'awesome-typescript-loader',
                                 options: {
                                     useTranspileModule: true,
+                                    isolatedModules: true,
                                     transpileOnly: true,
                                 }
                             },
