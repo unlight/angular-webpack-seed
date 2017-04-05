@@ -13,7 +13,7 @@ STACK
 
 FEATURES
 ---
-* Fastest typescripts compilation (because of transpileOnly)
+* Fastest typescript compilation (because of transpileOnly)
 * Faster unit testing (NightmareJS runs 2 times faster than PhantomJS)
 * Hot reload, HMR (Hot Module Replacement)
 * AoT (with routes lazy loading)
@@ -28,12 +28,14 @@ npm run start
 
 TASKS
 ---
-| Task             | Description                         |
-|:-----------------|:------------------------------------|
-| `npm run server`  | Local dev server                    |
-| `npm run clean`  | Clean generated folders             |
-| `npm run eslint` | Lint code (single run mode)         |
-| `npm run t`      | Run unit testing in single run mode |
+| Task                    | Description                                                 |
+|:------------------------|:------------------------------------------------------------|
+| `npm run server`        | Local dev server                                            |
+| `npm run clean`         | Clean generated folders                                     |
+| `npm run eslint`        | Lint code (single run mode)                                 |
+| `npm run t`             | Run unit testing in single run mode                         |
+| `npm run up`            | Update all dependencies one by one running tests after each |
+| `npm run build:vendors` | Prepare 3rd party libraries for application                 |
 
 DEVELOPMENT TIPS
 ---
@@ -46,13 +48,14 @@ RESOURCES
 * [An Angular 2 module for mocking components](https://github.com/cnunciato/ng2-mock-component)
 * [Simple, fluent Http mocking for Angular 2](https://github.com/CodeSequence/respond-ng)
 * [Simple testing patterns for Angular version 2+](https://github.com/juristr/angular-testing-recipes)
+* [A curated list of awesome Angular 2 and Angular 4 resources](https://github.com/AngularClass/awesome-angular)
+* [Catalog of Angular 2+ Components & Libraries](https://github.com/brillout/awesome-angular-components)
 
 TODO
 ---
 * angular2 mocks lib
 * more postcss plugin
 * test isolated modules
-* lazy load route (dev mode)
 * automatic rebuild vendors when lib updated (gulp prerequisites)
 
 DEBUG

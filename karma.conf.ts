@@ -41,15 +41,27 @@ export = (config: any) => {
     });
 
     if (process.argv.indexOf('--coverage') !== -1) {
+        const testResultsOutput = __dirname + '/.testresults';
         config.set({
-            reporters: ['mocha', 'coverage', 'remap-coverage'],
+            reporters: ['mocha', 'html', 'junit', 'coverage', 'remap-coverage'],
             coverageReporter: {
                 type: 'in-memory'
             },
             remapCoverageReporter: {
                 'text-summary': null,
-                json: '.testresults/coverage.json',
-                html: '.testresults/coverage'
+                json: `${testResultsOutput}/coverage.json`,
+                html: `${testResultsOutput}/coverage`
+            },
+            htmlReporter: {
+                outputDir: testResultsOutput,
+                namedFiles: true,
+                reportName: 'index',
+                pageTitle: 'jstest',
+            },
+            junitReporter: {
+                outputDir: testResultsOutput,
+                outputFile: 'junit.xml',
+                useBrowserName: false
             },
             webpack: webpackConfig({ hmr: false, test: true, coverage: true }),
         });

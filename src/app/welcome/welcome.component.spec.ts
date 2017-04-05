@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { WelcomeComponent } from './welcome.component';
 import { AppModule } from '../app.module';
 
-describe('welcome component', () => {
+describe('Welcome component:', () => {
 
     let component: WelcomeComponent;
     let fixture: ComponentFixture<WelcomeComponent>;

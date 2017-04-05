@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppModule } from './app.module';
 
-describe('App component', () => {
+describe('App component:', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({

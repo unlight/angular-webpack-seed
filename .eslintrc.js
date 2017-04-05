@@ -3,7 +3,8 @@ module.exports = {
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jasmine": true
     },
     "parser": "typescript-eslint-parser",
     "parserOptions": {
@@ -32,12 +33,12 @@ module.exports = {
         "jasmine"
     ],
     "rules": {
-        "no-undef": 0,
+        // "no-undef": 0,
         "no-unused-vars": 0,
         "typescript/type-annotation-spacing": 1,
         "flowtype/no-primitive-constructor-types": 2,
         "flowtype/no-weak-types": 1,
-        "flowtype/require-parameter-type": [1, { "excludeArrowFunctions": true }],
+        "flowtype/require-parameter-type": [0, { "excludeArrowFunctions": true }],
         "flowtype/require-return-type": [1, "always", { "annotateUndefined": "never", "excludeArrowFunctions": true }],
         "flowtype/space-after-type-colon": 1,
         "flowtype/space-before-generic-bracket": 1,
