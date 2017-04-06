@@ -50,12 +50,25 @@ RESOURCES
 * [Simple testing patterns for Angular version 2+](https://github.com/juristr/angular-testing-recipes)
 * [A curated list of awesome Angular 2 and Angular 4 resources](https://github.com/AngularClass/awesome-angular)
 * [Catalog of Angular 2+ Components & Libraries](https://github.com/brillout/awesome-angular-components)
+* [The internationalization (i18n) library for Angular 2+](https://github.com/ngx-translate/core)
+* [Open modal window (dialog box) for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-modal)
+* [Angular toastr ngx-toastr (formerly toastr-ng2)](https://github.com/scttcper/ngx-toastr)
+* [Simple popover control for your angular2 applications using bootstrap3. Does not depend of jquery.](https://github.com/pleerock/ngx-popover)
+* [Simple dropdown for your angular2 applications using bootstrap3.](https://github.com/pleerock/ngx-dropdown)
+* [A set of modules that could be helpful for Angular application development.](https://github.com/Barryrowe/ngx-dev-utils)
+* [Simple tooltip control for your angular2 applications using bootstrap3. Does not depend of jquery.](https://github.com/pleerock/ngx-tooltip)
+* [Simple tabs control for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-tabs)
+* [Simple pagination control for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-paginator)
+* [Angular directives for displaying validation messages similar to these from AngularJs](https://github.com/DmitryEfimenko/ngx-messages)
+* [Implementation of Angular 1.x $cookies service to Angular 2](https://github.com/salemdar/ngx-cookie)
+* [An Angular component for a customizable date and time picker](https://github.com/RenovoSolutions/ngx-datetimepicker)
+* [Angular 2+ (ngx) ng2 truncate module from Directive, Pipe and Service](https://github.com/doorgets/ng-truncate)
+* [MapleSyrupGroup ngx-flash-messages](https://github.com/MapleSyrupGroup/ngx-flash-messages)
+* [Angular2 + form validators](https://github.com/ReactiveCore-com/ngx-validation)
+* [Angular X (2+) Async external scripts loading](https://github.com/zenkkor/ngx-asyncscripts)
 
 TODO
 ---
-* angular2 mocks lib
-* more postcss plugin
-* test isolated modules
 * automatic rebuild vendors when lib updated (gulp prerequisites)
 
 DEBUG

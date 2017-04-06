@@ -3,9 +3,11 @@
 import * as _ from 'lodash';
 import * as fs from 'fs';
 import * as Path from 'path';
+import { exec, execSync } from 'child_process';
 const gulp = require('gulp');
 const g = require('gulp-load-plugins')();
 const args = g.util.env;
+const buildPath = Path.join(__dirname, 'build');
 
 gulp.task('eslint', () => {
     return gulp.src('src/**/*.ts', { since: g.memoryCache.lastMtime('ts') })
@@ -21,4 +23,13 @@ gulp.task('eslint:watch', (done) => {
         w.close();
         done();
     });
+});
+
+gulp.task('server:warmup', done => {
+    const libs = `${buildPath}/libs.json`;
+    if (!fs.existsSync(libs)) {
+        const output = execSync('npm run build:vendor-libs');
+        console.log(output.toString());
+    }
+    done();
 });

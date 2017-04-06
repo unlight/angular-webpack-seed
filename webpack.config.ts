@@ -52,6 +52,8 @@ const defaultOptions = {
 
 const postPlugins = [
     // require('postcss-url')(), // plugin to rebase, inline or copy on url().
+    // require('postcss-import')(),
+    // require('postcss-flexbox')(),
     require('autoprefixer')('last 3 versions'),
 ];
 

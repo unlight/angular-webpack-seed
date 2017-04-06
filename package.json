@@ -5,6 +5,7 @@
   "description": "",
   "scripts": {
     "gulp": "ts-node -F node_modules/gulp/bin/gulp",
+    "prestart": "npm run gulp -- server:warmup",
     "start": "npm run server",
     "eslint": "eslint src/**/*.ts",
     "clean": "rm -rf build",
