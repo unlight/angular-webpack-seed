@@ -12,12 +12,14 @@ describe('App component:', () => {
         });
     });
 
+    let component: AppComponent;
+
     it('smoke', () => {
         expect(AppComponent).toBeDefined();
     });
 
     it('instance', () => {
-        let appComponent = new AppComponent();
-        expect(appComponent.name).toBe('Angular');
+        component = new AppComponent();
+        expect(component.name).toBe('Angular');
     });
 });
