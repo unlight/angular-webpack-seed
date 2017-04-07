@@ -1,6 +1,27 @@
 angular-webpack-seed
 ====================
-Angular 2 seed project
+This README would normally document whatever steps are necessary to get your application up and running.
+
+### What is this repository for? ###
+* Quick summary
+* Version
+
+### How do I get set up? ###
+* Summary of set up
+* Configuration
+* Dependencies
+* Database configuration
+* How to run tests
+* Deployment instructions
+
+### Contribution guidelines ###
+* Writing tests
+* Code review
+* Other guidelines
+
+### Who do I talk to? ###
+* Repo owner or admin
+* Other community or team contact
 
 STACK
 ---
@@ -47,7 +68,7 @@ TASKS
 | `npm run build:all`         | Sequence of build:vendors > build                                      |
 | `npm run coverage`          | Run test coverage with verbose reporing                                |
 | `npm run coverage:debug`    | Run coverage task in debug mode                                        |
-| `npm run p`                 | Run task in parallel                                                   |
+| `npm run p`                 | Run tasks in parallel                                                   |
 
 
 DEVELOPMENT TIPS
@@ -57,7 +78,7 @@ DEVELOPMENT TIPS
 
 RESOURCES
 ---
-* [Configuration utility for Angular](https://github.com/nglibs/config)
+* [Configuration utility for Angular](https://github.com/unlight/ngx-config)
 * [An Angular 2 module for mocking components](https://github.com/cnunciato/ng2-mock-component)
 * [Simple, fluent Http mocking for Angular 2](https://github.com/CodeSequence/respond-ng)
 * [Simple testing patterns for Angular version 2+](https://github.com/juristr/angular-testing-recipes)
@@ -79,12 +100,14 @@ RESOURCES
 * [MapleSyrupGroup ngx-flash-messages](https://github.com/MapleSyrupGroup/ngx-flash-messages)
 * [Angular2 + form validators](https://github.com/ReactiveCore-com/ngx-validation)
 * [Angular X (2+) Async external scripts loading](https://github.com/zenkkor/ngx-asyncscripts)
-* angular2-busy - Show busy/loading indicators on any promise, or on any Observable's subscription.
+* [Show busy/loading indicators on any promise, or on any Observable's subscription](https://github.com/devyumao/angular2-busy)
+* [Component event delegation](https://gist.github.com/matthieu-D/c56ce33e844b1f6e6d692149c31bb83b)
 
 TODO
 ---
 * https://github.com/unlight/angular-webpack-seed/issues
 * ngrx redux example
+* husky scripts
 
 DEBUG
 ---
