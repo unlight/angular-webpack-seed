@@ -4,16 +4,16 @@ import * as fs from 'fs';
 import * as Path from 'path';
 import _ = require('lodash');
 
-const sourcePath = Path.join(__dirname, 'src');
-const buildPath = Path.join(__dirname, 'build');
-const context = __dirname;
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const CssEntryPlugin = require('css-entry-webpack-plugin');
 const aotLoader = require('@ultimate/aot-loader');
 // NormalModuleReplacementPlugin example https://github.com/mateuszmazurek/NormalModuleReplacementPlugin-test/blob/master/webpack.config.js
+
+const sourcePath = Path.join(__dirname, 'src');
+const buildPath = Path.join(__dirname, 'build');
+const context = __dirname;
 
 const watchOptions = {
     aggregateTimeout: 150,

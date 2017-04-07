@@ -79,10 +79,12 @@ RESOURCES
 * [MapleSyrupGroup ngx-flash-messages](https://github.com/MapleSyrupGroup/ngx-flash-messages)
 * [Angular2 + form validators](https://github.com/ReactiveCore-com/ngx-validation)
 * [Angular X (2+) Async external scripts loading](https://github.com/zenkkor/ngx-asyncscripts)
+* angular2-busy - Show busy/loading indicators on any promise, or on any Observable's subscription.
 
 TODO
 ---
 * https://github.com/unlight/angular-webpack-seed/issues
+* ngrx redux example
 
 DEBUG
 ---
