@@ -3,7 +3,7 @@
 import * as _ from 'lodash';
 import * as fs from 'fs';
 import * as Path from 'path';
-import { exec, execSync } from 'child_process';
+import { spawn } from 'child_process';
 const gulp = require('gulp');
 const g = require('gulp-load-plugins')();
 const args = g.util.env;
@@ -25,11 +25,13 @@ gulp.task('eslint:watch', (done) => {
     });
 });
 
-gulp.task('server:warmup', done => {
+gulp.task('server:prestart', done => {
     const libs = `${buildPath}/libs.json`;
-    if (!fs.existsSync(libs)) {
-        const output = execSync('npm run build:vendor-libs');
-        console.log(output.toString());
+    if (fs.existsSync(libs)) {
+        return done();
     }
-    done();
+    const proc = spawn('npm.cmd', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
+    proc.on('exit', () => {
+        done();
+    });
 });
