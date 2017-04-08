@@ -75,6 +75,7 @@
     "ejs-loader": "0.3.0",
     "eslint": "3.19.0",
     "eslint-plugin-flowtype": "2.30.4",
+    "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jasmine": "2.2.0",
     "eslint-plugin-lodash": "2.4.0",
     "eslint-plugin-lodash-smells": "0.2.0",
