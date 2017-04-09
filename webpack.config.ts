@@ -57,7 +57,7 @@ const postPlugins = [
     require('autoprefixer')('last 3 versions'),
 ];
 
-export = (options?: Options) => {
+export = (options: Options = {}) => {
     options = _.merge({}, defaultOptions, options);
     const config: any = {
         context: context,
