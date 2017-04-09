@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as Path from 'path';
 import _ = require('lodash');
 
+const readPkgUp = require('read-pkg-up');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
@@ -63,33 +64,28 @@ export = (options: Options = {}) => {
         context: context,
         entry: {
             app: './src/main.ts',
-            libs: [
-                'core-js/es6',
-                'core-js/es7/reflect',
-                'core-js/es7/array',
-                'tslib',
-                'zone.js/dist/zone',
-                'rxjs',
-                '@angular/common',
-                '@angular/compiler',
-                '@angular/core',
-                '@angular/forms',
-                '@angular/http',
-                '@angular/platform-browser',
-                '@angular/platform-browser-dynamic',
-                '@angular/router',
-                // HMR related
-                '@angularclass/hmr',
-                'webpack-dev-server/client',
-                'events',
-                // Css related
-                'base64-js',
-                'buffer',
-                'ieee754',
-                'css-loader/lib/css-base',
-                'style-loader/addStyles',
-                'style-loader/fixUrls',
-            ],
+            libs: (() => {
+                let dependencies = Object.keys(readPkgUp.sync().pkg.dependencies);
+                _.pull(dependencies, 'core-js', 'zone.js'); // We do not need all from there
+                return _.uniq([
+                    'core-js/es6',
+                    'core-js/es7/reflect',
+                    'core-js/es7/array',
+                    'zone.js/dist/zone',
+                    ...dependencies,
+                    // HMR related
+                    '@angularclass/hmr',
+                    'webpack-dev-server/client',
+                    'events',
+                    // Css related
+                    'base64-js',
+                    'buffer',
+                    'ieee754',
+                    'css-loader/lib/css-base',
+                    'style-loader/addStyles',
+                    'style-loader/fixUrls',
+                ]);
+            })(),
             style: ['@blueprintjs/core/dist/blueprint.css']
         },
         output: {
