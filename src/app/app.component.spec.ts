@@ -20,6 +20,6 @@ describe('App component:', () => {
 
     it('instance', () => {
         component = new AppComponent();
-        expect(component.name).toBe('Angular');
+        expect(component.title).toBe('App');
     });
 });
