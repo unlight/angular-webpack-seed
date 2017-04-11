@@ -54,7 +54,7 @@
     "zone.js": "0.8.5"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "4.0.1",
+    "@angular/compiler-cli": "4.0.2",
     "@angularclass/hmr": "1.2.2",
     "@angularclass/hmr-loader": "3.0.2",
     "@blueprintjs/core": "1.14.0",
