@@ -40,7 +40,7 @@
     "dev2b": "npm run p -q -- \"npm run tests:w\" \"npm run server\""
   },
   "dependencies": {
-    "@angular/common": "4.0.1",
+    "@angular/common": "4.0.2",
     "@angular/compiler": "4.0.1",
     "@angular/core": "4.0.1",
     "@angular/forms": "4.0.1",
