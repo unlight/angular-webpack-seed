@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppErrorHandler } from './app.errorhandler';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HomeComponent } from './home/home.component';
+import { TranslationModule } from './translation.module';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
     imports: [
         BrowserModule,
         FormsModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        TranslationModule,
     ],
     declarations: [
         AppComponent,

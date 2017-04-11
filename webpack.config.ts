@@ -105,7 +105,7 @@ export = (options: Options = {}) => {
             https: true,
             overlay: true,
             noInfo: false,
-            contentBase: [buildPath],
+            contentBase: [buildPath, sourcePath],
             port: 8087,
             historyApiFallback: true,
             hot: true,

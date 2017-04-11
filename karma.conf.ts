@@ -11,6 +11,7 @@ export = (config: any) => {
 
     karma.set({
         files: [
+            { pattern: 'src/i18n/*.json', included: false },
             { pattern: 'build/libs.js', watched: false },
             { pattern: 'src/spec.module.js' },
         ],
@@ -25,6 +26,9 @@ export = (config: any) => {
     });
 
     config.set({
+        proxies: {
+            '/i18n': '/base/src/i18n',
+        },
         mime: {
             'text/x-typescript': ['ts', 'tsx'],
         },
