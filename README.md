@@ -80,6 +80,7 @@ RESOURCES
 ---
 * [Configuration utility for Angular](https://github.com/unlight/ngx-config)
 * [An Angular 2 module for mocking components](https://github.com/cnunciato/ng2-mock-component)
+* [Angular X spy object (mock, stub) helper](https://github.com/unlight/spy-object)
 * [Simple, fluent Http mocking for Angular 2](https://github.com/CodeSequence/respond-ng)
 * [Simple testing patterns for Angular version 2+](https://github.com/juristr/angular-testing-recipes)
 * [A curated list of awesome Angular 2 and Angular 4 resources](https://github.com/AngularClass/awesome-angular)

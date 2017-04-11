@@ -99,9 +99,11 @@ export = (options: Options = {}) => {
         devtool: (() => {
             if (options.test) return 'inline-source-map';
             if (options.prod) return 'source-map';
-            return false;
+            return 'cheap-source-map';
         })(),
         devServer: {
+            https: true,
+            overlay: true,
             noInfo: false,
             contentBase: [buildPath],
             port: 8087,
