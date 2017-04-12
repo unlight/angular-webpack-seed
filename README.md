@@ -95,6 +95,7 @@ RESOURCES
 * [Simple tabs control for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-tabs)
 * [Simple pagination control for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-paginator)
 * [Angular directives for displaying validation messages similar to these from AngularJs](https://github.com/DmitryEfimenko/ngx-messages)
+* [A declarative validation errors module for reactive forms](https://github.com/UltimateAngular/ngxerrors)
 * [Implementation of Angular 1.x $cookies service to Angular 2](https://github.com/salemdar/ngx-cookie)
 * [An Angular component for a customizable date and time picker](https://github.com/RenovoSolutions/ngx-datetimepicker)
 * [Angular 2+ (ngx) ng2 truncate module from Directive, Pipe and Service](https://github.com/doorgets/ng-truncate)
