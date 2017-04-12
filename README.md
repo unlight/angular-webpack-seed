@@ -103,6 +103,7 @@ RESOURCES
 * [Angular X (2+) Async external scripts loading](https://github.com/zenkkor/ngx-asyncscripts)
 * [Show busy/loading indicators on any promise, or on any Observable's subscription](https://github.com/devyumao/angular2-busy)
 * [Component event delegation](https://gist.github.com/matthieu-D/c56ce33e844b1f6e6d692149c31bb83b)
+* [Limitations with AoT](https://github.com/UltimateAngular/aot-loader/wiki/Limitations-with-AoT)
 
 TODO
 ---
