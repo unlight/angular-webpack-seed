@@ -166,8 +166,9 @@ export = (options: Options = {}) => {
                 {
                     test: /\.component\.css$/,
                     use: [
-                        { loader: 'to-string-loader' },
-                        { loader: 'css-loader' },
+                        ...(options.aot ? [{ loader: 'raw-loader' }] : [{ loader: 'css-to-string-loader' }]),
+                        { loader: 'css-loader', options: { importLoaders: 1 } },
+                        { loader: 'postcss-loader', options: { plugins: postPlugins } },
                     ]
                 },
                 {
