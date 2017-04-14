@@ -60,8 +60,9 @@ gulp.task('test:int', () => {
     const app = express();
     app.use(express.static(buildPath));
     const server = app.listen(2345);
-    const nightmare = require('nightmare')({ show: true });
+    const nightmare = require('nightmare')({ });
     return nightmare
+        .wait(1000)
         .goto('http://localhost:2345')
         .wait('a[ng-reflect-router-link=welcome]')
         .click('a[ng-reflect-router-link=welcome]')
