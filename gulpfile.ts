@@ -1,5 +1,6 @@
 /// <reference path="node_modules/@types/node/index.d.ts" />
 /// <reference path="node_modules/typescript/lib/lib.es2017.d.ts" />
+/// <reference path="node_modules/typescript/lib/lib.dom.d.ts" />
 import * as _ from 'lodash';
 import * as fs from 'fs';
 import * as Path from 'path';
@@ -50,4 +51,27 @@ gulp.task('check:build:prod', () => {
             return Promise.reject('build:prod task did not produce app javascript file.');
         }
     });
+});
+
+import express = require('express');
+import assert = require('assert');
+
+gulp.task('test:int', () => {
+    const app = express();
+    app.use(express.static(buildPath));
+    const server = app.listen(2345);
+    const nightmare = require('nightmare')({ show: true });
+    return nightmare
+        .goto('http://localhost:2345')
+        .click('a[ng-reflect-router-link=welcome]')
+        .evaluate(() => {
+            let h = document.querySelector('h3');
+            return h && h.innerText;
+        })
+        .end()
+        .then(result => {
+            assert.equal(result, 'Welcome');
+            server.close();
+        })
+        .catch(err => Promise.reject(String(err)));
 });
