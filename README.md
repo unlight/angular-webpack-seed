@@ -106,6 +106,11 @@ RESOURCES
 * [Component event delegation](https://gist.github.com/matthieu-D/c56ce33e844b1f6e6d692149c31bb83b)
 * [Limitations with AoT](https://github.com/UltimateAngular/aot-loader/wiki/Limitations-with-AoT)
 
+KNOWN ISSUES
+---
+* Cannpt use component css tostring with aot https://github.com/UltimateAngular/aot-loader/issues/12
+  (workaround disable sourcemaps)
+
 TODO
 ---
 * https://github.com/unlight/angular-webpack-seed/issues
