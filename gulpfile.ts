@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import * as Path from 'path';
 import { spawn } from 'child_process';
 const gulp = require('gulp');
+const readPkgUp = require('read-pkg-up');
 const g = require('gulp-load-plugins')();
 const args = g.util.env;
 const buildPath = Path.join(__dirname, 'build');
@@ -26,12 +27,18 @@ gulp.task('eslint:watch', (done) => {
 });
 
 gulp.task('server:prestart', done => {
+    const version = readPkgUp.sync().pkg.version;
+    const libsInfoFile = Path.resolve('node_modules', '.vendor-libs.build.json');
     const libs = `${buildPath}/libs.json`;
-    if (fs.existsSync(libs)) {
-        return done();
+    if (fs.existsSync(libs) && fs.existsSync(libsInfoFile)) {
+        const libsInfo = require(libsInfoFile);
+        if (version === (libsInfo && libsInfo.version)) {
+            return done();
+        }
     }
     const proc = spawn('npm.cmd', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
-    proc.on('exit', () => {
+    proc.once('exit', () => {
+        fs.writeFileSync(libsInfoFile, JSON.stringify({ version }));
         done();
     });
 });
