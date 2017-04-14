@@ -163,9 +163,10 @@ export = (options: Options = {}) => {
                     ]
                 },
                 {
-                    test: /\.css$/,
+                    test: /\.component\.css$/,
                     use: [
-                        { loader: 'css-loader' }
+                        { loader: 'to-string-loader' },
+                        { loader: 'css-loader' },
                     ]
                 },
                 {
@@ -177,8 +178,7 @@ export = (options: Options = {}) => {
                     ]
                 },
                 {
-                    test: /\.scss$/,
-                    exclude: /\.component\.scss$/,
+                    test: /style\.scss$/,
                     use: (() => {
                         let result = [
                             { loader: 'css-loader' },
@@ -198,7 +198,7 @@ export = (options: Options = {}) => {
                     })(),
                 },
                 {
-                    test: /\.(woff|woff2|eot|ttf)$/,
+                    test: /\.(woff|woff2|eot|ttf|png|svg)$/,
                     use: [
                         { loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }
                     ]
@@ -288,8 +288,20 @@ export = (options: Options = {}) => {
         _.assign(config, {
             entry: _.pick(config.entry, ['style']),
             module: {
-                rules: rules.filter(x => String(x.test).indexOf('woff|woff2|eot|ttf') !== -1
-                    || String(x.test).indexOf('.css$') !== -1),
+                rules: [
+                    {
+                        test: /\.(woff|woff2|eot|ttf|png|svg)$/,
+                        use: [
+                            { loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }
+                        ]
+                    },
+                    {
+                        test: /\.css$/,
+                        use: [
+                            { loader: 'css-loader' }
+                        ]
+                    },
+                ]
             },
             plugins: [
                 new CssEntryPlugin({
