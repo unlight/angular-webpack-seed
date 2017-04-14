@@ -28,6 +28,7 @@
     "build:vendor-style": "npm run build -- --env.vendorStyle --display-modules",
     "build:vendors": "npm run build:vendor-libs && npm run build:vendor-style",
     "build:all": "npm run build:vendors && npm run build",
+    "test:build:prod": "npm run clean && npm run build:prod && npm run gulp check:build:prod",
     "postinstall": "npm run build:vendors",
     "yi": "yarn install --no-lockfile",
     "karma": "karma start",

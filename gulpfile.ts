@@ -35,3 +35,12 @@ gulp.task('server:prestart', done => {
         done();
     });
 });
+
+gulp.task('check:build:prod', () => {
+    const globby = require('globby');
+    return globby(`${buildPath}/app*.js`).then(paths => {
+        if (paths.length === 0) {
+            return Promise.reject('build:prod task did not produce app javascript file.');
+        }
+    });
+});

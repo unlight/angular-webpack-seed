@@ -60,6 +60,7 @@ const postPlugins = [
 
 export = (options: Options = {}) => {
     options = _.merge({}, defaultOptions, options);
+    _.each(options, (value, key) => (value) ? process.stdout.write(`${key} `) : null);
     const config: any = {
         context: context,
         entry: {
