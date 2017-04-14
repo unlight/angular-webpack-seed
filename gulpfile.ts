@@ -63,6 +63,7 @@ gulp.task('test:int', () => {
     const nightmare = require('nightmare')({ show: true });
     return nightmare
         .goto('http://localhost:2345')
+        .wait('a[ng-reflect-router-link=welcome]')
         .click('a[ng-reflect-router-link=welcome]')
         .evaluate(() => {
             let h = document.querySelector('h3');
