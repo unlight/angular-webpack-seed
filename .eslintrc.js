@@ -48,7 +48,7 @@ module.exports = {
         "flowtype/no-primitive-constructor-types": 2,
         "flowtype/no-weak-types": 1,
         "flowtype/require-parameter-type": [0, { "excludeArrowFunctions": true }],
-        "flowtype/require-return-type": [1, "always", { "annotateUndefined": "never", "excludeArrowFunctions": true }],
+        "flowtype/require-return-type": [0, "always", { "annotateUndefined": "never", "excludeArrowFunctions": true }],
         "flowtype/space-after-type-colon": 1,
         "flowtype/space-before-generic-bracket": 1,
         "flowtype/space-before-type-colon": [1, "never"],

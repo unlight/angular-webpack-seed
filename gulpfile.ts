@@ -11,10 +11,25 @@ const g = require('gulp-load-plugins')();
 const args = g.util.env;
 const buildPath = Path.join(__dirname, 'build');
 
+function sourceLint() {
+    return g.eslint();
+}
+
+function specLint() {
+    return g.eslint({
+        rules: {
+            'lodash/import-scope': 0,
+            'prefer-const': 0,
+            'import/no-duplicates': 0,
+        }
+    });
+}
+
 gulp.task('eslint', () => {
     return gulp.src('src/**/*.ts', { since: g.memoryCache.lastMtime('ts') })
         .pipe(g.memoryCache('ts'))
-        .pipe(g.eslint())
+        .pipe(g.ignore.exclude('*.d.ts'))
+        .pipe(g.if('*.spec.ts', specLint(), sourceLint()))
         .pipe(g.eslint.format());
 });
 
