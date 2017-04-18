@@ -82,7 +82,7 @@
     "css-to-string-loader": "0.1.2",
     "ejs-loader": "0.3.0",
     "eslint": "3.19.0",
-    "eslint-plugin-flowtype": "2.30.4",
+    "eslint-plugin-flowtype": "2.31.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jasmine": "2.2.0",
     "eslint-plugin-lodash": "2.4.0",
