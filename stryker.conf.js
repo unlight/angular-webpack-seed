@@ -7,19 +7,6 @@ const context = __dirname;
 
 const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
 
-var CustomMiddlewareFactory = function(config) {
-    var glob = require('glob');
-    var Path = require('path');
-    var fs = require('fs');
-    var sourcePath = `D:/My/Dev/angular-webpack-seed/src`;
-    return function(request, response) {
-        var name = Path.basename(request.originalUrl);
-        var [file] = glob.sync(`${sourcePath}/**/${name}`);
-        response.writeHead(200);
-        response.end(fs.readFileSync(file));
-    }
-}
-
 module.exports = function(config) {
     config.set({
         files: [
@@ -28,8 +15,8 @@ module.exports = function(config) {
             // { pattern: 'build/source/**/app.component.js', mutated: true, included: false },
             { pattern: 'build/source/**/!(*.spec|main|spec.module).js', mutated: true, included: false },
             { pattern: 'build/source/**/*.spec.js', mutated: false, included: false },
-            // { pattern: 'src/**/*.scss', included: false, mutated: false },
-            // { pattern: 'src/**/*.html', included: false, mutated: false },
+            { pattern: 'build/source/**/*.scss', included: false, mutated: false },
+            { pattern: 'build/source/**/*.html', included: false, mutated: false },
             'build/source/spec.module.js',
         ],
         testRunner: 'karma',
@@ -49,30 +36,38 @@ module.exports = function(config) {
                 // '**/stryker.component.spec.js': ['webpack'],
                 '**/spec.module.js': ['webpack'],
             },
-            middleware: ['custom'],
-            // frameworks: ['jasmine'],
-            plugins: [
-                'karma-webpack',
-                'karma-jasmine',
-                'karma-nightmare',
-                { 'middleware:custom': ['factory', CustomMiddlewareFactory] },
-            ],
             browsers: ['Nightmare'],
-            // proxies: {
-            //     '/img/': '/base/test/images/',
-            // },
             webpack: {
-                //     // entry: 'lodash/noop',
-                // target: 'web',
                 module: {
                     exprContextCritical: false,
+                    rules: [
+                        {
+                            test: /\.component\.html$/,
+                            use: [
+                                { loader: 'raw-loader' }
+                            ]
+                        },
+                        {
+                            test: /\.component\.scss$/,
+                            use: [
+                                { loader: 'raw-loader' },
+                                { loader: 'sass-loader' },
+                            ]
+                        },
+                        {
+                            test: /\.component\.[tj]s$/,
+                            use: [
+                                { loader: 'angular2-template-loader' }
+                            ]
+                        }
+                    ]
                 },
-                //     plugins: [
-                //         new webpack.DllReferencePlugin({
-                //             context: context,
-                //             manifest: require(libs)
-                //         })
-                //     ]
+                // plugins: [
+                //     new webpack.DllReferencePlugin({
+                //         context: context,
+                //         manifest: require(libs)
+                //     })
+                // ]
             }
         },
         // karmaConfigFile: 'karma.conf.ts' // <-- add your karma.conf.js file here
