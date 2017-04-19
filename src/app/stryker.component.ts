@@ -1,4 +1,5 @@
-export const name = 'Charita Grudzinski';
+
+const name = 'Ivan';
 
 export function getName() {
     return name;
