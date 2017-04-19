@@ -68,7 +68,7 @@
     "@types/karma": "0.13.35",
     "@types/lodash": "4.14.62",
     "@types/node": "7.0.13",
-    "@types/webpack": "2.2.14",
+    "@types/webpack": "2.2.15",
     "@types/webpack-env": "1.13.0",
     "@ultimate/aot-loader": "0.1.15",
     "angular-router-loader": "0.6.0",
