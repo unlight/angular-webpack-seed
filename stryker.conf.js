@@ -10,13 +10,9 @@ const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
 module.exports = function(config) {
     config.set({
         files: [
-            // { pattern: 'build/source/**/*.component.js', mutated: true, included: false },
-            // { pattern: 'build/source/**/stryker.component.js', mutated: true, included: false },
-            // { pattern: 'build/source/**/app.component.js', mutated: true, included: false },
             { pattern: 'build/source/**/!(*.spec|main|spec.module).js', mutated: true, included: false },
             { pattern: 'build/source/**/*.spec.js', mutated: false, included: false },
-            { pattern: 'build/source/**/*.scss', included: false, mutated: false },
-            { pattern: 'build/source/**/*.html', included: false, mutated: false },
+            { pattern: 'build/source/**/*.{scss,html}', included: false, mutated: false },
             'build/source/spec.module.js',
         ],
         testRunner: 'karma',
@@ -24,16 +20,15 @@ module.exports = function(config) {
         coverageAnalysis: 'perTest',
         reporter: ['clear-text', 'html', 'progress'],
         htmlReporter: {
-            baseDir: '.testresults/mutation' // this is the default
+            baseDir: '.testresults/mutation'
         },
         // logLevel: 'trace',
-        maxConcurrentTestRunners: 1,
+        // maxConcurrentTestRunners: 1,
         clearTextReporter: {
             maxTestsToLog: 0
         },
         karmaConfig: {
             preprocessors: {
-                // '**/stryker.component.spec.js': ['webpack'],
                 '**/spec.module.js': ['webpack'],
             },
             browsers: ['Nightmare'],
