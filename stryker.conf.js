@@ -1,12 +1,6 @@
 const webpack = require('webpack');
 const Path = require('path');
 
-const sourcePath = Path.join(__dirname, 'src');
-const buildPath = Path.join(__dirname, 'build');
-const context = __dirname;
-
-const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
-
 module.exports = function(config) {
     config.set({
         files: [
@@ -22,7 +16,7 @@ module.exports = function(config) {
         htmlReporter: {
             baseDir: '.testresults/mutation'
         },
-        // logLevel: 'trace',
+        // logLevel: 'debug',
         maxConcurrentTestRunners: 2,
         clearTextReporter: {
             maxTestsToLog: 0

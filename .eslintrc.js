@@ -55,6 +55,7 @@ module.exports = {
         "flowtype/type-id-match": 0,
         "flowtype/union-intersection-spacing": 1,
         "flowtype/use-flow-type": 1,
+        "flowtype/no-types-missing-file-annotation": 0,
         "unicorn/no-abusive-eslint-disable": 0,
         "typescript/type-annotation-spacing": 1,
         "wix-editor/augmented-assignment": 1,
