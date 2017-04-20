@@ -115,6 +115,8 @@ KNOWN ISSUES
 
 TODO
 ---
+* stryker: dll plugin
+* gulp script copy *.sass *.html to build/source, or maybe compile by gulp-typescript
 * https://github.com/unlight/angular-webpack-seed/issues
 * ngrx redux example
 * husky scripts

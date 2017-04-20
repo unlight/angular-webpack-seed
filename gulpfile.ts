@@ -4,7 +4,9 @@
 import * as _ from 'lodash';
 import * as fs from 'fs';
 import * as Path from 'path';
-import { spawn } from 'child_process';
+import { Application } from '@types/express';;
+import assert = require('assert');
+const spawn = require('cross-spawn');
 const gulp = require('gulp');
 const readPkgUp = require('read-pkg-up');
 const g = require('gulp-load-plugins')();
@@ -52,7 +54,7 @@ gulp.task('server:prestart', done => {
             return done();
         }
     }
-    const proc = spawn('npm.cmd', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
+    const proc = spawn('npm', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
     proc.once('exit', () => {
         fs.writeFileSync(libsInfoFile, JSON.stringify({ version }));
         done();
@@ -68,14 +70,12 @@ gulp.task('check:build:prod', () => {
     });
 });
 
-import express = require('express');
-import assert = require('assert');
-
 gulp.task('test:int', () => {
-    const app = express();
+    const express = require('express');
+    const app: Application = express();
     app.use(express.static(buildPath));
     const server = app.listen(2345);
-    const nightmare = require('nightmare')({ });
+    const nightmare = require('nightmare')({});
     return nightmare
         .wait(1000)
         .goto('http://localhost:2345')
@@ -91,4 +91,13 @@ gulp.task('test:int', () => {
             server.close();
         })
         .catch(err => Promise.reject(String(err)));
+});
+
+gulp.task('stryker:source', (done) => {
+    gulp.src('src/**/!(*.ts)', { base: 'src' })
+        .pipe(gulp.dest(`${buildPath}/source`))
+        .on('end', () => {
+            const proc = spawn('npm', ['run', 'compile', '--', '--outDir', `${buildPath}/source`], { stdio: 'inherit' });
+            proc.once('exit', done);
+        });
 });
