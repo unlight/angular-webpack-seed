@@ -22,8 +22,8 @@ testing.TestBed.initTestEnvironment(
     browser.platformBrowserDynamicTesting()
 );
 
-const specContext = require.context('.', true, /\.spec\.ts/);
+const specContext = require.context('.', true, /\.spec\.[tj]s$/);
 specContext.keys().forEach(specContext);
 
-const moduleContext = require.context('.', true, /\.module\.ts$/);
+const moduleContext = require.context('.', true, /\.module\.[tj]s$/);
 moduleContext.keys().forEach(moduleContext);

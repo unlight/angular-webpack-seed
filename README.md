@@ -95,6 +95,7 @@ RESOURCES
 * [Simple tabs control for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-tabs)
 * [Simple pagination control for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-paginator)
 * [Angular directives for displaying validation messages similar to these from AngularJs](https://github.com/DmitryEfimenko/ngx-messages)
+* [A declarative validation errors module for reactive forms](https://github.com/UltimateAngular/ngxerrors)
 * [Implementation of Angular 1.x $cookies service to Angular 2](https://github.com/salemdar/ngx-cookie)
 * [An Angular component for a customizable date and time picker](https://github.com/RenovoSolutions/ngx-datetimepicker)
 * [Angular 2+ (ngx) ng2 truncate module from Directive, Pipe and Service](https://github.com/doorgets/ng-truncate)
@@ -103,9 +104,19 @@ RESOURCES
 * [Angular X (2+) Async external scripts loading](https://github.com/zenkkor/ngx-asyncscripts)
 * [Show busy/loading indicators on any promise, or on any Observable's subscription](https://github.com/devyumao/angular2-busy)
 * [Component event delegation](https://gist.github.com/matthieu-D/c56ce33e844b1f6e6d692149c31bb83b)
+* [Limitations with AoT](https://github.com/UltimateAngular/aot-loader/wiki/Limitations-with-AoT)
+* [AoT Do's and Don'ts](https://github.com/rangle/angular-2-aot-sandbox#aot-dos-and-donts)
+* [5 Rookie Mistakes to Avoid with Angular 2](http://angularjs.blogspot.ru/2016/04/5-rookie-mistakes-to-avoid-with-angular.html)
+
+KNOWN ISSUES
+---
+* Cannpt use component css tostring with aot https://github.com/UltimateAngular/aot-loader/issues/12
+  (workaround disable sourcemaps)
 
 TODO
 ---
+* stryker: dll plugin
+* gulp script copy *.sass *.html to build/source, or maybe compile by gulp-typescript
 * https://github.com/unlight/angular-webpack-seed/issues
 * ngrx redux example
 * husky scripts
