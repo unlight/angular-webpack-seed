@@ -22,7 +22,7 @@ module.exports = function(config) {
         htmlReporter: {
             baseDir: '.testresults/mutation'
         },
-        // logLevel: 'trace',
+        logLevel: 'trace',
         maxConcurrentTestRunners: 2,
         clearTextReporter: {
             maxTestsToLog: 0
@@ -57,12 +57,15 @@ module.exports = function(config) {
                         }
                     ]
                 },
-                // plugins: [
-                //     new webpack.DllReferencePlugin({
-                //         context: context,
-                //         manifest: require(libs)
-                //     })
-                // ]
+                plugins: [
+                    new webpack.DefinePlugin({
+                        'process.env.NODE_ENV': JSON.stringify('development')
+                    }),
+                    // new webpack.DllReferencePlugin({
+                    //     context: context,
+                    //     manifest: require(libs)
+                    // })
+                ]
             }
         },
         // karmaConfigFile: 'karma.conf.ts' // <-- add your karma.conf.js file here
