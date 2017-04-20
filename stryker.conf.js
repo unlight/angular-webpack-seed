@@ -23,7 +23,7 @@ module.exports = function(config) {
             baseDir: '.testresults/mutation'
         },
         // logLevel: 'trace',
-        // maxConcurrentTestRunners: 1,
+        maxConcurrentTestRunners: 2,
         clearTextReporter: {
             maxTestsToLog: 0
         },
