@@ -13,7 +13,7 @@ module.exports = function(config) {
             { pattern: 'build/source/**/!(*.spec|main|spec.module).js', mutated: true, included: false },
             { pattern: 'build/source/**/*.spec.js', mutated: false, included: false },
             { pattern: 'build/source/**/*.{scss,html}', included: false, mutated: false },
-            'build/source/spec.module.js',
+            'build/source/spec.module.js', // { pattern: 'pattern', included: true, mutated: false }
         ],
         testRunner: 'karma',
         testFramework: 'jasmine',
@@ -38,22 +38,15 @@ module.exports = function(config) {
                     rules: [
                         {
                             test: /\.component\.html$/,
-                            use: [
-                                { loader: 'raw-loader' }
-                            ]
+                            use: ['raw-loader'],
                         },
                         {
                             test: /\.component\.scss$/,
-                            use: [
-                                { loader: 'raw-loader' },
-                                { loader: 'sass-loader' },
-                            ]
+                            use: ['raw-loader', 'sass-loader'],
                         },
                         {
                             test: /\.component\.[tj]s$/,
-                            use: [
-                                { loader: 'angular2-template-loader' }
-                            ]
+                            use: ['angular2-template-loader'],
                         }
                     ]
                 },

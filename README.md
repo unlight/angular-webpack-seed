@@ -38,6 +38,7 @@ FEATURES
 * Faster unit testing (NightmareJS runs 2 times faster than PhantomJS)
 * Hot reload, HMR (Hot Module Replacement)
 * AoT (with routes lazy loading)
+* Mutation testing
 
 QUICK START
 ---
@@ -68,7 +69,8 @@ TASKS
 | `npm run build:all`         | Sequence of build:vendors > build                                      |
 | `npm run coverage`          | Run test coverage with verbose reporing                                |
 | `npm run coverage:debug`    | Run coverage task in debug mode                                        |
-| `npm run p`                 | Run tasks in parallel                                                   |
+| `npm run p`                 | Run tasks in parallel                                                  |
+| `npm run stryker`           | Run mutation tests                                                     |
 
 
 DEVELOPMENT TIPS
@@ -110,8 +112,9 @@ RESOURCES
 
 KNOWN ISSUES
 ---
-* Cannpt use component css tostring with aot https://github.com/UltimateAngular/aot-loader/issues/12
+* Cannot use component css tostring with aot https://github.com/UltimateAngular/aot-loader/issues/12
   (workaround disable sourcemaps)
+* Stryker: webpack cannot load plugins https://github.com/stryker-mutator/stryker-karma-runner/issues/20
 
 TODO
 ---
