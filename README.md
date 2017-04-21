@@ -1,27 +1,6 @@
 angular-webpack-seed
 ====================
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-* Quick summary
-* Version
-
-### How do I get set up? ###
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-* Repo owner or admin
-* Other community or team contact
+Angular X single page application starter.
 
 STACK
 ---
@@ -29,6 +8,7 @@ STACK
 * TypeScript 2
 * Webpack 2
 * Karma / NightmareJS 2 (Electron)
+* Stryker
 * Gulp 4
 * ESLint with useful plugins
 
@@ -69,7 +49,7 @@ TASKS
 | `npm run build:all`         | Sequence of build:vendors > build                                      |
 | `npm run coverage`          | Run test coverage with verbose reporing                                |
 | `npm run coverage:debug`    | Run coverage task in debug mode                                        |
-| `npm run p`                 | Run tasks in parallel                                                  |
+| `npm run p "t1" "t2"`       | Run tasks in parallel                                                  |
 | `npm run stryker`           | Run mutation tests                                                     |
 
 
