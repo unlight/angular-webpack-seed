@@ -48,7 +48,7 @@
     "npm": ">=3"
   },
   "dependencies": {
-    "@angular/common": "4.0.2",
+    "@angular/common": "4.0.3",
     "@angular/compiler": "4.0.2",
     "@angular/core": "4.0.2",
     "@angular/forms": "4.0.2",
