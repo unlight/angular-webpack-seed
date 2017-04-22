@@ -130,7 +130,7 @@
     "raw-loader": "0.5.1",
     "read-pkg-up": "2.0.0",
     "sass-loader": "6.0.3",
-    "stryker": "0.5.9",
+    "stryker": "0.6.0",
     "stryker-api": "0.4.2",
     "stryker-html-reporter": "0.3.0",
     "stryker-jasmine": "0.2.0",
