@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV === 'production') {
-    require('core-js/es6');
-}
+require('core-js/es6');
 require('core-js/es7/reflect');
 require('core-js/es7/array');
 require('zone.js/dist/zone');
@@ -29,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
             private readonly appRef: ApplicationRef
         ) { }
 
-        hmrOnInit(store: any) {
+        hmrOnInit(store: any) { // eslint-disable-line class-methods-use-this
             // https://github.com/angularclass/angular2-hmr
         }
 
@@ -39,7 +37,7 @@ if (process.env.NODE_ENV === 'production') {
             removeNgStyles();
         }
 
-        hmrAfterDestroy(store: any) {
+        hmrAfterDestroy(store: any) { // eslint-disable-line class-methods-use-this
             store.disposeOldHosts();
             delete store.disposeOldHosts;
         }

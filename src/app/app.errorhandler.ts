@@ -6,7 +6,7 @@ export class AppErrorHandler extends ErrorHandler {
         super(true);
     }
 
-    handleError(err: any) { // eslint-disable-line
-        console.error(err); // eslint-disable-line
+    handleError(err: any) { // eslint-disable-line class-methods-use-this
+        console.error(err); // eslint-disable-line no-console
     }
 }

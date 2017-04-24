@@ -28,6 +28,11 @@ npm i
 npm run start
 ```
 
+HUSKY
+---
+* Install: `npm i husky`
+* Uninstall: `npm r husky`
+
 TASKS
 ---
 | Task                        | Description                                                            |

@@ -37,7 +37,7 @@ module.exports = {
         "no-undef": 0,
         "no-unused-vars": 0,
         "no-empty-function": 0,
-        "class-methods-use-this": 0,
+        "class-methods-use-this": 1,
         "import/no-webpack-loader-syntax": 1,
         "import/newline-after-import": 1,
         "import/no-duplicates": 1,
