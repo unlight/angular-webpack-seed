@@ -180,7 +180,7 @@ export = (options: Options = {}) => {
                     ]
                 },
                 {
-                    test: /style\.scss$/,
+                    test: /app\.scss$/,
                     use: (() => {
                         let result = [
                             { loader: 'css-loader' },

@@ -5,7 +5,7 @@ require('core-js/es7/reflect');
 require('core-js/es7/array');
 require('zone.js/dist/zone');
 
-require('./style.scss');
+require('./app.scss');
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode, NgModule, ApplicationRef } from '@angular/core';
