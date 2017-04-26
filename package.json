@@ -91,7 +91,7 @@
     "eslint-plugin-flowtype": "2.32.1",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jasmine": "2.2.0",
-    "eslint-plugin-lodash": "2.4.0",
+    "eslint-plugin-lodash": "2.4.1",
     "eslint-plugin-lodash-smells": "0.2.0",
     "eslint-plugin-perf-standard": "1.0.3",
     "eslint-plugin-prefer-spread": "1.0.3",
