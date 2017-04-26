@@ -101,3 +101,8 @@ gulp.task('stryker:source', (done) => {
             proc.once('exit', done);
         });
 });
+
+gulp.task('killzombie', () => {
+    const fkill = require('fkill');
+    return fkill('electron.exe', { force: true });
+});
