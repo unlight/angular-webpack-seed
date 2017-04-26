@@ -103,6 +103,10 @@ gulp.task('stryker:source', (done) => {
 });
 
 gulp.task('killzombie', () => {
-    const fkill = require('fkill');
-    return fkill('electron.exe', { force: true });
+    if (process.platform === 'win32') {
+        const fkill = require('fkill');
+        return fkill('electron.exe', { force: true });
+    } else {
+        return Promise.resolve();
+    }
 });
