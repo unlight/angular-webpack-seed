@@ -287,6 +287,12 @@ export = (options: Options = {}) => {
         config.module.rules = [];
     } else if (options.vendorStyle) {
         const rules = config.module.rules;
+        let cssLoaderOptions: any = {
+            sourceMap: true
+        };
+        if (options.prod) {
+            _.assign(cssLoaderOptions, { minimize: true });
+        }
         _.assign(config, {
             entry: _.pick(config.entry, ['style']),
             module: {
@@ -300,7 +306,7 @@ export = (options: Options = {}) => {
                     {
                         test: /\.css$/,
                         use: [
-                            { loader: 'css-loader' }
+                            { loader: 'css-loader', options: cssLoaderOptions }
                         ]
                     },
                 ]
