@@ -150,7 +150,7 @@
     "url-loader": "0.5.8",
     "webpack": "2.4.1",
     "webpack-dashboard": "0.3.0",
-    "webpack-dev-server": "2.4.4",
+    "webpack-dev-server": "2.4.5",
     "webpack-hot-middleware": "2.18.0"
   }
 }
