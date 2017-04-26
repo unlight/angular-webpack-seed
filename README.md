@@ -94,6 +94,7 @@ RESOURCES
 * [Limitations with AoT](https://github.com/UltimateAngular/aot-loader/wiki/Limitations-with-AoT)
 * [AoT Do's and Don'ts](https://github.com/rangle/angular-2-aot-sandbox#aot-dos-and-donts)
 * [5 Rookie Mistakes to Avoid with Angular 2](http://angularjs.blogspot.ru/2016/04/5-rookie-mistakes-to-avoid-with-angular.html)
+* [A reusable chart library for d3.js](https://github.com/nvd3-community/nvd3)
 
 KNOWN ISSUES
 ---
