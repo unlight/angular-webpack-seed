@@ -125,6 +125,7 @@ export = (options: Options = {}) => {
         target: 'web',
         resolve: {
             extensions: ['.ts', '.js'],
+            modules: ['node_modules', `${sourcePath}/modules`],
         },
         watchOptions: watchOptions,
         module: {
