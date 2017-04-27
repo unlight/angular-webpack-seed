@@ -96,6 +96,7 @@ RESOURCES
 * [5 Rookie Mistakes to Avoid with Angular 2](http://angularjs.blogspot.ru/2016/04/5-rookie-mistakes-to-avoid-with-angular.html)
 * [A reusable chart library for d3.js](https://github.com/nvd3-community/nvd3)
 * [A Comprehensive Introduction to @ngrx/store](https://gist.github.com/btroncone/a6e4347326749f938510)
+* [Class decorator that will automatically unsubscribe from observables and events](https://github.com/NetanelBasal/ngx-auto-unsubscribe)
 
 KNOWN ISSUES
 ---
@@ -105,11 +106,8 @@ KNOWN ISSUES
 
 TODO
 ---
-* stryker: dll plugin
-* gulp script copy *.sass *.html to build/source, or maybe compile by gulp-typescript
 * https://github.com/unlight/angular-webpack-seed/issues
 * ngrx redux example
-* husky scripts
 
 DEBUG
 ---

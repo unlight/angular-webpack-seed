@@ -97,7 +97,7 @@ gulp.task('stryker:source', (done) => {
     gulp.src('src/**/!(*.ts)', { base: 'src' })
         .pipe(gulp.dest(`${buildPath}/source`))
         .on('end', () => {
-            const proc = spawn('npm', ['run', 'tsc', '--', '--target', 'ES6', `--outDir`, `${buildPath}/source`], { stdio: 'inherit' });
+            const proc = spawn('npm', [...'run tsc -- --target ES6'.split(' '), `--outDir`, `${buildPath}/source`], { stdio: 'inherit' });
             proc.once('exit', done);
         });
 });
