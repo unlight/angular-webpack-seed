@@ -7,18 +7,22 @@ import { FormsModule } from '@angular/forms';
 import { AppErrorHandler } from './app.errorhandler';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HomeComponent } from './home/home.component';
+import { ModalModule } from '@epam/ngx-modal';
+import { ExampleModalComponent } from '@epam/ngx-modal/example/example-modal.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'welcome', component: WelcomeComponent },
-    { path: 'feature', loadChildren: './feature/feature.module#FeatureModule' }
+    { path: 'feature', loadChildren: './feature/feature.module#FeatureModule' },
+    { path: ':code', outlet: 'modal', component: ExampleModalComponent }
 ];
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        ModalModule
     ],
     declarations: [
         AppComponent,

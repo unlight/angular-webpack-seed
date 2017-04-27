@@ -1,5 +1,6 @@
 import { Input, Output, Component, ElementRef, EventEmitter, Inject, OnDestroy, Renderer, ViewChild } from '@angular/core';
-import { contains, removeClass } from './functions';
+import { contains } from './functions';
+import { DOCUMENT } from '@angular/platform-browser';
 
 // TODO: Move to class
 const modalIsOpenClass = '-es-popup-opened';
@@ -30,7 +31,7 @@ export class ModalComponent implements OnDestroy {
     @ViewChild('body') private body: ElementRef;
 
     constructor(
-        @Inject(Window) private window: Window,
+        @Inject(DOCUMENT) private document: Document,
         private renderer: Renderer,
         private el: ElementRef,
     ) {
@@ -69,8 +70,8 @@ export class ModalComponent implements OnDestroy {
             return !(contains(this.body.nativeElement, <Node>(e.target || e.srcElement)));
         };
         const focusFirst = () => {
-            if (focusable && focusable.length) {
-                focusable[0].focus();
+            if (focusable && focusable.length > 0) {
+                focusable[0].focus(); // todo: use renderer2 for focus
                 return true;
             }
             return false;
@@ -134,17 +135,25 @@ export class ModalComponent implements OnDestroy {
 
     private enableBackgroundScrolling() {
         // remove class '-es-popup-opened' => enables scrollbars on body again
-        const body = this.window.document.querySelector('body');
+        const body = this.document.querySelector('body');
         if (body) {
-            removeClass(body, modalIsOpenClass);
+            if (body.classList) {
+                body.classList.remove(modalIsOpenClass);
+            } else {
+                body.className = body.className.replace(new RegExp('(^|\\b)' + modalIsOpenClass.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            }
         }
     }
 
     private preventBackgroundScrolling() {
         // add class '-es-popup-opened' => disables scrollbars on body
-        const body = this.window.document.querySelector('body');
+        const body = this.document.querySelector('body');
         if (body) {
-            body.className += ' ' + modalIsOpenClass;
+            if (body.classList) {
+                body.classList.add(modalIsOpenClass)
+            } else {
+                body.className += ' ' + modalIsOpenClass;
+            }
         }
 
     }
