@@ -201,6 +201,17 @@ export = (options: Options = {}) => {
                     })(),
                 },
                 {
+                    test: /\.css$/,
+                    use: (() => {
+                        let result = [
+                            { loader: 'style-loader' },
+                            { loader: 'css-loader' },
+                            { loader: 'postcss-loader', options: { plugins: postPlugins } },
+                        ];
+                        return result;
+                    })(),
+                },
+                {
                     test: /\.(woff|woff2|eot|ttf|png|svg)$/,
                     use: [
                         { loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }

@@ -1,11 +1,10 @@
 import { Input, Output, Component, ElementRef, EventEmitter, Inject, OnDestroy, Renderer, ViewChild } from '@angular/core';
 import { contains } from './functions';
 import { DOCUMENT } from '@angular/platform-browser';
+import { focusableSelector, modalIsOpenClass } from './constants';
 
-// TODO: Move to class
-const modalIsOpenClass = '-es-popup-opened';
-
-const focusableSelector = 'a[href], area[href], input:not([disabled]), button:not([disabled]), select:not([disabled]), textarea:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable=true]';
+// TODO: Fix
+require('./ngx-modal.css');
 
 @Component({
     exportAs: 'modal',
@@ -20,10 +19,10 @@ const focusableSelector = 'a[href], area[href], input:not([disabled]), button:no
 })
 export class ModalComponent implements OnDestroy {
 
-    @Input() public title: string;
+    @Input() public title: string; // unused
     @Input() public isOpen: boolean;
     @Input() public isNotification: boolean;
-    public content: string;
+    public content: string; // unused
     @Output() public onClose: EventEmitter<any> = new EventEmitter();
     @Output() public onOpen: EventEmitter<any> = new EventEmitter();
     private removeOnKeyDown: Function;
@@ -134,7 +133,7 @@ export class ModalComponent implements OnDestroy {
     }
 
     private enableBackgroundScrolling() {
-        // remove class '-es-popup-opened' => enables scrollbars on body again
+        // Remove class 'modal-opened' to enable scrollbars on body again.
         const body = this.document.querySelector('body');
         if (body) {
             if (body.classList) {
@@ -146,11 +145,11 @@ export class ModalComponent implements OnDestroy {
     }
 
     private preventBackgroundScrolling() {
-        // add class '-es-popup-opened' => disables scrollbars on body
+        // Add class 'modal-opened' to disable scrollbars on body.
         const body = this.document.querySelector('body');
         if (body) {
             if (body.classList) {
-                body.classList.add(modalIsOpenClass)
+                body.classList.add(modalIsOpenClass);
             } else {
                 body.className += ' ' + modalIsOpenClass;
             }

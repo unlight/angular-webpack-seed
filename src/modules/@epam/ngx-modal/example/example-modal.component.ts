@@ -15,4 +15,7 @@ export class ExampleModalComponent {
 
     @ViewChild(ModalComponent) private modal: ModalComponent;
 
+    ngOnInit() {
+        this.modal.open();
+    }
 }
