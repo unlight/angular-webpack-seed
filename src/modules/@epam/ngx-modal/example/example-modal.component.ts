@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
     <modal-header [title]="'Example Title'"></modal-header>
     <modal-content>
         Example Modal Content
-        <a href="#">link</a>
     </modal-content>
 </modal>
     `

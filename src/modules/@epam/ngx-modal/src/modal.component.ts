@@ -1,7 +1,8 @@
 import { Input, Output, Component, ElementRef, EventEmitter, Inject, OnDestroy, Renderer, ViewChild } from '@angular/core';
 import { contains } from './functions';
 import { DOCUMENT } from '@angular/platform-browser';
-import { focusableSelector, modalIsOpenClass } from './constants';
+import { focusableSelector, OPTIONS } from './constants';
+import { ModalOptions } from './types';
 
 // TODO: Fix
 // require('ngx-modal.css');
@@ -25,13 +26,9 @@ export class ModalComponent implements OnDestroy {
     private removeOnClick: Function;
     @ViewChild('body') private body: ElementRef;
 
-    // TODO: Fix
-    get ngClassValues() {
-        return { 'ngx-modal-open': this.isOpen, '-es-notification': this.isNotification };
-    }
-
     constructor(
         @Inject(DOCUMENT) private document: Document,
+        @Inject(OPTIONS) private readonly options: ModalOptions,
         private renderer: Renderer, // TODO: Replace by Renderer2
         private el: ElementRef,
     ) {
@@ -51,6 +48,14 @@ export class ModalComponent implements OnDestroy {
 
     ngOnDestroy() {
         this.cleanUp();
+    }
+
+    // TODO: Fix
+    private get ngClassValues() {
+        return {
+            [this.options.isOpenClass]: this.isOpen,
+            [this.options.isNotificationClass]: this.isNotification,
+        };
     }
 
     // Let tab navigation cycle in the popup body.
@@ -148,7 +153,7 @@ export class ModalComponent implements OnDestroy {
     private backgroundScrolling(value: boolean) {
         const body = this.document.querySelector('body');
         if (body) {
-            this.renderer.setElementClass(body, modalIsOpenClass, !value);
+            this.renderer.setElementClass(body, this.options.isOpenClass, !value);
         }
     }
 }

@@ -22,7 +22,7 @@ const routes: Routes = [
         BrowserModule,
         FormsModule,
         RouterModule.forRoot(routes),
-        ModalModule
+        ModalModule.forRoot(),
     ],
     declarations: [
         AppComponent,

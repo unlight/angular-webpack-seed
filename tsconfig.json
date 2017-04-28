@@ -18,7 +18,8 @@
     "outDir": "build",
     "baseUrl": ".",
     "paths": {
-        "@epam/ngx-modal": ["src/modules/@epam/ngx-modal"]
+        "@epam/ngx-modal": ["src/modules/@epam/ngx-modal"],
+        "@epam/ngx-modal/*": ["src/modules/@epam/ngx-modal/*"]
     },
     "lib": [
       "es7",
