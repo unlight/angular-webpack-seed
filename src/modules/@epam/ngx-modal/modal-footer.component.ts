@@ -10,5 +10,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ModalFooterComponent {
 
-    @Input() className = '';
+    @Input() className = 'ngx-modal-footer';
 }

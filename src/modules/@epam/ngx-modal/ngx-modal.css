@@ -1,3 +1,77 @@
 .ngx-modal-opened {
     overflow: hidden;
 }
+
+.ngx-modal-popup {
+  display: none;
+}
+
+.ngx-modal-popup-opened {
+  overflow: hidden;
+}
+
+.ngx-modal-popup.ngx-modal-open {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ngx-modal-popup.ngx-modal-open .ngx-modal-popup-body {
+    /*width: 100vw;
+    margin: 0;
+    z-index: 1000;*/
+    width: 80vw;
+    margin: 10vh 10vw 1em;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+}
+
+.ngx-modal-popup.ngx-modal-open .ngx-modal-popup-body .ngx-modal-header,
+.ngx-modal-popup.ngx-modal-open .ngx-modal-popup-body .es-popup-footer {
+    padding-left: 1em;
+}
+
+.ngx-modal-popup.ngx-modal-open .ngx-modal-popup-body .ngx-modal-header {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.ngx-modal-popup.ngx-modal-open .ngx-modal-popup-body .ngx-modal-header h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.ngx-modal-popup.ngx-modal-open .ngx-modal-popup-body .es-close + h1 {
+  padding-left: 1em;
+}
+
+.ngx-modal-popup.ngx-modal-open .ngx-modal-popup-body .ngx-modal-content {
+  padding: 1em;
+}
+
+
+/*.ngx-modal-popup.ngx-modal-open .ngx-modal-popup-body .ngx-modal-header .es-close {
+        display: inline-block;
+        font-family: ert-icons;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        vertical-align: middle;
+        content: "";
+        background: transparent;
+        border: none;
+        display: inline-block;
+        left: 1.25em;
+        line-height: 1.69em;
+        padding: 0;
+        position: absolute;
+        top: 1.25em; }*/
+

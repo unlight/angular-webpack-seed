@@ -10,8 +10,8 @@ require('./ngx-modal.css');
     exportAs: 'modal',
     selector: 'modal',
     template: `
-		<div class="es-popup" [ngClass]="{'-es-open': isOpen, '-es-notification': isNotification}" >
-            <section class="es-popup-body" #body>
+		<div class="ngx-modal-popup" [ngClass]="ngClassValues" >
+            <section class="ngx-modal-popup-body" #body>
                 <ng-content></ng-content>
             </section>
         </div>
@@ -28,6 +28,10 @@ export class ModalComponent implements OnDestroy {
     private removeOnKeyDown: Function;
     private removeOnClick: Function;
     @ViewChild('body') private body: ElementRef;
+
+    get ngClassValues() {
+        return {'ngx-modal-open': this.isOpen, '-es-notification': this.isNotification};
+    }
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -98,6 +102,9 @@ export class ModalComponent implements OnDestroy {
     };
 
     private doOnOpen() {
+        setTimeout(() => {
+            this.renderer.invokeElementMethod(this.body.nativeElement, 'focus');
+        });
         this.preventBackgroundScrolling();
         this.removeOnClick = this.renderer.listen(this.el.nativeElement, 'click', (e: MouseEvent) => {
             if (this.isOpen) {
