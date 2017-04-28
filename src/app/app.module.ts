@@ -6,11 +6,10 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { HomeComponent } from './home/home.component';
 import { APP_PROVIDERS } from './app.providers';
 import { ConfigStaticLoader, ConfigLoader, ConfigModule } from '@ngx-config/core';
-import { routes } from './app.routes';
-
-import config = require('./app.config');
+import { APP_ROUTES } from './app.routes';
 
 export function configFactory(): ConfigLoader {
+    const config = require('./app.config');
     return new ConfigStaticLoader(config);
 }
 
@@ -18,7 +17,7 @@ export function configFactory(): ConfigLoader {
     imports: [
         BrowserModule,
         FormsModule,
-        routes,
+        APP_ROUTES,
         ConfigModule.forRoot({ provide: ConfigLoader, useFactory: configFactory })
     ],
     declarations: [
