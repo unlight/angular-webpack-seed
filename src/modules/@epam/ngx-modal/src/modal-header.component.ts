@@ -11,8 +11,11 @@ import { ModalOptions, OPTIONS } from './constants';
 export class ModalHeaderComponent {
 
     @Input() public title: string;
+    private readonly options: ModalOptions
 
     constructor(
-        @Inject(OPTIONS) private readonly options: ModalOptions,
-    ) { }
+        @Inject(OPTIONS) options: ModalOptions,
+    ) {
+        this.options = options;
+    }
 }

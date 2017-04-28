@@ -36,7 +36,6 @@ export const defaultOptions: ModalOptions = {
     headerClass: 'ngx-modal-header',
     footerClass: 'ngx-modal-footer',
     contentClass: 'ngx-modal-content',
-}
+};
 
 export const OPTIONS = new InjectionToken<ModalOptions>('ModalOptions');
-

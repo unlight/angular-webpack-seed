@@ -11,7 +11,7 @@ import { ModalModule } from '@epam/ngx-modal';
 import { ExampleModalComponent } from '@epam/ngx-modal/example/example-modal.component';
 
 export function configFactory(): ConfigLoader {
-    const config = require('./app.config');
+    const config = require('./app.config'); // eslint-disable-line import/max-dependencies
     return new ConfigStaticLoader(config);
 }
 
@@ -19,7 +19,6 @@ export function configFactory(): ConfigLoader {
     imports: [
         BrowserModule,
         FormsModule,
-        RouterModule.forRoot(routes),
         ModalModule.forRoot(),
         APP_ROUTES,
         ConfigModule.forRoot({ provide: ConfigLoader, useFactory: configFactory })

@@ -1,11 +1,10 @@
-import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from './modal.component';
 import { ModalContentComponent } from './modal-content.component';
 import { ModalFooterComponent } from './modal-footer.component';
 import { ModalHeaderComponent } from './modal-header.component';
-import { ModalOptions } from './types';
-import { defaultOptions, OPTIONS } from './constants';
+import { ModalOptions, defaultOptions, OPTIONS } from './constants';
 
 @NgModule({
     imports: [

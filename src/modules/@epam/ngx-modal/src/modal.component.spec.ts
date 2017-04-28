@@ -1,5 +1,5 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ModalComponent } from './modal.component';
 import { ModalModule } from './modal.module';
 

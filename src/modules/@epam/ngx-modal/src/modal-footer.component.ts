@@ -1,4 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { OPTIONS, ModalOptions } from './constants';
 
 @Component({
@@ -9,7 +9,11 @@ import { OPTIONS, ModalOptions } from './constants';
 })
 export class ModalFooterComponent {
 
+    private readonly options: ModalOptions
+
     constructor(
-        @Inject(OPTIONS) private readonly options: ModalOptions,
-    ) { }
+        @Inject(OPTIONS) options: ModalOptions,
+    ) {
+        this.options = options;
+    }
 }
