@@ -98,6 +98,7 @@ RESOURCES
 * [A Comprehensive Introduction to @ngrx/store](https://gist.github.com/btroncone/a6e4347326749f938510)
 * [Class decorator that will automatically unsubscribe from observables and events](https://github.com/NetanelBasal/ngx-auto-unsubscribe)
 * [Observable-based virtual scroll implementation in Angular](https://github.com/dinony/od-virtualscroll)
+* [Angular Update Guide](https://angular-update-guide.firebaseapp.com/)
 
 KNOWN ISSUES
 ---
