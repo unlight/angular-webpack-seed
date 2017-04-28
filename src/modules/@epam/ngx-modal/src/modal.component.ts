@@ -9,20 +9,16 @@ import { focusableSelector, modalIsOpenClass } from './constants';
 @Component({
     exportAs: 'modal',
     selector: 'modal',
-    template: `
-		<div class="ngx-modal-popup" [ngClass]="ngClassValues" >
+    template: `<div class="ngx-modal-popup" [ngClass]="ngClassValues">
             <section class="ngx-modal-popup-body" #body>
                 <ng-content></ng-content>
             </section>
-        </div>
-  `
+        </div>`
 })
 export class ModalComponent implements OnDestroy {
 
-    @Input() public title: string; // unused
     @Input() public isOpen: boolean;
     @Input() public isNotification: boolean;
-    public content: string; // unused
     @Output() public onClose: EventEmitter<any> = new EventEmitter();
     @Output() public onOpen: EventEmitter<any> = new EventEmitter();
     private removeOnKeyDown: Function;

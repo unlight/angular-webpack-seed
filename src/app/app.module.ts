@@ -28,6 +28,7 @@ const routes: Routes = [
         AppComponent,
         WelcomeComponent,
         HomeComponent,
+        ExampleModalComponent,
     ],
     bootstrap: [AppComponent],
     providers: [
