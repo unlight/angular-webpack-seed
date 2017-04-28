@@ -9,6 +9,7 @@ import { ConfigStaticLoader, ConfigLoader, ConfigModule } from '@ngx-config/core
 import { APP_ROUTES } from './app.routes';
 import { ModalModule } from '@epam/ngx-modal';
 import { ExampleModalComponent } from '@epam/ngx-modal/example/example-modal.component';
+import { RouterModule } from '@angular/router';
 
 export function configFactory(): ConfigLoader {
     const config = require('./app.config'); // eslint-disable-line import/max-dependencies
@@ -21,6 +22,9 @@ export function configFactory(): ConfigLoader {
         FormsModule,
         ModalModule.forRoot(),
         APP_ROUTES,
+        RouterModule.forRoot([
+            { path: ':code', outlet: 'modal', component: ExampleModalComponent },
+        ]),
         ConfigModule.forRoot({ provide: ConfigLoader, useFactory: configFactory })
     ],
     declarations: [
@@ -33,3 +37,4 @@ export function configFactory(): ConfigLoader {
     providers: APP_PROVIDERS
 })
 export class AppModule { }
+

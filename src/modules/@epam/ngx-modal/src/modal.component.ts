@@ -153,7 +153,7 @@ export class ModalComponent implements OnDestroy {
     }
 
     private backgroundScrolling(value: boolean) {
-        const body = this.renderer2.selectRootElement('body');
+        const body = document.querySelector('body');
         if (body) {
             const method = (value) ? 'removeClass' : 'addClass';
             this.renderer2[method](body, this.options.popupOpenedClass);
