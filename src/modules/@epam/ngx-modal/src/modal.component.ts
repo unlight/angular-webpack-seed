@@ -64,7 +64,7 @@ export class ModalComponent implements OnDestroy {
             return;
         }
         let focusChanged = false;
-        const focusable = <HTMLElement[]>[].slice.call(this.body.nativeElement.querySelectorAll(focusableSelector));
+        const focusable = Array.from<HTMLElement>(this.body.nativeElement.querySelectorAll(focusableSelector));
         const isFocusInFirst = (): boolean => {
             return !!(focusable && focusable.length && (e.target || e.srcElement) === focusable[0]);
         };
@@ -76,14 +76,16 @@ export class ModalComponent implements OnDestroy {
         };
         const focusFirst = () => {
             if (focusable && focusable.length > 0) {
-                focusable[0].focus(); // todo: use renderer2 for focus
+                let [element] = focusable;
+                this.renderer.invokeElementMethod(element, 'focus'); // todo: use renderer2 for focus
                 return true;
             }
             return false;
         };
         const focusLast = (): boolean => {
-            if (focusable && focusable.length) {
-                focusable[focusable.length - 1].focus();
+            if (focusable && focusable.length > 0) {
+                let [element] = focusable.slice(-1);
+                this.renderer.invokeElementMethod(element, 'focus');
                 return true;
             }
             return false;
@@ -95,6 +97,7 @@ export class ModalComponent implements OnDestroy {
         } else {
             if (isFocusOutside() || isFocusInLast()) {
                 focusChanged = focusFirst();
+                // focusChanged = true;
             }
         }
         if (focusChanged) {
