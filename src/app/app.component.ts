@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from '@ngx-config/core';
 
 @Component({
     selector: 'app',
@@ -10,5 +11,11 @@ import { Component } from '@angular/core';
     styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
     title = 'App';
+
+    constructor(
+        configService: ConfigService,
+    ) {
+    }
 }
