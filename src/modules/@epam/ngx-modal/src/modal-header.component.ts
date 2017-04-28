@@ -1,19 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
+import { ModalOptions, OPTIONS } from './constants';
 
 @Component({
     selector: 'modal-header',
-    template: `
-    <header class="ngx-modal-header">
-        <!-- <button class="es-icon es-icon-close es-close"></button> TODO: close icon -->
+    template: `<header [class]="options.headerClass">
         <h1>{{title}}</h1>
         <ng-content></ng-content>
-    </header>
-    `
+    </header>`
 })
 export class ModalHeaderComponent {
 
     @Input() public title: string;
-    @Input() public moduleId: string;
+
+    constructor(
+        @Inject(OPTIONS) private readonly options: ModalOptions,
+    ) { }
 }
-
-

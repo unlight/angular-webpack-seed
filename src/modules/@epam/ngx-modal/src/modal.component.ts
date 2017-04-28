@@ -1,8 +1,7 @@
 import { Input, Output, Component, ElementRef, EventEmitter, Inject, OnDestroy, Renderer, ViewChild } from '@angular/core';
 import { contains } from './functions';
 import { DOCUMENT } from '@angular/platform-browser';
-import { focusableSelector, OPTIONS } from './constants';
-import { ModalOptions } from './types';
+import { focusableSelector, OPTIONS, ModalOptions } from './constants';
 
 // TODO: Fix
 // require('ngx-modal.css');
@@ -10,8 +9,8 @@ import { ModalOptions } from './types';
 @Component({
     exportAs: 'modal',
     selector: 'modal',
-    template: `<div class="ngx-modal-popup" [ngClass]="ngClassValues">
-            <section class="ngx-modal-popup-body" #body>
+    template: `<div [class]="options.popupClass" [ngClass]="ngClassValues">
+            <section [class]="options.popupBodyClass" #body>
                 <ng-content></ng-content>
             </section>
         </div>`
@@ -30,7 +29,7 @@ export class ModalComponent implements OnDestroy {
         @Inject(DOCUMENT) private document: Document,
         @Inject(OPTIONS) private readonly options: ModalOptions,
         private renderer: Renderer, // TODO: Replace by Renderer2
-        private el: ElementRef,
+        private ref: ElementRef,
     ) {
     }
 
@@ -50,7 +49,6 @@ export class ModalComponent implements OnDestroy {
         this.cleanUp();
     }
 
-    // TODO: Fix
     private get ngClassValues() {
         return {
             [this.options.isOpenClass]: this.isOpen,
@@ -111,7 +109,7 @@ export class ModalComponent implements OnDestroy {
             this.renderer.invokeElementMethod(this.body.nativeElement, 'focus');
         });
         this.preventBackgroundScrolling();
-        this.removeOnClick = this.renderer.listen(this.el.nativeElement, 'click', (e: MouseEvent) => {
+        this.removeOnClick = this.renderer.listen(this.ref.nativeElement, 'click', (e: MouseEvent) => {
             if (this.isOpen) {
                 //overlay = this.el.nativeElement.querySelector('.es-popup'),
                 const close = this.body.nativeElement.querySelector('.es-close');
@@ -156,7 +154,7 @@ export class ModalComponent implements OnDestroy {
     private backgroundScrolling(value: boolean) {
         const body = this.document.querySelector('body');
         if (body) {
-            this.renderer.setElementClass(body, this.options.isOpenClass, !value);
+            this.renderer.setElementClass(body, this.options.popupOpenedClass, !value);
         }
     }
 }

@@ -1,14 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
+import { ModalOptions, OPTIONS } from './constants';
 
 @Component({
     selector: 'modal-content',
-    template: `
-    <main [class]="className">
+    template: `<main [class]="options.contentClass">
         <ng-content></ng-content>
-    </main>
-    `
+    </main>`
 })
 export class ModalContentComponent {
 
-    @Input() className = 'ngx-modal-content';
+    constructor(
+        @Inject(OPTIONS) private readonly options: ModalOptions,
+    ) { }
 }

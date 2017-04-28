@@ -1,14 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
+import { OPTIONS, ModalOptions } from './constants';
 
 @Component({
     selector: 'modal-footer',
-    template: `
-    <footer [class]="className">
+    template: `<footer [class]="options.footerClass">
         <ng-content></ng-content>
-    </footer>
-  `
+    </footer>`
 })
 export class ModalFooterComponent {
 
-    @Input() className = 'ngx-modal-footer';
+    constructor(
+        @Inject(OPTIONS) private readonly options: ModalOptions,
+    ) { }
 }
