@@ -23,6 +23,9 @@ import { defaultOptions, OPTIONS } from './constants';
         ModalFooterComponent,
         ModalHeaderComponent,
     ],
+    providers: [
+        { provide: OPTIONS, useValue: defaultOptions }
+    ]
 })
 export class ModalModule {
 
