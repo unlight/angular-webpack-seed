@@ -1,4 +1,4 @@
-const focusableSelectors = [
+const focusable = [
     'a[href]',
     'area[href]',
     'input:not([disabled])',
@@ -12,6 +12,6 @@ const focusableSelectors = [
     '*[contenteditable=true]',
 ];
 
-export const focusableSelector = focusableSelectors.join(',');
+export const focusableSelector = focusable.join(',');
 
 export const modalIsOpenClass = 'ngx-modal-opened';

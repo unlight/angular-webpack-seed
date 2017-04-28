@@ -1,6 +1,6 @@
-export function contains(container: Node, element: Node): boolean {
+export function contains(container: Node, element: Node | null): boolean {
     let node = element;
-    while (node != null) {
+    while (node) {
         if (node === container) {
             return true;
         }

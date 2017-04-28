@@ -4,7 +4,6 @@ import { ModalComponent } from './modal.component';
 import { ModalContentComponent } from './modal-content.component';
 import { ModalFooterComponent } from './modal-footer.component';
 import { ModalHeaderComponent } from './modal-header.component';
-import { ExampleModalComponent } from './example/example-modal.component';
 
 @NgModule({
     imports: [
@@ -15,7 +14,6 @@ import { ExampleModalComponent } from './example/example-modal.component';
         ModalContentComponent,
         ModalFooterComponent,
         ModalHeaderComponent,
-        ExampleModalComponent,
     ],
     exports: [
         ModalComponent,

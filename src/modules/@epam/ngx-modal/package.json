@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "Open modal window for your Angular X application",
   "main": "lib",
+  "typings": "./src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc": "tsc",
+    "jsfuse": "jsfuse"
   },
   "keywords": [
     "modal",
     "ngx",
     "angular2"
   ],
-  "license": "Xnet"
+  "license": "Xnet",
+  "devDependencies": {
+    "typescript": "^2.3.1"
+  }
 }

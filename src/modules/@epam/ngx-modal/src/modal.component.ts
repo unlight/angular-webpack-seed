@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 import { focusableSelector, modalIsOpenClass } from './constants';
 
 // TODO: Fix
-require('./ngx-modal.css');
+// require('ngx-modal.css');
 
 @Component({
     exportAs: 'modal',
@@ -29,13 +29,14 @@ export class ModalComponent implements OnDestroy {
     private removeOnClick: Function;
     @ViewChild('body') private body: ElementRef;
 
+    // TODO: Fix
     get ngClassValues() {
-        return {'ngx-modal-open': this.isOpen, '-es-notification': this.isNotification};
+        return { 'ngx-modal-open': this.isOpen, '-es-notification': this.isNotification };
     }
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer,
+        private renderer: Renderer, // TODO: Replace by Renderer2
         private el: ElementRef,
     ) {
     }
@@ -108,10 +109,11 @@ export class ModalComponent implements OnDestroy {
         this.preventBackgroundScrolling();
         this.removeOnClick = this.renderer.listen(this.el.nativeElement, 'click', (e: MouseEvent) => {
             if (this.isOpen) {
-                const //overlay = this.el.nativeElement.querySelector('.es-popup'),
-                    close = this.body.nativeElement.querySelector('.es-close');
+                //overlay = this.el.nativeElement.querySelector('.es-popup'),
+                const close = this.body.nativeElement.querySelector('.es-close');
                 //if overlay or close button clicked
-                if (/*(overlay && e.target === overlay) ||*/ contains(close, <Element>e.target)) {
+                /*(overlay && e.target === overlay) ||*/
+                if (contains(close, <Element>e.target)) {
                     this.close(e);
                 }
             }
@@ -140,27 +142,17 @@ export class ModalComponent implements OnDestroy {
     }
 
     private enableBackgroundScrolling() {
-        // Remove class 'modal-opened' to enable scrollbars on body again.
-        const body = this.document.querySelector('body');
-        if (body) {
-            if (body.classList) {
-                body.classList.remove(modalIsOpenClass);
-            } else {
-                body.className = body.className.replace(new RegExp('(^|\\b)' + modalIsOpenClass.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-            }
-        }
+        this.backgroundScrolling(true);
     }
 
     private preventBackgroundScrolling() {
-        // Add class 'modal-opened' to disable scrollbars on body.
+        this.backgroundScrolling(false);
+    }
+
+    private backgroundScrolling(value: boolean) {
         const body = this.document.querySelector('body');
         if (body) {
-            if (body.classList) {
-                body.classList.add(modalIsOpenClass);
-            } else {
-                body.className += ' ' + modalIsOpenClass;
-            }
+            this.renderer.setElementClass(body, modalIsOpenClass, !value);
         }
-
     }
 }
