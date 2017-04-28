@@ -1,24 +1,25 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { Routes, RouterModule } from '@angular/router';
-import { HashLocationStrategy, LocationStrategy, APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AppErrorHandler } from './app.errorhandler';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HomeComponent } from './home/home.component';
+import { APP_PROVIDERS } from './app.providers';
+import { ConfigStaticLoader, ConfigLoader, ConfigModule } from '@ngx-config/core';
+import { routes } from './app.routes';
 
-const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'welcome', component: WelcomeComponent },
-    { path: 'feature', loadChildren: './feature/feature.module#FeatureModule' }
-];
+import config = require('./app.config');
+
+export function configFactory(): ConfigLoader {
+    return new ConfigStaticLoader(config);
+}
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
-        RouterModule.forRoot(routes)
+        routes,
+        ConfigModule.forRoot({ provide: ConfigLoader, useFactory: configFactory })
     ],
     declarations: [
         AppComponent,
@@ -26,10 +27,6 @@ const routes: Routes = [
         HomeComponent,
     ],
     bootstrap: [AppComponent],
-    providers: [
-        { provide: APP_BASE_HREF, useValue: '/' },
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
-        { provide: ErrorHandler, useClass: AppErrorHandler },
-    ]
+    providers: APP_PROVIDERS
 })
 export class AppModule { }
