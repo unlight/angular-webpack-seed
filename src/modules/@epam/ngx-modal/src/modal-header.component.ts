@@ -4,7 +4,9 @@ import { ModalOptions, OPTIONS } from './constants';
 @Component({
     selector: 'modal-header',
     template: `<header [class]="options.headerClass">
-        <button [class]="options.headerCloseClass" [innerHTML]="options.headerCloseContent"></button>
+        <button (click)="closeEventEmitter.next($event)"
+            [class]="options.headerCloseClass"
+            [innerHTML]="options.headerCloseContent"></button>
         <h1>{{title}}</h1>
         <ng-content></ng-content>
     </header>`
@@ -12,6 +14,7 @@ import { ModalOptions, OPTIONS } from './constants';
 export class ModalHeaderComponent {
 
     @Input() public title: string;
+    public closeEventEmitter: EventEmitter<any> = new EventEmitter();
     private readonly options: ModalOptions
 
     constructor(
@@ -19,5 +22,4 @@ export class ModalHeaderComponent {
     ) {
         this.options = options;
     }
-
 }

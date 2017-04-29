@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
 
     const { removeNgStyles, createNewHosts, bootloader } = require('@angularclass/hmr') as any;
-    const { AppComponent } = require('./app/app.component') as any;
+    const { AppComponent } = require('./app/app.component') as any; // eslint-disable-line import/max-dependencies
 
     @NgModule({
         imports: [AppModule],

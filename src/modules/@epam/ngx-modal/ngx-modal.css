@@ -19,6 +19,7 @@
 }
 
 .ngx-modal-body {
+    outline: 0;
     background: #eee;
     width: 80vw;
     margin: 10vh 10vw 1em;
