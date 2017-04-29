@@ -1,4 +1,4 @@
-import { Input, Output, Component, ElementRef, EventEmitter, Inject, OnDestroy, Renderer, ViewChild, Renderer2, ContentChild, OnInit, HostListener } from '@angular/core';
+import { Input, Output, Component, ElementRef, EventEmitter, Inject, OnDestroy, ViewChild, Renderer2, ContentChild, OnInit, HostListener } from '@angular/core';
 import { contains } from './functions';
 import { focusableSelector, OPTIONS, ModalOptions } from './constants';
 import { ModalHeaderComponent } from './modal-header.component';
@@ -28,8 +28,7 @@ export class ModalComponent implements OnDestroy, OnInit {
 
     constructor(
         @Inject(OPTIONS) private readonly options: ModalOptions,
-        private renderer: Renderer, // TODO: Replace by Renderer2
-        private renderer2: Renderer2,
+        private renderer: Renderer2,
         private router: Router,
     ) {
     }
@@ -42,17 +41,17 @@ export class ModalComponent implements OnDestroy, OnInit {
         }
     }
 
-    close(event?: any): void {
+    close(event?: any) {
         this.cleanUp();
         this.onClose.emit(event);
         this.isOpen = false;
-        if (this.options.closeOnRouteChange) {
+        if (this.options.routeOnClose) {
             const outlets = this.options.routeOutlets.reduce((acc, outlet) => (acc[outlet] = null, acc), {});
             this.router.navigate([{ outlets }]);
         }
     }
 
-    open(event?: any): void {
+    open(event?: any) {
         this.onOpen.emit(event);
         this.isOpen = true;
         this.doOnOpen();
@@ -103,7 +102,7 @@ export class ModalComponent implements OnDestroy, OnInit {
         const focusFirst = () => {
             if (focusable.length > 0) {
                 const [element] = focusable;
-                this.renderer.invokeElementMethod(element, 'focus'); // todo: use renderer2 for focus
+                element && element.focus && element.focus();
                 return true;
             }
             return false;
@@ -111,7 +110,7 @@ export class ModalComponent implements OnDestroy, OnInit {
         const focusLast = (): boolean => {
             if (focusable.length > 0) {
                 const [element] = focusable.slice(-1);
-                this.renderer.invokeElementMethod(element, 'focus');
+                element && element.focus && element.focus();
                 return true;
             }
             return false;
@@ -134,7 +133,8 @@ export class ModalComponent implements OnDestroy, OnInit {
 
     private doOnOpen() {
         setTimeout(() => {
-            this.renderer.invokeElementMethod(this.body.nativeElement, 'focus');
+            const ne = this.body.nativeElement;
+            ne && ne.focus && ne.focus();
         });
         this.preventBackgroundScrolling();
     }
@@ -160,7 +160,7 @@ export class ModalComponent implements OnDestroy, OnInit {
         const body = document.querySelector('body');
         if (body) {
             const method = (value) ? 'removeClass' : 'addClass';
-            this.renderer2[method](body, this.options.popupOpenedClass);
+            this.renderer[method](body, this.options.popupOpenedClass);
         }
     }
 }
