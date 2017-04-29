@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 @Component({
     template: `
-<modal (onClose)="onClose()">
+<modal (onClose)="onClose()" isOpen="true">
     <modal-header [title]="'Example Title'"></modal-header>
     <modal-content>
         Example Modal Content

@@ -2,14 +2,11 @@ import { Input, Output, Component, ElementRef, EventEmitter, Inject, OnDestroy, 
 import { contains } from './functions';
 import { focusableSelector, OPTIONS, ModalOptions } from './constants';
 
-// TODO: Fix
-// require('ngx-modal.css');
-
 @Component({
     exportAs: 'modal',
     selector: 'modal',
     template: `<div [class]="options.popupClass" [ngClass]="ngClassValues">
-            <section [class]="options.popupBodyClass" #body>
+            <section [class]="options.bodyClass" #body>
                 <ng-content></ng-content>
             </section>
         </div>`

@@ -1,9 +1,10 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input, Inject, EventEmitter } from '@angular/core';
 import { ModalOptions, OPTIONS } from './constants';
 
 @Component({
     selector: 'modal-header',
     template: `<header [class]="options.headerClass">
+        <button [class]="options.headerCloseClass" [innerHTML]="options.headerCloseContent"></button>
         <h1>{{title}}</h1>
         <ng-content></ng-content>
     </header>`
@@ -18,4 +19,5 @@ export class ModalHeaderComponent {
     ) {
         this.options = options;
     }
+
 }

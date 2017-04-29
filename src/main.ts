@@ -4,6 +4,7 @@ require('core-js/es7/array');
 require('zone.js/dist/zone');
 
 require('./app.scss');
+require('@epam/ngx-modal/ngx-modal.css');
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode, NgModule, ApplicationRef } from '@angular/core';

@@ -21,21 +21,25 @@ export type ModalOptions = {
     isOpenClass: string;
     isNotificationClass: string;
     popupClass: string;
-    popupBodyClass: string;
+    bodyClass: string;
     headerClass: string;
     footerClass: string;
     contentClass: string;
+    headerCloseClass: string;
+    headerCloseContent: string;
 };
 
 export const defaultOptions: ModalOptions = {
     popupOpenedClass: 'ngx-modal-popup-opened',
-    isOpenClass: 'ngx-modal-is-open',
-    isNotificationClass: 'ngx-modal-is-notification',
+    isOpenClass: 'ngx-modal-open',
+    isNotificationClass: 'ngx-modal-notification',
     popupClass: 'ngx-modal-popup',
-    popupBodyClass: 'ngx-modal-popup-body',
+    bodyClass: 'ngx-modal-body',
     headerClass: 'ngx-modal-header',
     footerClass: 'ngx-modal-footer',
     contentClass: 'ngx-modal-content',
+    headerCloseClass: 'ngx-modal-header-close',
+    headerCloseContent: '&times;',
 };
 
 export const OPTIONS = new InjectionToken<ModalOptions>('ModalOptions');

@@ -4,8 +4,7 @@
   "description": "Open modal window for your Angular X application",
   "typings": "./src/index.ts",
   "scripts": {
-    "tsc": "tsc",
-    "jsfuse": "jsfuse"
+    "tsc": "tsc"
   },
   "keywords": [
     "modal",
