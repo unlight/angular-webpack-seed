@@ -2,6 +2,7 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { Component, ViewChild, DebugElement } from '@angular/core';
 import { ModalComponent } from './modal.component';
 import { ModalModule } from './modal.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ModalComponent:', () => {
 
@@ -13,6 +14,7 @@ describe('ModalComponent:', () => {
         TestBed
             .configureTestingModule({
                 imports: [
+                    RouterTestingModule,
                     ModalModule
                 ],
                 declarations: [

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
     template: `
 <modal (onClose)="onClose()" isOpen="true">
-    <modal-header [title]="'Example Title'"></modal-header>
+    <modal-header [title]="'Heading'"></modal-header>
     <modal-content>
         Example Modal Content
         <a href="#">Link</a>
@@ -21,11 +21,7 @@ export class ExampleModalComponent {
         private router: Router,
     ) { }
 
-    ngOnInit() {
-        this.modal.open();
-    }
-
     onClose() {
-        this.router.navigate([{ outlets: { modal: null } }]);
+        // this.router.navigate([{ outlets: { modal: null } }]);
     }
 }

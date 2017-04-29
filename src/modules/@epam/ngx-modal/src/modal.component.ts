@@ -3,6 +3,7 @@ import { contains } from './functions';
 import { focusableSelector, OPTIONS, ModalOptions } from './constants';
 import { ModalHeaderComponent } from './modal-header.component';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 /**
  * 1. To make div focusable tabindex was added.
  */
@@ -29,6 +30,7 @@ export class ModalComponent implements OnDestroy, OnInit {
         @Inject(OPTIONS) private readonly options: ModalOptions,
         private renderer: Renderer, // TODO: Replace by Renderer2
         private renderer2: Renderer2,
+        private router: Router,
     ) {
     }
 
@@ -44,6 +46,10 @@ export class ModalComponent implements OnDestroy, OnInit {
         this.cleanUp();
         this.onClose.emit(event);
         this.isOpen = false;
+        if (this.options.closeOnRouteChange) {
+            const outlets = this.options.routeOutlets.reduce((acc, outlet) => (acc[outlet] = null, acc), {});
+            this.router.navigate([{ outlets }]);
+        }
     }
 
     open(event?: any): void {

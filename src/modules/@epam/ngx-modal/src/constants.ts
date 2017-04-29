@@ -27,6 +27,8 @@ export type ModalOptions = {
     contentClass: string;
     headerCloseClass: string;
     headerCloseContent: string;
+    closeOnRouteChange: boolean;
+    routeOutlets: string[];
 };
 
 export const defaultOptions: ModalOptions = {
@@ -40,6 +42,8 @@ export const defaultOptions: ModalOptions = {
     contentClass: 'ngx-modal-content',
     headerCloseClass: 'ngx-modal-header-close',
     headerCloseContent: '&times;',
+    closeOnRouteChange: true,
+    routeOutlets: ['modal'],
 };
 
 export const OPTIONS = new InjectionToken<ModalOptions>('ModalOptions');
