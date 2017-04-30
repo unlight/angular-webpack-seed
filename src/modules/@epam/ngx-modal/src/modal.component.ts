@@ -34,10 +34,8 @@ export class ModalComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
-        if (this.header) {
-            this.closeSubscription = this.header.closeEventEmitter.subscribe((e: Event) => {
-                this.close(e);
-            });
+        if (this.isOpen) {
+            this.open();
         }
     }
 
@@ -132,9 +130,14 @@ export class ModalComponent implements OnDestroy, OnInit {
     }
 
     private doOnOpen() {
+        if (this.header) {
+            this.closeSubscription = this.header.closeEventEmitter.subscribe((e: Event) => {
+                this.close(e);
+            });
+        }
         setTimeout(() => {
-            const ne = this.body.nativeElement;
-            ne && ne.focus && ne.focus();
+            const element = this.body.nativeElement;
+            element && element.focus && element.focus();
         });
         this.preventBackgroundScrolling();
     }

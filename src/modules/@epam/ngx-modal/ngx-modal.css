@@ -34,7 +34,7 @@
   box-sizing: border-box;
 }
 
-.ngx-modal-header-close {
+.ngx-modal-button-close {
     cursor: pointer;
     position: absolute;
     top: 1em;

@@ -5,6 +5,7 @@ import { ModalContentComponent } from './modal-content.component';
 import { ModalFooterComponent } from './modal-footer.component';
 import { ModalHeaderComponent } from './modal-header.component';
 import { ModalOptions, defaultOptions, OPTIONS } from './constants';
+import { ModalConfirmComponent } from './modal-confirm.component';
 
 @NgModule({
     imports: [
@@ -15,12 +16,14 @@ import { ModalOptions, defaultOptions, OPTIONS } from './constants';
         ModalContentComponent,
         ModalFooterComponent,
         ModalHeaderComponent,
+        ModalConfirmComponent,
     ],
     exports: [
         ModalComponent,
         ModalContentComponent,
         ModalFooterComponent,
         ModalHeaderComponent,
+        ModalConfirmComponent,
     ],
     providers: [
         { provide: OPTIONS, useValue: defaultOptions }
