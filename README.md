@@ -65,7 +65,7 @@ DEVELOPMENT TIPS
 
 RESOURCES
 ---
-* [Configuration utility for Angular](https://github.com/unlight/ngx-config)
+* [Configuration utility for Angular](https://github.com/ngx-config/core)
 * [An Angular 2 module for mocking components](https://github.com/cnunciato/ng2-mock-component)
 * [Angular X spy object (mock, stub) helper](https://github.com/unlight/spy-object)
 * [Simple, fluent Http mocking for Angular 2](https://github.com/CodeSequence/respond-ng)
