@@ -11,8 +11,5 @@
     "ngx",
     "angular2"
   ],
-  "license": "Xnet",
-  "devDependencies": {
-    "typescript": "^2.3.1"
-  }
+  "license": "Xnet"
 }

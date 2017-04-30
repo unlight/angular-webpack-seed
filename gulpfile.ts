@@ -110,3 +110,12 @@ gulp.task('killzombie', () => {
         return Promise.resolve();
     }
 });
+
+gulp.task('build:ngx-modal', (done) => {
+    const projectPath = `${__dirname}/src/modules/@epam/ngx-modal`;
+    const proc = spawn('npm', [...'run tsc --'.split(' '),
+        `--project`, projectPath,
+        `--outDir`, `${projectPath}/lib`,
+    ], { stdio: 'inherit' });
+    proc.once('exit', done);
+});
