@@ -32,7 +32,7 @@ export type ModalOptions = {
     /**
      * Content in close button tag.
      */
-    headerCloseContent: string;
+    buttonCloseContent: string;
     /**
      * Navigate back when modal close (useful for route modals)
      */
@@ -53,7 +53,7 @@ export const defaultOptions: ModalOptions = {
     footerClass: 'ngx-modal-footer',
     contentClass: 'ngx-modal-content',
     buttonCloseClass: 'ngx-modal-button-close',
-    headerCloseContent: '&times;',
+    buttonCloseContent: '&times;',
     routeOnClose: true,
     routeOutlets: ['modal'],
 };

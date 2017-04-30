@@ -5,8 +5,8 @@ import { ModalOptions, OPTIONS } from './constants';
     selector: 'modal-header',
     template: `<header [class]="options.headerClass">
         <button (click)="closeEventEmitter.next($event)"
-            [class]="options.headerCloseClass"
-            [innerHTML]="options.headerCloseContent"></button>
+            [class]="options.buttonCloseClass"
+            [innerHTML]="options.buttonCloseContent"></button>
         <h1>{{title}}</h1>
         <ng-content></ng-content>
     </header>`
