@@ -4,7 +4,7 @@ import { ModalOptions, OPTIONS } from './constants';
 @Component({
     selector: 'modal-header',
     template: `<header [class]="options.headerClass">
-        <button (click)="closeEventEmitter.next($event)"
+        <button *ngIf="hasCloseButton" (click)="closeEventEmitter.next($event)"
             [class]="options.buttonCloseClass"
             [innerHTML]="options.buttonCloseContent"></button>
         <h1>{{title}}</h1>
@@ -14,6 +14,7 @@ import { ModalOptions, OPTIONS } from './constants';
 export class ModalHeaderComponent {
 
     @Input() public title: string;
+    @Input() public hasCloseButton: boolean;
     public closeEventEmitter: EventEmitter<any> = new EventEmitter();
     private readonly options: ModalOptions
 
@@ -21,5 +22,6 @@ export class ModalHeaderComponent {
         @Inject(OPTIONS) options: ModalOptions,
     ) {
         this.options = options;
+        this.hasCloseButton = this.options.hasCloseButton;
     }
 }

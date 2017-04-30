@@ -24,6 +24,7 @@ export function configFactory(): ConfigLoader {
         APP_ROUTES,
         RouterModule.forRoot([
             { path: ':code', outlet: 'modal', component: ExampleModalComponent },
+            { path: 'some/:value', outlet: 'modal', component: ExampleModalComponent },
         ]),
         ConfigModule.forRoot({ provide: ConfigLoader, useFactory: configFactory })
     ],

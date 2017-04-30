@@ -2,7 +2,7 @@
   "name": "@epam/ngx-modal",
   "version": "1.0.0",
   "description": "Open modal window for your Angular X application",
-  "typings": "./lib/index.d.ts",
+  "typings": "./src/index.ts",
   "scripts": {
     "tsc": "tsc"
   },

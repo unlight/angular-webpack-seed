@@ -41,6 +41,10 @@ export type ModalOptions = {
      * Aux routes for routeOnClose setting.
      */
     routeOutlets: string[];
+    hasCloseButton: boolean;
+    confirmFooterToolbarClass: string;
+    confirmOkayButtonClass: string;
+    confirmCancelButtonClass: string;
 };
 
 export const defaultOptions: ModalOptions = {
@@ -56,6 +60,10 @@ export const defaultOptions: ModalOptions = {
     buttonCloseContent: '&times;',
     routeOnClose: true,
     routeOutlets: ['modal'],
+    hasCloseButton: true,
+    confirmFooterToolbarClass: 'ngx-modal-confirm-footer-toolbar',
+    confirmOkayButtonClass: '',
+    confirmCancelButtonClass: '',
 };
 
 export const OPTIONS = new InjectionToken<ModalOptions>('ModalOptions');
