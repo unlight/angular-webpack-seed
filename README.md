@@ -1,27 +1,6 @@
 angular-webpack-seed
 ====================
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-* Quick summary
-* Version
-
-### How do I get set up? ###
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-* Repo owner or admin
-* Other community or team contact
+Angular X single page application starter.
 
 STACK
 ---
@@ -29,6 +8,7 @@ STACK
 * TypeScript 2
 * Webpack 2
 * Karma / NightmareJS 2 (Electron)
+* Stryker
 * Gulp 4
 * ESLint with useful plugins
 
@@ -38,6 +18,7 @@ FEATURES
 * Faster unit testing (NightmareJS runs 2 times faster than PhantomJS)
 * Hot reload, HMR (Hot Module Replacement)
 * AoT (with routes lazy loading)
+* Mutation testing
 
 QUICK START
 ---
@@ -46,6 +27,11 @@ git clone https://github.com/unlight/angular-webpack-seed && cd angular-webpack-
 npm i 
 npm run start
 ```
+
+HUSKY
+---
+* Install: `npm i husky`
+* Uninstall: `npm r husky`
 
 TASKS
 ---
@@ -68,7 +54,8 @@ TASKS
 | `npm run build:all`         | Sequence of build:vendors > build                                      |
 | `npm run coverage`          | Run test coverage with verbose reporing                                |
 | `npm run coverage:debug`    | Run coverage task in debug mode                                        |
-| `npm run p`                 | Run tasks in parallel                                                   |
+| `npm run p "t1" "t2"`       | Run tasks in parallel                                                  |
+| `npm run stryker`           | Run mutation tests                                                     |
 
 
 DEVELOPMENT TIPS
@@ -78,7 +65,7 @@ DEVELOPMENT TIPS
 
 RESOURCES
 ---
-* [Configuration utility for Angular](https://github.com/unlight/ngx-config)
+* [Configuration utility for Angular](https://github.com/ngx-config/core)
 * [An Angular 2 module for mocking components](https://github.com/cnunciato/ng2-mock-component)
 * [Angular X spy object (mock, stub) helper](https://github.com/unlight/spy-object)
 * [Simple, fluent Http mocking for Angular 2](https://github.com/CodeSequence/respond-ng)
@@ -95,6 +82,7 @@ RESOURCES
 * [Simple tabs control for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-tabs)
 * [Simple pagination control for your angular2 applications using bootstrap3](https://github.com/pleerock/ngx-paginator)
 * [Angular directives for displaying validation messages similar to these from AngularJs](https://github.com/DmitryEfimenko/ngx-messages)
+* [A declarative validation errors module for reactive forms](https://github.com/UltimateAngular/ngxerrors)
 * [Implementation of Angular 1.x $cookies service to Angular 2](https://github.com/salemdar/ngx-cookie)
 * [An Angular component for a customizable date and time picker](https://github.com/RenovoSolutions/ngx-datetimepicker)
 * [Angular 2+ (ngx) ng2 truncate module from Directive, Pipe and Service](https://github.com/doorgets/ng-truncate)
@@ -103,12 +91,25 @@ RESOURCES
 * [Angular X (2+) Async external scripts loading](https://github.com/zenkkor/ngx-asyncscripts)
 * [Show busy/loading indicators on any promise, or on any Observable's subscription](https://github.com/devyumao/angular2-busy)
 * [Component event delegation](https://gist.github.com/matthieu-D/c56ce33e844b1f6e6d692149c31bb83b)
+* [Limitations with AoT](https://github.com/UltimateAngular/aot-loader/wiki/Limitations-with-AoT)
+* [AoT Do's and Don'ts](https://github.com/rangle/angular-2-aot-sandbox#aot-dos-and-donts)
+* [5 Rookie Mistakes to Avoid with Angular 2](http://angularjs.blogspot.ru/2016/04/5-rookie-mistakes-to-avoid-with-angular.html)
+* [A reusable chart library for d3.js](https://github.com/nvd3-community/nvd3)
+* [A Comprehensive Introduction to @ngrx/store](https://gist.github.com/btroncone/a6e4347326749f938510)
+* [Class decorator that will automatically unsubscribe from observables and events](https://github.com/NetanelBasal/ngx-auto-unsubscribe)
+* [Observable-based virtual scroll implementation in Angular](https://github.com/dinony/od-virtualscroll)
+* [Angular Update Guide](https://angular-update-guide.firebaseapp.com/)
+
+KNOWN ISSUES
+---
+* Cannot use component css tostring with aot https://github.com/UltimateAngular/aot-loader/issues/12
+  (workaround disable sourcemaps)
+* Stryker: webpack cannot load plugins https://github.com/stryker-mutator/stryker-karma-runner/issues/20
 
 TODO
 ---
 * https://github.com/unlight/angular-webpack-seed/issues
 * ngrx redux example
-* husky scripts
 
 DEBUG
 ---

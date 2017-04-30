@@ -1,8 +1,9 @@
 ~*
-/node_modules/
+node_modules/
 /build/
 /.testresults/
 /dist/
 /npm-debug.log
 /debug.log
 /.vscode/
+/.stryker-tmp/

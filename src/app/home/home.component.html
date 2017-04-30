@@ -1,5 +1,10 @@
+<div>
+    <a [routerLink]="['/']">Home</a> |
+    <a [routerLink]="['welcome']">Welcome</a>
+</div>
+
 <h2>Home</h2>
 
-<input [(ngModel)]="name">
+<input class="pt-input" [(ngModel)]="name">
 
 <p id="name-result">Hello {{name}}</p>
