@@ -6,7 +6,7 @@ import { ModalComponent } from './modal.component';
 
 @Component({
     selector: 'modal-confirm',
-    template: `<modal (onOpen)="onOpen()" (onClose)="onClose()">
+    template: `<modal (onOpen)="onOpen()">
     <modal-header [title]="title"></modal-header>
     <modal-content>
         <div [innerHTML]="content"></div>
@@ -24,7 +24,6 @@ import { ModalComponent } from './modal.component';
 export class ModalConfirmComponent {
 
     @Input() title: string;
-    @Input() studyName: string;
     @Input() content: string;
     result: Subject<boolean> = new Subject<boolean>();
     @ViewChild(ModalComponent) private modal: ModalComponent;
@@ -51,10 +50,6 @@ export class ModalConfirmComponent {
         if (this.modal) {
             this.modal.close();
         }
-    }
-
-    private onClose() {
-
     }
 
     private ok() {
