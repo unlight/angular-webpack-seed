@@ -1,0 +1,3 @@
+[submodule "src/modules/@epam/ngx-modal"]
+	path = src/modules/@epam/ngx-modal
+	url = https://github.com/unlight/ngx-modal
