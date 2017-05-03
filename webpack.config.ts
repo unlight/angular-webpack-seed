@@ -10,6 +10,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const CssEntryPlugin = require('css-entry-webpack-plugin');
 const aotLoader = require('@ultimate/aot-loader');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 // NormalModuleReplacementPlugin example https://github.com/mateuszmazurek/NormalModuleReplacementPlugin-test/blob/master/webpack.config.js
 
 const sourcePath = Path.join(__dirname, 'src');
@@ -254,7 +255,10 @@ export = (options: Options = {}) => {
                     }),
                     new webpack.DefinePlugin({
                         'process.env.NODE_ENV': JSON.stringify('production')
-                    })
+                    }),
+                    new CopyWebpackPlugin([
+                        { from: 'src/i18n', to: 'i18n' }
+                    ], { debug: 'info' })
                 );
             }
             if (options.prod) {
