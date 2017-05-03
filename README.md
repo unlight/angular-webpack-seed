@@ -19,6 +19,7 @@ FEATURES
 * Hot reload, HMR (Hot Module Replacement)
 * AoT (with routes lazy loading)
 * Mutation testing
+* Conditional linting for source and spec files
 
 QUICK START
 ---
