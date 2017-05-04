@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
 import { APP_PROVIDERS } from './app.providers';
 import { ConfigStaticLoader, ConfigLoader, ConfigModule } from '@ngx-config/core';
 import { APP_ROUTES } from './app.routes';
@@ -16,7 +15,6 @@ export function configFactory(): ConfigLoader {
 @NgModule({
     imports: [
         BrowserModule,
-        FormsModule,
         APP_ROUTES,
         ConfigModule.forRoot({ provide: ConfigLoader, useFactory: configFactory }),
         HomeModule,

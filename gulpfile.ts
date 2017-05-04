@@ -8,7 +8,6 @@ import { Application } from '@types/express';;
 import assert = require('assert');
 const gulp = require('gulp');
 const g = require('gulp-load-plugins')();
-const args = g.util.env;
 const buildPath = Path.join(__dirname, 'build');
 
 function sourceLint() {

@@ -7,14 +7,11 @@ import _ = require('lodash');
 const readPkgUp = require('read-pkg-up');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const DashboardPlugin = require('webpack-dashboard/plugin');
-const CssEntryPlugin = require('css-entry-webpack-plugin');
-const aotLoader = require('@ultimate/aot-loader');
 // NormalModuleReplacementPlugin example https://github.com/mateuszmazurek/NormalModuleReplacementPlugin-test/blob/master/webpack.config.js
 
 const sourcePath = Path.join(__dirname, 'src');
 const buildPath = Path.join(__dirname, 'build');
-const context = __dirname;
+const context = sourcePath;
 
 const watchOptions = {
     aggregateTimeout: 150,
@@ -61,10 +58,15 @@ const postPlugins = [
 export = (options: Options = {}) => {
     options = _.merge({}, defaultOptions, options);
     _.each(options, (value, key) => (value) ? process.stdout.write(`${key} `) : null);
+    let stats = {
+        version: false,
+        maxModules: 0,
+        children: false,
+    };
     const config: any = {
         context: context,
         entry: {
-            app: './src/main.ts',
+            app: './main.ts',
             libs: (() => {
                 let dependencies = Object.keys(readPkgUp.sync().pkg.dependencies);
                 _.pull(dependencies, 'core-js', 'zone.js'); // We do not need all from there
@@ -111,10 +113,11 @@ export = (options: Options = {}) => {
             historyApiFallback: true,
             hot: true,
             inline: true,
-            stats: 'normal',
+            stats: stats,
             // stats: { reasons: true, maxModules: 10000 },
             watchOptions: watchOptions,
         },
+        stats: stats,
         node: {
             // workaround for webpack-dev-server issue
             // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
@@ -189,7 +192,7 @@ export = (options: Options = {}) => {
                         ];
                         if (options.prod) {
                             result = ExtractTextPlugin.extract({
-                                fallback: 'style-loader',
+                                // fallback: 'style-loader',
                                 // resolve-url-loader may be chained before sass-loader if necessary
                                 use: result
                             });
@@ -225,6 +228,7 @@ export = (options: Options = {}) => {
                 ])
             ];
             if (options.dashboard) {
+                const DashboardPlugin = require('webpack-dashboard/plugin');
                 result.push(new DashboardPlugin());
             }
             if (options.hmr) {
@@ -232,13 +236,14 @@ export = (options: Options = {}) => {
             }
             if (!options.test) {
                 result.push(new HtmlWebpackPlugin({
-                    template: './src/index.ejs',
+                    template: './index.ejs',
                     minify: false,
                     excludeChunks: [],
                     config: options,
                 }));
             }
             if (options.aot) {
+                const aotLoader = require('@ultimate/aot-loader');
                 result.push(new aotLoader.AotPlugin({
                     tsConfig: './tsconfig.json',
                     entryModule: `./src/app/app.module#AppModule` // path is relative to tsConfig above
@@ -286,6 +291,7 @@ export = (options: Options = {}) => {
         });
         config.module.rules = [];
     } else if (options.vendorStyle) {
+        const CssEntryPlugin = require('css-entry-webpack-plugin');
         const rules = config.module.rules;
         let cssLoaderOptions: any = {
             sourceMap: true
