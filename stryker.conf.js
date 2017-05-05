@@ -12,12 +12,12 @@ module.exports = function(config) {
         testRunner: 'karma',
         testFramework: 'jasmine',
         coverageAnalysis: 'perTest',
-        reporter: ['clear-text', 'html', 'progress'],
+        reporter: ['progress', 'html'],
         htmlReporter: {
             baseDir: '.testresults/mutation'
         },
         // logLevel: 'debug',
-        maxConcurrentTestRunners: 2,
+        maxConcurrentTestRunners: 1,
         clearTextReporter: {
             maxTestsToLog: 0
         },
