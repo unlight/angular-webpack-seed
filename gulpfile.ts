@@ -6,9 +6,7 @@ import * as fs from 'fs';
 import * as Path from 'path';
 import { Application } from '@types/express';;
 import assert = require('assert');
-const spawn = require('cross-spawn');
 const gulp = require('gulp');
-const readPkgUp = require('read-pkg-up');
 const g = require('gulp-load-plugins')();
 const args = g.util.env;
 const buildPath = Path.join(__dirname, 'build');
@@ -45,6 +43,8 @@ gulp.task('eslint:watch', (done) => {
 });
 
 gulp.task('server:prestart', done => {
+    const spawn = require('cross-spawn');
+    const readPkgUp = require('read-pkg-up');
     const version = readPkgUp.sync().pkg.version;
     const libsInfoFile = Path.resolve('node_modules', '.vendor-libs.build.json');
     const libs = `${buildPath}/libs.json`;
@@ -93,13 +93,20 @@ gulp.task('test:int', () => {
         .catch(err => Promise.reject(String(err)));
 });
 
-gulp.task('stryker:source', (done) => {
+gulp.task('stryker:source', () => {
     gulp.src('src/**/!(*.ts)', { base: 'src' })
-        .pipe(gulp.dest(`${buildPath}/source`))
-        .on('end', () => {
-            const proc = spawn('npm', [...'run tsc -- --target ES6'.split(' '), `--outDir`, `${buildPath}/source`], { stdio: 'inherit' });
-            proc.once('exit', done);
-        });
+        .pipe(gulp.dest(`${buildPath}/source`));
+    let {compilerOptions} = require('./tsconfig.json');
+    Object.assign(compilerOptions, {
+        target: 'es6',
+        sourceMap: false,
+        declaration: false,
+        isolatedModules: true,
+        outDir: `${buildPath}/source`,
+    });
+    return gulp.src(['src/**/*.ts', 'src/spec.module.js'])
+        .pipe(g.typescript(compilerOptions))
+        .pipe(gulp.dest(`${buildPath}/source`));
 });
 
 gulp.task('killzombie', () => {
