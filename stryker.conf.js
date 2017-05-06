@@ -4,20 +4,20 @@ const Path = require('path');
 module.exports = function(config) {
     config.set({
         files: [
-            { pattern: 'build/source/**/!(*.spec|main|spec.module).js', mutated: true, included: false },
-            { pattern: 'build/source/**/*.spec.js', mutated: false, included: false },
-            { pattern: 'build/source/**/*.{scss,html}', included: false, mutated: false },
-            'build/source/spec.module.js', // { pattern: 'pattern', included: true, mutated: false }
+            { pattern: 'build/source/spec.module.js', mutated: false, included: true },
+            { pattern: 'build/source/**/*.component.js', mutated: true, included: false },
+            // { pattern: 'build/source/**/!(*.spec|main|spec.module).js', mutated: true, included: false }, ERROR [karma]: { Error: socket hang up
+            { pattern: 'build/source/**/*.{js,scss,html}', included: false, mutated: false },
         ],
         testRunner: 'karma',
         testFramework: 'jasmine',
         coverageAnalysis: 'perTest',
-        reporter: ['clear-text', 'html', 'progress'],
+        reporter: ['progress', 'html'],
         htmlReporter: {
             baseDir: '.testresults/mutation'
         },
-        // logLevel: 'debug',
-        maxConcurrentTestRunners: 2,
+        // logLevel: 'trace',
+        // maxConcurrentTestRunners: 1,
         clearTextReporter: {
             maxTestsToLog: 0
         },
@@ -50,7 +50,10 @@ module.exports = function(config) {
                 //         manifest: require(libs)
                 //     })
                 // ]
-            }
+            },
+            webpackMiddleware: {
+                stats: 'errors-only'
+            },
         },
         // karmaConfigFile: 'karma.conf.ts' // <-- add your karma.conf.js file here
         // mutate: [

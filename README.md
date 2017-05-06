@@ -100,6 +100,7 @@ RESOURCES
 * [Class decorator that will automatically unsubscribe from observables and events](https://github.com/NetanelBasal/ngx-auto-unsubscribe)
 * [Observable-based virtual scroll implementation in Angular](https://github.com/dinony/od-virtualscroll)
 * [Angular Update Guide](https://angular-update-guide.firebaseapp.com/)
+* [Intrinsic first flexbox grid](https://github.com/argyleink/ragrid)
 
 KNOWN ISSUES
 ---
@@ -109,8 +110,11 @@ KNOWN ISSUES
 
 TODO
 ---
+* try https://prepack.io/
 * https://github.com/unlight/angular-webpack-seed/issues
 * ngrx redux example
+  - https://github.com/CodeSequence/ngrx-workshop
+
 
 DEBUG
 ---
