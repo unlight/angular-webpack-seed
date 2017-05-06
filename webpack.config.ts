@@ -262,7 +262,7 @@ export = (options: Options = {}) => {
                         'process.env.NODE_ENV': JSON.stringify('production')
                     }),
                     new CopyWebpackPlugin([
-                        { from: 'src/i18n', to: 'i18n' }
+                        { from: 'i18n', to: 'i18n' } // from is relative to context
                     ], { debug: 'info' }),
                 );
             }

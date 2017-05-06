@@ -7,7 +7,7 @@ module.exports = function(config) {
             { pattern: 'build/source/spec.module.js', mutated: false, included: true },
             { pattern: 'build/source/**/*.component.js', mutated: true, included: false },
             // { pattern: 'build/source/**/!(*.spec|main|spec.module).js', mutated: true, included: false }, ERROR [karma]: { Error: socket hang up
-            { pattern: 'build/source/**/*.{js,scss,html}', included: false, mutated: false },
+            { pattern: 'build/source/**/*.{js,scss,html,json}', included: false, mutated: false },
         ],
         testRunner: 'karma',
         testFramework: 'jasmine',
@@ -22,6 +22,9 @@ module.exports = function(config) {
             maxTestsToLog: 0
         },
         karmaConfig: {
+            proxies: {
+                '/i18n/': '/base/build/source/i18n/',
+            },
             preprocessors: {
                 '**/spec.module.js': ['webpack'],
             },
