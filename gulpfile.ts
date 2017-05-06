@@ -42,20 +42,29 @@ gulp.task('eslint:watch', (done) => {
 });
 
 gulp.task('server:prestart', done => {
+    const objectDiff = require('object-diff');
     const spawn = require('cross-spawn');
     const readPkgUp = require('read-pkg-up');
-    const version = readPkgUp.sync().pkg.version;
+    const { version, dependencies } = readPkgUp.sync().pkg;
+    const currentLibsInfo = Object.assign({}, { version }, dependencies);
     const libsInfoFile = Path.resolve('node_modules', '.vendor-libs.build.json');
-    const libs = `${buildPath}/libs.json`;
-    if (fs.existsSync(libs) && fs.existsSync(libsInfoFile)) {
-        const libsInfo = require(libsInfoFile);
-        if (version === (libsInfo && libsInfo.version)) {
+    if (fs.existsSync(`${buildPath}/libs.json`) && fs.existsSync(libsInfoFile)) {
+        const prevLibsInfo = require(libsInfoFile);
+        const d = objectDiff(prevLibsInfo, currentLibsInfo);
+        const hasDifference = _.keys(d).length > 0;
+        if (!hasDifference) {
             return done();
         }
+        g.util.log(g.util.colors.yellow('Version changed or found changes in dependencies, rebuilding vendor libs'));
+        _.forEach(d, (version, pkname) => {
+            g.util.log(`${pkname} ${g.util.colors.cyan(version)}`);
+        });
+    } else {
+        g.util.log(g.util.colors.yellow('Initial build of vendor libs'));
     }
     const proc = spawn('npm', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
     proc.once('exit', () => {
-        fs.writeFileSync(libsInfoFile, JSON.stringify({ version }));
+        fs.writeFileSync(libsInfoFile, JSON.stringify(currentLibsInfo));
         done();
     });
 });
