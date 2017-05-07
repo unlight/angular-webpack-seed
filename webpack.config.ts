@@ -319,7 +319,9 @@ export = (options: Options = {}) => {
             },
             plugins: [
                 new CssEntryPlugin({
-                    output: { filename: '[name].css' }
+                    output: {
+                        filename: `[name]${options.prod ? '-[contenthash:6]' : ''}.css`
+                    }
                 })
             ]
         });
@@ -340,6 +342,21 @@ export = (options: Options = {}) => {
                 })
             );
         }
+        const AssetInjectHtmlWebpackPlugin = require('asset-inject-html-webpack-plugin');
+        const glob = require('glob');
+        let [style] = glob.sync(`${buildPath}/style*.css`);
+        if (!style) {
+            throw new Error('Style not found, make sure that you build it.');
+        }
+        config.plugins.push(
+            new AssetInjectHtmlWebpackPlugin({
+                assets: {
+                    style: Path.basename(style),
+                    libs: 'libs.js',
+                },
+                args: options,
+            })
+        );
     }
 
     return config;
