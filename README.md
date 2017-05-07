@@ -101,6 +101,7 @@ RESOURCES
 * [Observable-based virtual scroll implementation in Angular](https://github.com/dinony/od-virtualscroll)
 * [Angular Update Guide](https://angular-update-guide.firebaseapp.com/)
 * [Intrinsic first flexbox grid](https://github.com/argyleink/ragrid)
+* [Fast JiT compiler for Angular testing](https://github.com/Quramy/ngx-zombie-compiler)
 
 KNOWN ISSUES
 ---
