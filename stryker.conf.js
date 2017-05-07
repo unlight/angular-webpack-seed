@@ -1,5 +1,5 @@
-const webpack = require('webpack');
-const Path = require('path');
+// const webpack = require('webpack');
+// const Path = require('path');
 
 module.exports = function(config) {
     config.set({
