@@ -102,6 +102,7 @@ RESOURCES
 * [Angular Update Guide](https://angular-update-guide.firebaseapp.com/)
 * [Intrinsic first flexbox grid](https://github.com/argyleink/ragrid)
 * [Fast JiT compiler for Angular testing](https://github.com/Quramy/ngx-zombie-compiler)
+* [A loading spinner for Angular 4](https://github.com/Zak-C/ngx-loading)
 
 KNOWN ISSUES
 ---
