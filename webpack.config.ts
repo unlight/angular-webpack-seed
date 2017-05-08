@@ -251,12 +251,12 @@ export = (options: Options = {}) => {
             }
             if (options.prod) {
                 result.push(
-                    new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
-                    new webpack.LoaderOptionsPlugin({
-                        minimize: true,
-                        debug: false,
-                        options: { context }
-                    }),
+                    // new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
+                    // new webpack.LoaderOptionsPlugin({
+                    //     minimize: true,
+                    //     debug: false,
+                    //     options: { context }
+                    // }),
                     new webpack.DefinePlugin({
                         'process.env.NODE_ENV': JSON.stringify('production')
                     })
@@ -331,16 +331,16 @@ export = (options: Options = {}) => {
             config.entry = 'lodash/noop';
         }
         if (options.dev) {
-            const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
-            if (!fs.existsSync(libs)) {
-                throw new Error(`Cannot link '${libs}', file do not exists.`);
-            }
-            config.plugins.push(
-                new webpack.DllReferencePlugin({
-                    context: context,
-                    manifest: require(libs)
-                })
-            );
+            // const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
+            // if (!fs.existsSync(libs)) {
+            //     throw new Error(`Cannot link '${libs}', file do not exists.`);
+            // }
+            // config.plugins.push(
+            //     new webpack.DllReferencePlugin({
+            //         context: context,
+            //         manifest: require(libs)
+            //     })
+            // );
         }
         const AssetInjectHtmlWebpackPlugin = require('asset-inject-html-webpack-plugin');
         const glob = require('glob');
