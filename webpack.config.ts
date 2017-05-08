@@ -294,11 +294,9 @@ export = (options: Options = {}) => {
         const CssEntryPlugin = require('css-entry-webpack-plugin');
         const rules = config.module.rules;
         let cssLoaderOptions: any = {
-            sourceMap: true
+            sourceMap: true,
+            minimize: options.prod,
         };
-        if (options.prod) {
-            _.assign(cssLoaderOptions, { minimize: true });
-        }
         _.assign(config, {
             entry: _.pick(config.entry, ['style']),
             module: {

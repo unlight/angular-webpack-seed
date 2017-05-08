@@ -53,11 +53,11 @@ TASKS
 | `npm run build`             | Build application, but not dependencies                                |
 | `npm run build:vendors`     | Prepare dependencies for linking                                       |
 | `npm run build:all`         | Sequence of build:vendors > build                                      |
+| `npm run build:release`     | Clean rebuild all                                                      |
 | `npm run coverage`          | Run test coverage with verbose reporing                                |
 | `npm run coverage:debug`    | Run coverage task in debug mode                                        |
 | `npm run p "t1" "t2"`       | Run tasks in parallel                                                  |
 | `npm run stryker`           | Run mutation tests                                                     |
-
 
 DEVELOPMENT TIPS
 ---
@@ -102,6 +102,7 @@ RESOURCES
 * [Angular Update Guide](https://angular-update-guide.firebaseapp.com/)
 * [Intrinsic first flexbox grid](https://github.com/argyleink/ragrid)
 * [Fast JiT compiler for Angular testing](https://github.com/Quramy/ngx-zombie-compiler)
+* [A loading spinner for Angular 4](https://github.com/Zak-C/ngx-loading)
 
 KNOWN ISSUES
 ---
