@@ -56,17 +56,28 @@ gulp.task('server:prestart', done => {
             return done();
         }
         g.util.log(g.util.colors.yellow('Version changed or found changes in dependencies, rebuilding vendor libs'));
-        _.forEach(d, (version, pkname) => {
-            g.util.log(`${pkname} ${g.util.colors.cyan(version)}`);
-        });
-    } else {
-        g.util.log(g.util.colors.yellow('Initial build of vendor libs'));
+        _.forEach(d, (version, pkname) => g.util.log(`${pkname} ${g.util.colors.cyan(version)}`));
     }
-    const proc = spawn('npm', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
-    proc.once('exit', () => {
-        fs.writeFileSync(libsInfoFile, JSON.stringify(currentLibsInfo));
-        done();
+    let p = new Promise((resolve, reject) => {
+        g.util.log(g.util.colors.yellow('Initial build of vendor libs'));
+        const proc = spawn('npm', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
+        proc.on('error', reject);
+        proc.once('exit', () => {
+            fs.writeFileSync(libsInfoFile, JSON.stringify(currentLibsInfo));
+            resolve();
+        });
     });
+    const glob = require('glob');
+    let [style] = glob.sync(`${buildPath}/style*.css`);
+    if (!style) {
+        p = p.then(() => new Promise((resolve, reject) => {
+            g.util.log(g.util.colors.yellow('Initial build of vendor style'));
+            const proc = spawn('npm', ['run', 'build:vendor-style'], { stdio: 'inherit' });
+            proc.on('error', reject);
+            proc.once('exit', resolve);
+        }));
+    }
+    return p;
 });
 
 gulp.task('check:build:prod', () => {
@@ -104,7 +115,7 @@ gulp.task('test:int', () => {
 gulp.task('stryker:source', () => {
     gulp.src('src/**/!(*.ts)', { base: 'src' })
         .pipe(gulp.dest(`${buildPath}/source`));
-    let {compilerOptions} = require('./tsconfig.json');
+    let { compilerOptions } = require('./tsconfig.json');
     Object.assign(compilerOptions, {
         target: 'es6',
         sourceMap: false,
