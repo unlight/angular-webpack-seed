@@ -7,6 +7,7 @@ import * as Path from 'path';
 import { Application } from '@types/express';;
 import assert = require('assert');
 const gulp = require('gulp');
+const glob = require('glob');
 const g = require('gulp-load-plugins')();
 const buildPath = Path.join(__dirname, 'build');
 
@@ -67,7 +68,6 @@ gulp.task('server:prestart', done => {
             resolve();
         });
     });
-    const glob = require('glob');
     let [style] = glob.sync(`${buildPath}/style*.css`);
     if (!style) {
         p = p.then(() => new Promise((resolve, reject) => {
@@ -81,12 +81,11 @@ gulp.task('server:prestart', done => {
 });
 
 gulp.task('check:build:prod', () => {
-    const globby = require('globby');
-    return globby(`${buildPath}/app*.js`).then(paths => {
-        if (paths.length === 0) {
-            return Promise.reject('build:prod task did not produce app javascript file.');
-        }
-    });
+    let paths = glob.sync(`${buildPath}/app*.js`);
+    if (paths.length === 0) {
+        return Promise.reject('build:prod task did not produce app javascript file.');
+    }
+    return Promise.resolve();
 });
 
 gulp.task('test:int', () => {

@@ -32,7 +32,7 @@
     "build:all": "npm run build:vendors && npm run build",
     "build:all:prod": "npm run build:vendor-style:prod && npm run build:prod",
     "build:release": "npm run clean && npm run build:all:prod",
-    "test:build:prod": "npm run clean && npm run build:prod && npm run gulp check:build:prod",
+    "test:build:prod": "npm run build:release && npm run gulp check:build:prod",
     "test:int": "npm run gulp -- test:int",
     "postinstall": "npm run build:vendors",
     "yi": "yarn install --no-lockfile",
