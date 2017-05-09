@@ -1,4 +1,3 @@
-require('core-js/es6');
 require('core-js/es7/reflect');
 require('core-js/es7/array');
 require('zone.js/dist/zone');

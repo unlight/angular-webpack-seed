@@ -66,7 +66,7 @@ export = (options: Options = {}) => {
     const config: any = {
         context: context,
         entry: {
-            app: './main.ts',
+            app: './index.ts',
             libs: (() => {
                 let dependencies = Object.keys(readPkgUp.sync().pkg.dependencies);
                 _.pull(dependencies, 'core-js', 'zone.js'); // We do not need all from there
@@ -94,6 +94,10 @@ export = (options: Options = {}) => {
         output: {
             path: buildPath,
             publicPath: '',
+            chunkFilename: (() => {
+                if (options.prod) return '[name]-[chunkhash:6].js';
+                return '[name].js';
+            })(),
             filename: (() => {
                 if (options.prod) return '[name]-[chunkhash:6].js';
                 return '[name].js';
@@ -342,21 +346,21 @@ export = (options: Options = {}) => {
                 })
             );
         }
-        const AssetInjectHtmlWebpackPlugin = require('asset-inject-html-webpack-plugin');
-        const glob = require('glob');
-        let [style] = glob.sync(`${buildPath}/style*.css`);
-        if (!style) {
-            throw new Error('Style not found, make sure that you build it.');
-        }
-        config.plugins.push(
-            new AssetInjectHtmlWebpackPlugin({
-                assets: {
-                    style: Path.basename(style),
-                    libs: 'libs.js',
-                },
-                args: options,
-            })
-        );
+        // const AssetInjectHtmlWebpackPlugin = require('asset-inject-html-webpack-plugin');
+        // const glob = require('glob');
+        // let [style] = glob.sync(`${buildPath}/style*.css`);
+        // if (!style) {
+        //     throw new Error('Style not found, make sure that you build it.');
+        // }
+        // config.plugins.push(
+        //     new AssetInjectHtmlWebpackPlugin({
+        //         assets: {
+        //             style: Path.basename(style),
+        //             libs: 'libs.js',
+        //         },
+        //         args: options,
+        //     })
+        // );
     }
 
     return config;

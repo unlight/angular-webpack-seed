@@ -20,6 +20,7 @@
     "tests": "npm run t",
     "tests:w": "npm run karma",
     "server": "webpack-dev-server --hot --progress --colors",
+    "server:prod": "npm run server -- --env.prod",
     "server:dashboard": "npm run server -- --env.dashboard",
     "build": "webpack --progress --colors",
     "build:prod": "npm run build -- --env.prod",
@@ -64,7 +65,9 @@
     "@angular/router": "4.1.1",
     "@ngx-config/core": "0.2.0-rc.5",
     "core-js": "2.4.1",
+    "promise-polyfill": "6.0.2",
     "rxjs": "5.3.1",
+    "sixflix": "1.0.3",
     "tslib": "1.7.0",
     "zone.js": "0.8.10"
   },
