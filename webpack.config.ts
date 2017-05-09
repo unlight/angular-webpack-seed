@@ -94,10 +94,14 @@ export = (options: Options = {}) => {
         output: {
             path: buildPath,
             publicPath: '',
-            filename: (() => {
-                if (options.prod) return '[name]-[chunkhash:6].js';
+            chunkFilename: (() => {
+                if (options.prod) return '[name]-[hash:6].js';
                 return '[name].js';
-            })()
+            })(),
+            filename: (() => {
+                if (options.prod) return '[name]-[hash:6].js';
+                return '[name].js';
+            })(),
         },
         devtool: (() => {
             if (options.test) return 'inline-source-map';
