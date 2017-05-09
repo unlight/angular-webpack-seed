@@ -99,7 +99,7 @@ export = (options: Options = {}) => {
                 return '[name].js';
             })(),
             filename: (() => {
-                if (options.prod) return '[name]-[chunkhash:6].js';
+                if (options.prod) return '[name]-[hash:6].js';
                 return '[name].js';
             })()
         },
