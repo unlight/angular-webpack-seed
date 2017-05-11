@@ -113,6 +113,10 @@ KNOWN ISSUES
 TODO
 ---
 * progressive transpiling
+  - use angular es6 version
+  - compile rxjs into es6
+    - use es6 version
+  - 
 * try https://prepack.io/
 * https://github.com/unlight/angular-webpack-seed/issues
 * ngrx redux example
@@ -123,6 +127,6 @@ DEBUG
 ---
 ```
 inspect node_modules/webpack-dev-server/bin/webpack-dev-server
-inspect --debug-exception node_modules/webpack/bin/webpack.js --env.prod --display-modules
+inspect --debug-exception node_modules/webpack/bin/webpack.js --env.prod --env.es2015 --display-modules
 inspect --debug-exception node_modules/webpack/bin/webpack.js
 ```

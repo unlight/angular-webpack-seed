@@ -28,6 +28,7 @@ interface Options {
     hmr?: boolean;
     aot?: boolean;
     vendorStyle?: boolean;
+    es2015?: boolean;
 }
 
 const defaultOptions = {
@@ -141,7 +142,9 @@ export = (options: Options = {}) => {
                     test: /\.ts$/,
                     use: (() => {
                         if (options.aot) {
-                            return [{ loader: '@ultimate/aot-loader' }];
+                            return [
+                                { loader: '@ultimate/aot-loader' },
+                            ];
                         }
                         return [
                             ...(options.hmr ? [{ loader: '@angularclass/hmr-loader' }] : []),
@@ -255,7 +258,7 @@ export = (options: Options = {}) => {
             }
             if (options.prod) {
                 result.push(
-                    new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
+                    // new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
                     new webpack.LoaderOptionsPlugin({
                         minimize: true,
                         debug: false,
@@ -361,6 +364,24 @@ export = (options: Options = {}) => {
         //         args: options,
         //     })
         // );
+    }
+
+    if (options.es2015) {
+        config.resolve.mainFields = ['es2015', 'browser', 'module', 'main'];
+        config.output.chunkFilename = '[name].2015.js';
+        config.output.filename = '[name].2015.js';
+        const BabiliPlugin = require('babili-webpack-plugin');
+        // const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+        // config.plugins.push(new UglifyJSPlugin({
+        //     sourceMap: true,
+        //     comments: false,
+        // }));
+        config.plugins.push(new BabiliPlugin({
+            comments: false,
+        }, {
+                comments: false,
+            }));
+        config.devtool = false;
     }
 
     return config;
