@@ -112,6 +112,7 @@ KNOWN ISSUES
 
 TODO
 ---
+* progressive transpiling
 * try https://prepack.io/
 * https://github.com/unlight/angular-webpack-seed/issues
 * ngrx redux example
