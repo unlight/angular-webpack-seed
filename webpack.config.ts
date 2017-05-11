@@ -382,6 +382,14 @@ export = (options: Options = {}) => {
                 comments: false,
             }));
         config.devtool = false;
+        config.plugins.push(
+            new webpack.NormalModuleReplacementPlugin(
+                /rxjs/,
+                (result) => {
+                    result.request = result.request.replace(/rxjs\//, 'rxjs/src/');
+                }
+            )
+        );
     }
 
     return config;

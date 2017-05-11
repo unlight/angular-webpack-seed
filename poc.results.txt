@@ -1,0 +1,23 @@
+1) target ES5, allpolyfills, uglify 2, aot
+     Asset       Size  Chunks                    Chunk Names
+app.js     522 kB       1  [emitted]  [big]  app
+
+2) target ES5, lazy es6 polyfills, uglify 2, aot
+         Asset       Size  Chunks                    Chunk Names
+- es6.js    51.3 kB       0  [emitted]         es6
+app.js     477 kB       2  [emitted]  [big]  app
+
+3) babili, target ES6, aot
+resolve.mainFields = ['es2015', 'browser', 'module', 'main']
+es2015: ~/@angular/core ~/@angular/router ~/@angular/common ~/@angular/platform ~/@angular/core ~/@angular/forms
+     Asset       Size  Chunks                    Chunk Names
+- es6.js    52.8 kB       0  [emitted]         es6
+app.js     431 kB       2  [emitted]  [big]  app
+
+3a) babili, target ES6, aot
+resolve.mainFields = ['es2015', 'browser', 'module', 'main']
+es2015: ~/@angular/core ~/@angular/router ~/@angular/common ~/@angular/platform ~/@angular/core ~/@angular/forms
+rxjs -> rxjs/src by NormalReplacement plugin
+         Asset       Size  Chunks                    Chunk Names
+- es6.js    52.8 kB       0  [emitted]         es6
+app.js     425 kB        2  [emitted]  [big]  app
