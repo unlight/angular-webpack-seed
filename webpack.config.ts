@@ -11,7 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const sourcePath = Path.join(__dirname, 'src');
 const buildPath = Path.join(__dirname, 'build');
-const context = sourcePath;
+const context = __dirname;
 
 const watchOptions = {
     aggregateTimeout: 150,
@@ -70,7 +70,7 @@ export = (options: Options = {}) => {
     const config: any = {
         context: context,
         entry: {
-            app: './main.ts',
+            app: './src/main.ts',
             libs: (() => {
                 let dependencies = Object.keys(readPkgUp.sync().pkg.dependencies);
                 _.pull(dependencies, 'core-js', 'zone.js'); // We do not need all from there
@@ -252,7 +252,7 @@ export = (options: Options = {}) => {
             }
             if (!options.test) {
                 result.push(new HtmlWebpackPlugin({
-                    template: './index.ejs',
+                    template: './src/index.ejs',
                     minify: false,
                     excludeChunks: [],
                     config: options,
