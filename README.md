@@ -39,7 +39,7 @@ TASKS
 | Task                        | Description                                                            |
 |:----------------------------|:-----------------------------------------------------------------------|
 | `npm run start`             | Prepare and start local dev server                                     |
-| `npm run build:vendors`     | Prepare 3rd party libraries for application                            |
+| `npm run build:vendors`     | Prepare npm dependencies for linking                                   |
 | `npm run server`            | Local dev server                                                       |
 | `npm run server:dashboard`  | Local dev server in dashboard mode                                     |
 | `npm run clean`             | Clean generated folders                                                |
@@ -51,7 +51,6 @@ TASKS
 | `npm run tschk`             | Run typescript compile but do not emit files (useful for typechecking) |
 | `npm run tschk:w`           | tschk in watch mode                                                    |
 | `npm run build`             | Build application, but not dependencies                                |
-| `npm run build:vendors`     | Prepare dependencies for linking                                       |
 | `npm run build:all`         | Sequence of build:vendors > build                                      |
 | `npm run build:release`     | Clean rebuild all                                                      |
 | `npm run coverage`          | Run test coverage with verbose reporing                                |
