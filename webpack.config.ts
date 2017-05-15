@@ -63,6 +63,10 @@ export = (options: Options = {}) => {
         maxModules: 0,
         children: false,
     };
+    let cssLoaderOptions: any = {
+        sourceMap: true,
+        minimize: options.prod,
+    };
     const config: any = {
         context: context,
         entry: {
@@ -179,6 +183,13 @@ export = (options: Options = {}) => {
                     ]
                 },
                 {
+                    test: /\.css$/,
+                    exclude: /\.component\.css$/,
+                    use: [
+                        { loader: 'css-loader', options: cssLoaderOptions }
+                    ]
+                },
+                {
                     test: /\.component\.scss$/,
                     use: [
                         { loader: 'raw-loader' },
@@ -187,7 +198,8 @@ export = (options: Options = {}) => {
                     ]
                 },
                 {
-                    test: /[\/\\]app\.scss$/,
+                    test: /\.scss$/,
+                    exclude: /\.component\.scss$/,
                     use: (() => {
                         let result = [
                             { loader: 'css-loader' },
@@ -296,29 +308,9 @@ export = (options: Options = {}) => {
         config.module.rules = [];
     } else if (options.vendorStyle) {
         const CssEntryPlugin = require('css-entry-webpack-plugin');
-        const rules = config.module.rules;
-        let cssLoaderOptions: any = {
-            sourceMap: true,
-            minimize: options.prod,
-        };
+        const rules: any[] = config.module.rules;
         _.assign(config, {
             entry: _.pick(config.entry, ['style']),
-            module: {
-                rules: [
-                    {
-                        test: /\.(woff|woff2|eot|ttf|png|svg)$/,
-                        use: [
-                            { loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }
-                        ]
-                    },
-                    {
-                        test: /\.css$/,
-                        use: [
-                            { loader: 'css-loader', options: cssLoaderOptions }
-                        ]
-                    },
-                ]
-            },
             plugins: [
                 new CssEntryPlugin({
                     output: {
