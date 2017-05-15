@@ -1,0 +1,15 @@
+// Example of custom build from scss source.
+$output-bourbon-deprecation-warnings: false;
+@import "~@blueprintjs/core/src/common/resets";
+// Fix error by resolve-url-loader or sass-resources-loader
+// https://github.com/webpack-contrib/sass-loader#problems-with-url
+// @import "~@blueprintjs/core/src/common/font-imports";
+@import "~@blueprintjs/core/src/common/variables";
+@import "~@blueprintjs/core/src/common/colors";
+@import "~@blueprintjs/core/src/typography";
+@import "~@blueprintjs/core/src/icons";
+@import "~@blueprintjs/core/src/accessibility";
+
+// @import "~@blueprintjs/core/src/components/button/button";
+// @import "~@blueprintjs/core/src/components/button/button-group";
+// @import "~@blueprintjs/core/src/components/forms/index";

@@ -93,7 +93,8 @@ export = (options: Options = {}) => {
                     'style-loader/fixUrls',
                 ]);
             })(),
-            style: ['@blueprintjs/core/dist/blueprint.css']
+            style: ['@blueprintjs/core/dist/blueprint.css'],
+            //style: ['./src/style.scss'],
         },
         output: {
             path: buildPath,
@@ -212,7 +213,7 @@ export = (options: Options = {}) => {
                                 // resolve-url-loader may be chained before sass-loader if necessary
                                 use: result
                             });
-                        } else {
+                        } else if (!options.vendorStyle) {
                             result.unshift({ loader: 'style-loader' });
                         }
                         return result;
