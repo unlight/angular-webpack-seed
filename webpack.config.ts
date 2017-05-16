@@ -52,7 +52,7 @@ const postPlugins = [
     // require('postcss-url')(), // plugin to rebase, inline or copy on url().
     // require('postcss-import')(),
     // require('postcss-flexbox')(),
-    require('autoprefixer')('last 3 versions'),
+    require('autoprefixer')({ browsers: 'last 3 versions' }),
 ];
 
 export = (options: Options = {}) => {
@@ -83,6 +83,9 @@ export = (options: Options = {}) => {
                     // HMR related
                     '@angularclass/hmr',
                     'webpack-dev-server/client',
+                    'webpack/hot/emitter',
+                    'webpack/hot/log-apply-result',
+                    // 'webpack/hot/dev-server', // DONT! It will break HMR
                     'events',
                     // Css related
                     'base64-js',
@@ -203,9 +206,9 @@ export = (options: Options = {}) => {
                     exclude: /\.component\.scss$/,
                     use: (() => {
                         let result = [
-                            { loader: 'css-loader' },
-                            { loader: 'postcss-loader', options: { plugins: postPlugins } },
-                            { loader: 'sass-loader' },
+                            { loader: 'css-loader', options: { importLoaders: 2, sourceMap: false } },
+                            { loader: 'postcss-loader', options: { plugins: postPlugins, sourceMap: false } },
+                            { loader: 'sass-loader', options: { sourceMap: false } },
                         ];
                         if (options.prod) {
                             result = ExtractTextPlugin.extract({
@@ -214,7 +217,7 @@ export = (options: Options = {}) => {
                                 use: result
                             });
                         } else if (!options.vendorStyle) {
-                            result.unshift({ loader: 'style-loader' });
+                            result.unshift({ loader: 'style-loader', options: { sourceMap: false } });
                         }
                         return result;
                     })(),
@@ -260,8 +263,8 @@ export = (options: Options = {}) => {
                 }));
             }
             if (options.aot) {
-                const aotLoader = require('@ultimate/aot-loader');
-                result.push(new aotLoader.AotPlugin({
+                const { AotPlugin } = require('@ultimate/aot-loader');
+                result.push(new AotPlugin({
                     tsConfig: './tsconfig.json',
                     entryModule: `./src/app/app.module#AppModule` // path is relative to tsConfig above
                 }));
