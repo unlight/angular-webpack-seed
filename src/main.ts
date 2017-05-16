@@ -47,3 +47,12 @@ if (process.env.NODE_ENV === 'production') {
         return platformBrowserDynamic().bootstrapModule(MainModule);
     });
 }
+
+if (module.hot) {
+    const hotEmitter = require('webpack/hot/emitter');
+    hotEmitter.on('webpackHotUpdate', (hash) => {
+        (document.querySelectorAll('link[href][rel=stylesheet]') as any).forEach(link => {
+            link.href = link.href.replace(/(\?\d+)?$/, `?${Date.now()}`);
+        })
+    })
+}

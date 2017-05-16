@@ -83,6 +83,7 @@ export = (options: Options = {}) => {
                     // HMR related
                     '@angularclass/hmr',
                     'webpack-dev-server/client',
+                    'webpack/hot/emitter',
                     'events',
                     // Css related
                     'base64-js',
@@ -203,19 +204,15 @@ export = (options: Options = {}) => {
                     exclude: /\.component\.scss$/,
                     use: (() => {
                         let result = [
-                            { loader: 'css-loader' },
+                            { loader: 'css-loader', options: { importLoaders: 2 } },
                             { loader: 'postcss-loader', options: { plugins: postPlugins } },
                             { loader: 'sass-loader' },
                         ];
-                        if (options.prod) {
-                            result = ExtractTextPlugin.extract({
-                                // fallback: 'style-loader',
-                                // resolve-url-loader may be chained before sass-loader if necessary
-                                use: result
-                            });
-                        } else if (!options.vendorStyle) {
-                            result.unshift({ loader: 'style-loader' });
-                        }
+                        result = ExtractTextPlugin.extract({
+                            // fallback: 'style-loader',
+                            // resolve-url-loader may be chained before sass-loader if necessary
+                            use: result
+                        });
                         return result;
                     })(),
                 },
@@ -279,13 +276,11 @@ export = (options: Options = {}) => {
                     })
                 );
             }
-            if (options.prod) {
-                result.push(
-                    new ExtractTextPlugin({
-                        filename: (get) => get('[name]-[contenthash:6].css')
-                    })
-                );
-            }
+            result.push(
+                new ExtractTextPlugin({
+                    filename: `[name]${options.prod ? '-[contenthash:6]' : ''}.css`
+                })
+            );
             return result;
         })()
     };
