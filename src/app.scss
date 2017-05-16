@@ -1,7 +1,9 @@
+$font-family: 'Segoe UI';
+
 .grid {
     display: grid;
 }
 
 body {
-    font-family: 'Segoe UI';
+    font-family: $font-family;
 }
