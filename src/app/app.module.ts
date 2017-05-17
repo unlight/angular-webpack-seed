@@ -6,6 +6,8 @@ import { ConfigStaticLoader, ConfigLoader, ConfigModule } from '@ngx-config/core
 import { APP_ROUTES } from './app.routes';
 import { HomeModule } from './home/home.module';
 import { WelcomeModule } from './welcome/welcome.module';
+import { APP_TRANSLATION } from './app.translation';
+import { HttpModule } from '@angular/http';
 
 export function configFactory(): ConfigLoader {
     const config = require('./app.config');
@@ -19,6 +21,8 @@ export function configFactory(): ConfigLoader {
         ConfigModule.forRoot({ provide: ConfigLoader, useFactory: configFactory }),
         HomeModule,
         WelcomeModule,
+        APP_TRANSLATION,
+		HttpModule,
     ],
     declarations: [
         AppComponent,

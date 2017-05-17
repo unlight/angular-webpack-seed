@@ -120,7 +120,7 @@ export = (options: Options = {}) => {
             https: true,
             overlay: true,
             noInfo: false,
-            contentBase: [buildPath],
+            contentBase: [buildPath, sourcePath],
             port: 8087,
             historyApiFallback: true,
             hot: true,
@@ -270,6 +270,7 @@ export = (options: Options = {}) => {
                 }));
             }
             if (options.prod) {
+				const CopyWebpackPlugin = require('copy-webpack-plugin');
                 result.push(
                     new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
                     new webpack.LoaderOptionsPlugin({
@@ -279,7 +280,10 @@ export = (options: Options = {}) => {
                     }),
                     new webpack.DefinePlugin({
                         'process.env.NODE_ENV': JSON.stringify('production')
-                    })
+                    }),
+                    new CopyWebpackPlugin([
+                        { from: 'src/i18n', to: 'i18n' } // `from` is relative to context, `to` is relative to output
+                    ], { debug: 'info' }),
                 );
             }
             if (options.prod) {
