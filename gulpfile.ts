@@ -58,9 +58,10 @@ gulp.task('server:prestart', done => {
         }
         g.util.log(g.util.colors.yellow('Version changed or found changes in dependencies, rebuilding vendor libs'));
         _.forEach(d, (version, pkname) => g.util.log(`${pkname} ${g.util.colors.cyan(version)}`));
+    } else {
+        g.util.log(g.util.colors.yellow('Initial build of vendor libs'));
     }
     let p = new Promise((resolve, reject) => {
-        g.util.log(g.util.colors.yellow('Initial build of vendor libs'));
         const proc = spawn('npm', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
         proc.on('error', reject);
         proc.once('exit', () => {

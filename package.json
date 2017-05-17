@@ -16,7 +16,7 @@
     "tschk": "echo tsc --noEmit ... && tsc --noEmit --noUnusedLocals",
     "tschk:w": "npm run tschk -- --watch",
     "test": "npm run build:all && npm run test:ci && npm run stryker",
-    "test:ci": "npm run eslint && npm run tschk && npm run coverage",
+    "tests:all": "npm run eslint && npm run tschk && npm run coverage",
     "t": "npm run karma -- --single-run",
     "tests": "npm run t",
     "tests:w": "npm run karma",
