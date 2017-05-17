@@ -11,7 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const sourcePath = Path.join(__dirname, 'src');
 const buildPath = Path.join(__dirname, 'build');
-const context = sourcePath;
+const context = __dirname;
 
 const watchOptions = {
     aggregateTimeout: 150,
@@ -52,7 +52,7 @@ const postPlugins = [
     // require('postcss-url')(), // plugin to rebase, inline or copy on url().
     // require('postcss-import')(),
     // require('postcss-flexbox')(),
-    require('autoprefixer')('last 3 versions'),
+    require('autoprefixer')({ browsers: 'last 3 versions' }),
 ];
 
 export = (options: Options = {}) => {
@@ -63,10 +63,14 @@ export = (options: Options = {}) => {
         maxModules: 0,
         children: false,
     };
+    let cssLoaderOptions: any = {
+        sourceMap: true,
+        minimize: options.prod,
+    };
     const config: any = {
         context: context,
         entry: {
-            app: './main.ts',
+            app: './src/main.ts',
             libs: (() => {
                 let dependencies = Object.keys(readPkgUp.sync().pkg.dependencies);
                 _.pull(dependencies, 'core-js', 'zone.js'); // We do not need all from there
@@ -79,6 +83,9 @@ export = (options: Options = {}) => {
                     // HMR related
                     '@angularclass/hmr',
                     'webpack-dev-server/client',
+                    'webpack/hot/emitter',
+                    'webpack/hot/log-apply-result',
+                    // 'webpack/hot/dev-server', // DONT! It will break HMR
                     'events',
                     // Css related
                     'base64-js',
@@ -89,15 +96,20 @@ export = (options: Options = {}) => {
                     'style-loader/fixUrls',
                 ]);
             })(),
-            style: ['@blueprintjs/core/dist/blueprint.css']
+            style: ['@blueprintjs/core/dist/blueprint.css'],
+            //style: ['./src/style.scss'],
         },
         output: {
             path: buildPath,
             publicPath: '',
-            filename: (() => {
-                if (options.prod) return '[name]-[chunkhash:6].js';
+            chunkFilename: (() => {
+                if (options.prod) return '[name]-[hash:6].js';
                 return '[name].js';
-            })()
+            })(),
+            filename: (() => {
+                if (options.prod) return '[name]-[hash:6].js';
+                return '[name].js';
+            })(),
         },
         devtool: (() => {
             if (options.test) return 'inline-source-map';
@@ -175,6 +187,13 @@ export = (options: Options = {}) => {
                     ]
                 },
                 {
+                    test: /\.css$/,
+                    exclude: /\.component\.css$/,
+                    use: [
+                        { loader: 'css-loader', options: cssLoaderOptions }
+                    ]
+                },
+                {
                     test: /\.component\.scss$/,
                     use: [
                         { loader: 'raw-loader' },
@@ -183,12 +202,13 @@ export = (options: Options = {}) => {
                     ]
                 },
                 {
-                    test: /[\/\\]app\.scss$/,
+                    test: /\.scss$/,
+                    exclude: /\.component\.scss$/,
                     use: (() => {
                         let result = [
-                            { loader: 'css-loader' },
-                            { loader: 'postcss-loader', options: { plugins: postPlugins } },
-                            { loader: 'sass-loader' },
+                            { loader: 'css-loader', options: { importLoaders: 2, sourceMap: false } },
+                            { loader: 'postcss-loader', options: { plugins: postPlugins, sourceMap: false } },
+                            { loader: 'sass-loader', options: { sourceMap: false } },
                         ];
                         if (options.prod) {
                             result = ExtractTextPlugin.extract({
@@ -196,8 +216,8 @@ export = (options: Options = {}) => {
                                 // resolve-url-loader may be chained before sass-loader if necessary
                                 use: result
                             });
-                        } else {
-                            result.unshift({ loader: 'style-loader' });
+                        } else if (!options.vendorStyle) {
+                            result.unshift({ loader: 'style-loader', options: { sourceMap: false } });
                         }
                         return result;
                     })(),
@@ -205,7 +225,7 @@ export = (options: Options = {}) => {
                 {
                     test: /\.(woff|woff2|eot|ttf|png|svg)$/,
                     use: [
-                        { loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }
+                        { loader: 'file-loader', options: { name: `i/[name]${options.prod ? '-[hash:6]' : ''}.[ext]` } }
                     ]
                 },
                 ...(options.coverage ? [
@@ -236,15 +256,15 @@ export = (options: Options = {}) => {
             }
             if (!options.test) {
                 result.push(new HtmlWebpackPlugin({
-                    template: './index.ejs',
+                    template: './src/index.ejs',
                     minify: false,
                     excludeChunks: [],
                     config: options,
                 }));
             }
             if (options.aot) {
-                const aotLoader = require('@ultimate/aot-loader');
-                result.push(new aotLoader.AotPlugin({
+                const { AotPlugin } = require('@ultimate/aot-loader');
+                result.push(new AotPlugin({
                     tsConfig: './tsconfig.json',
                     entryModule: `./src/app/app.module#AppModule` // path is relative to tsConfig above
                 }));
@@ -296,34 +316,14 @@ export = (options: Options = {}) => {
         config.module.rules = [];
     } else if (options.vendorStyle) {
         const CssEntryPlugin = require('css-entry-webpack-plugin');
-        const rules = config.module.rules;
-        let cssLoaderOptions: any = {
-            sourceMap: true
-        };
-        if (options.prod) {
-            _.assign(cssLoaderOptions, { minimize: true });
-        }
+        const rules: any[] = config.module.rules;
         _.assign(config, {
             entry: _.pick(config.entry, ['style']),
-            module: {
-                rules: [
-                    {
-                        test: /\.(woff|woff2|eot|ttf|png|svg)$/,
-                        use: [
-                            { loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }
-                        ]
-                    },
-                    {
-                        test: /\.css$/,
-                        use: [
-                            { loader: 'css-loader', options: cssLoaderOptions }
-                        ]
-                    },
-                ]
-            },
             plugins: [
                 new CssEntryPlugin({
-                    output: { filename: '[name].css' }
+                    output: {
+                        filename: `[name]${options.prod ? '-[contenthash:6]' : ''}.css`
+                    }
                 })
             ]
         });
@@ -344,6 +344,21 @@ export = (options: Options = {}) => {
                 })
             );
         }
+        const AssetInjectHtmlWebpackPlugin = require('asset-inject-html-webpack-plugin');
+        const glob = require('glob');
+        let [style] = glob.sync(`${buildPath}/style*.css`);
+        if (!style) {
+            throw new Error('Style not found, make sure that you build it.');
+        }
+        config.plugins.push(
+            new AssetInjectHtmlWebpackPlugin({
+                assets: {
+                    style: Path.basename(style),
+                    libs: 'libs.js',
+                },
+                args: options,
+            })
+        );
     }
 
     return config;
