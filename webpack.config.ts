@@ -225,7 +225,7 @@ export = (options: Options = {}) => {
                 {
                     test: /\.(woff|woff2|eot|ttf|png|svg)$/,
                     use: [
-                        { loader: 'file-loader', options: { name: 'i/[name]-[hash:6].[ext]' } }
+                        { loader: 'file-loader', options: { name: `i/[name]${options.prod ? '-[hash:6]' : ''}.[ext]` } }
                     ]
                 },
                 ...(options.coverage ? [

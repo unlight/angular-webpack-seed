@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
     name = 'Angular';
+    public seedImage = require('../../shared/images/seed.png');
 }
