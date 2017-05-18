@@ -103,6 +103,7 @@ RESOURCES
 * [Intrinsic first flexbox grid](https://github.com/argyleink/ragrid)
 * [Fast JiT compiler for Angular testing](https://github.com/Quramy/ngx-zombie-compiler)
 * [A loading spinner for Angular 4](https://github.com/Zak-C/ngx-loading)
+* [Singleton service for lazy loaded modules](https://github.com/manfredsteyer/lazy-loading-ng-conf/blob/master/src/app/auth/auth.module.ts#L16-L26)
 
 KNOWN ISSUES
 ---
