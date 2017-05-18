@@ -117,7 +117,7 @@ export = (options: Options = {}) => {
             return 'cheap-source-map';
         })(),
         devServer: {
-            https: true,
+            https: false,
             overlay: true,
             noInfo: false,
             contentBase: [buildPath, sourcePath],
