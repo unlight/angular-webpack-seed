@@ -36,28 +36,30 @@ HUSKY
 
 TASKS
 ---
-| Task                        | Description                                                            |
-|:----------------------------|:-----------------------------------------------------------------------|
-| `npm run start`             | Prepare and start local dev server                                     |
-| `npm run build:vendors`     | Prepare npm dependencies for linking                                   |
-| `npm run server`            | Local dev server                                                       |
-| `npm run server:dashboard`  | Local dev server in dashboard mode                                     |
-| `npm run clean`             | Clean generated folders                                                |
-| `npm run eslint`            | Lint code (single run mode)                                            |
-| `npm run gulp eslint:watch` | ESLint in watch mode                                                   |
-| `npm run t`                 | Run unit testing in single run mode                                    |
-| `npm run test:all`          | Sequence of eslint, tschk and coverage tasks                           |
-| `npm run test:w`            | Run unit testing in watch mode                                         |
-| `npm run up`                | Update all dependencies one by one running tests after each            |
-| `npm run tschk`             | Run typescript compile but do not emit files (useful for typechecking) |
-| `npm run tschk:w`           | tschk in watch mode                                                    |
-| `npm run build`             | Build application, but not dependencies                                |
-| `npm run build:all`         | Sequence of build:vendors and build tasks                              |
-| `npm run build:release`     | Clean rebuild all                                                      |
-| `npm run coverage`          | Run test coverage with verbose reporing                                |
-| `npm run coverage:debug`    | Run coverage task in debug mode                                        |
-| `npm run p "t1" "t2"`       | Run tasks in parallel                                                  |
-| `npm run stryker`           | Run mutation tests                                                     |
+| Task                         | Description                                                            |
+|:-----------------------------|:-----------------------------------------------------------------------|
+| `npm run start`              | Prepare and start local dev server                                     |
+| `npm run build:vendors`      | Prepare npm dependencies for linking                                   |
+| `npm run build:vendor-libs`  | Prepare npm dependencies for linking (Scripts)                         |
+| `npm run build:vendor-style` | Prepare npm dependencies for linking (Design)                          |
+| `npm run server`             | Local dev server                                                       |
+| `npm run server:dashboard`   | Local dev server in dashboard mode                                     |
+| `npm run clean`              | Clean generated folders                                                |
+| `npm run eslint`             | Lint code (single run mode)                                            |
+| `npm run gulp eslint:watch`  | ESLint in watch mode                                                   |
+| `npm run t`                  | Run unit testing in single run mode                                    |
+| `npm run test:all`           | Sequence of eslint, tschk and coverage tasks                           |
+| `npm run test:w`             | Run unit testing in watch mode                                         |
+| `npm run up`                 | Update all dependencies one by one running tests after each            |
+| `npm run tschk`              | Run typescript compile but do not emit files (useful for typechecking) |
+| `npm run tschk:w`            | tschk in watch mode                                                    |
+| `npm run build`              | Build application, but not dependencies                                |
+| `npm run build:all`          | Sequence of build:vendors and build tasks                              |
+| `npm run build:release`      | Clean rebuild all                                                      |
+| `npm run coverage`           | Run test coverage with verbose reporing                                |
+| `npm run coverage:debug`     | Run coverage task in debug mode                                        |
+| `npm run p "t1" "t2"`        | Run tasks in parallel                                                  |
+| `npm run stryker`            | Run mutation tests                                                     |
 
 DEVELOPMENT TIPS
 ---
@@ -103,7 +105,7 @@ RESOURCES
 * [Intrinsic first flexbox grid](https://github.com/argyleink/ragrid)
 * [Fast JiT compiler for Angular testing](https://github.com/Quramy/ngx-zombie-compiler)
 * [A loading spinner for Angular 4](https://github.com/Zak-C/ngx-loading)
-* [Singleton service for lazy loaded modules](https://github.com/manfredsteyer/lazy-loading-ng-conf/blob/master/src/app/auth/auth.module.ts#L16-L26)
+* [Singleton service for lazy loaded modules](https://github.com/manfredsteyer/lazy-loading-ng-conf/blob/master/src/app/auth/auth.module.ts#L8-L26)
 
 KNOWN ISSUES
 ---
