@@ -16,6 +16,13 @@
     "suppressImplicitAnyIndexErrors": false,
     "isolatedModules": false,
     "outDir": "build",
+    "baseUrl": ".",
+    "paths": {
+        "@epam/ngx-modal": ["src/modules/@epam/ngx-modal"],
+        "@epam/ngx-modal/*": ["src/modules/@epam/ngx-modal/*"],
+        "ngx-error-handler": ["src/modules/ngx-error-handler"],
+        "ngx-error-handler/*": ["src/modules/ngx-error-handler/*"]
+    },
     "lib": [
       "es7",
       "dom"
