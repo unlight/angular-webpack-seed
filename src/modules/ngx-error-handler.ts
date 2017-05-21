@@ -1,6 +1,7 @@
 import { Directive, Input, TemplateRef, ViewContainerRef, Injectable, EventEmitter, NgModule, ComponentFactoryResolver, Component } from '@angular/core';
 
 const { mapStackTrace } = require('sourcemapped-stacktrace');
+const StackTrace = require('stacktrace-js');
 
 const style = `
 body {
@@ -136,12 +137,15 @@ export class ErrorHandlerService {
     errorEvent = new EventEmitter();
 
     handleError(err: any) {
-        mapStackTrace(err.stack, (stackTrace) => {
-            document.body.innerHTML = template
-                .replace('{{stackTrace}}', stackTrace.join('\n'))
-                .replace('{{header}}', err.message);
-            document.head.innerHTML += `<style>${style}</style>`;
-        });
+        StackTrace.fromError(err).then(stackFrames => {
+            debugger;
+        })
+        // mapStackTrace(err.stack, (stackTrace) => {
+        //     document.body.innerHTML = template
+        //         .replace('{{stackTrace}}', stackTrace.join('\n'))
+        //         .replace('{{header}}', err.message);
+        //     document.head.innerHTML += `<style>${style}</style>`;
+        // });
     }
 }
 
