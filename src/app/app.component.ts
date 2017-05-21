@@ -18,4 +18,8 @@ export class AppComponent {
         translate.setDefaultLang('en');
         translate.use('en');
     }
+
+    ngOnInit() {
+        throw new Error('test err');
+    }
 }

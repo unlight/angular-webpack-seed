@@ -1,11 +1,11 @@
 /* eslint-disable import/max-dependencies */
 import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ErrorHandler } from '@angular/core';
-import { AppErrorHandler } from './app.errorhandler';
 import { Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ConfigStaticLoader, ConfigLoader, ConfigModule } from '@ngx-config/core';
+import { AppErrorHandler } from './app.errorhandler';
 
 export const APP_PROVIDERS = [
     { provide: APP_BASE_HREF, useValue: '/' },
