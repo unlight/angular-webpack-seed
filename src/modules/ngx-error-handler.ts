@@ -4,24 +4,33 @@ const { mapStackTrace } = require('sourcemapped-stacktrace');
 const StackTrace = require('stacktrace-js');
 
 const style = `
-body {
-    background: #e7e7de;
-    font-family: 'segoe ui', arial, sans-serif;
+body, pre, h2, h3, h4, ul {
     margin: 0;
-    padding: 0;
-    font-size: small;
 }
 
-#Frame {
+#overlay {
+    background: #e7e7de;
+    font-family: 'segoe ui', arial, sans-serif;
+    padding: 0;
+    font-size: medium;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+}
+
+#frame {
     width: 80%;
     max-width: 1200px;
     text-align: left;
     margin: 0 auto;
 }
 
-#Content {
+#content {
     background: #fff;
-    padding: 0 20px 20px 20px;
+    padding: 5px 20px 20px 20px;
     border-radius: 10px;
     margin-bottom: 20px;
 }
@@ -34,16 +43,15 @@ code {
     white-space: pre;
 }
 
-.PreContainer {
+.pre-container {
     overflow: auto;
 }
 
 pre {
-    margin: 0;
-    padding: 2px;
+    padding: 5px;
     background: #ffffd3;
     line-height: 18px;
-    border-radius: 2px;
+    border-radius: 5px;
 }
 
 pre span {
@@ -54,80 +62,43 @@ pre span:nth-child(even) {
     background: #ffffb9;
 }
 
-pre span.Highlight {
+pre span.highlight {
     color: #ff0000;
     background: #ffff7f;
 }
 
-a, a:link, a:active{
-    color: #0063dc;
-    text-decoration: none;
-}
-
-a:visited {
-    color: #ff0084;
-}
-
-a:hover {
-    color: #ffffff !important;
-    background: #0063dc !important;
-}
-
-p {
-    margin: 5px 0;
+p, h1, h2, h3, h4 {
+    margin: 10px 0;
     padding: 0;
-}
-
-h2 {
-    margin: 0;
-    padding: 20px 0 0 0;
-}
-
-h3 {
-    margin: 0;
-    padding: 20px 0 5px 0;
-    font-weight: normal;
-}
-
-h4 {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
 }
 
 ul {
-    margin: 0;
-    padding: 10px 20px 0 20px;
+    padding-left: 0;
+    list-style-type: none;
 }
 
-ul li {
-    line-height: 160%;
-}
 `;
 
 const template = `
-<div id="Frame">
+<div id="overlay">
+<div id="frame">
     <h1>Fatal error in senderObject.senderMethod</h1>
-    <div id="Content">
-        <h2>{{header}}</h2>
-        <code>senderCode</code>
-        <h3>The error occurred on or near: <strong>filePath</strong></h3>
-        <div class="PreContainer">errorCodeTrace</div>
+    <div id="content">
+        <h2>{{message}}</h2>
+        <!--<code>senderCode</code>-->
+        <p>The error occurred on or near: <strong>{{filePath}}</strong></p>
+        <!--<div class="pre-container">errorCodeTrace</div>-->
         <h3><strong>Backtrace:</strong></h3>
-        <div class="PreContainer"><pre>{{stackTrace}}</pre></div>
-        <h3><strong>Variables in local scope:</strong></h3>
-        <h3><strong>Queries:</strong></h3>
-        <h3>Need Help?</h3>
-        <p>If you are a user of this website, you can report this message to a website administrator.</p>
+        <div class="pre-container"><pre>{{stackTrace}}</pre></div>
         <h3><strong>Additional information:</strong></h3>
         <ul>
-            <li><strong>Error:</strong> message</li>
-            <li><strong>Application:</strong> Application</li>
-            <li><strong>Operating System:</strong> os.platform</li>
-            <li><strong>User Agent:</strong> ?</li>
-            <li><strong>Request Uri:</strong> ?</li>
+            <li><strong>Error:</strong> {{message}}</li>
+            <!--<li><strong>Application:</strong> Application</li>-->
+            <li><strong>User Agent:</strong> {{userAgent}} </li>
+            <li><strong>Request Uri:</strong> {{requestUri}}</li>
         </ul>
     </div>
+</div>
 </div>
 `
 
@@ -137,8 +108,24 @@ export class ErrorHandlerService {
     errorEvent = new EventEmitter();
 
     handleError(err: any) {
+        // const StacktraceGps = require('stacktrace-gps');
+        // var gps = new StacktraceGps();
+        // debugger;
         StackTrace.fromError(err).then(stackFrames => {
-            debugger;
+            let [frame] = stackFrames;
+            (__webpack_require__);
+            (StackTrace);
+            const stackTrace = stackFrames.map(s => s.toString());
+            // debugger;
+            let [message] = err.message.split('\n');
+            document.body.innerHTML += template
+                .replace(/{{stackTrace}}/g, stackTrace.join('\n'))
+                .replace(/{{message}}/g, message)
+                .replace(/{{filePath}}/g, `${frame.fileName}:${frame.lineNumber}`)
+                .replace(/{{userAgent}}/g, `${navigator.appCodeName} ${navigator.appVersion}`)
+                .replace(/{{requestUri}}/g, location.href)
+                // TODO: escape
+                + `<style>${style}</style>`;
         })
         // mapStackTrace(err.stack, (stackTrace) => {
         //     document.body.innerHTML = template
