@@ -205,7 +205,7 @@ export = (options: Options = {}) => {
                     exclude: /\.component\.scss$/,
                     use: (() => {
                         let result = [
-                            { loader: 'css-loader', options: { importLoaders: 2, sourceMap: false } },
+                            { loader: 'css-loader', options: { importLoaders: 2, sourceMap: false, minimize: options.prod } },
                             { loader: 'postcss-loader', options: { plugins: postPlugins, sourceMap: false } },
                             { loader: 'sass-loader', options: { sourceMap: false } },
                         ];
