@@ -19,7 +19,7 @@ const watchOptions = {
 };
 
 interface Options {
-    vendorLibs?: boolean;
+    libs?: boolean;
     dashboard?: boolean;
     test?: boolean;
     coverage?: boolean;
@@ -27,12 +27,12 @@ interface Options {
     dev?: boolean;
     hmr?: boolean;
     aot?: boolean;
-    vendorStyle?: boolean;
+    style?: boolean;
 }
 
 const defaultOptions = {
-    vendorLibs: process.argv.indexOf('--env.vendorLibs') !== -1,
-    vendorStyle: process.argv.indexOf('--env.vendorStyle') !== -1,
+    libs: process.argv.indexOf('--env.libs') !== -1,
+    style: process.argv.indexOf('--env.style') !== -1,
     dashboard: process.argv.indexOf('--env.dashboard') !== -1,
     test: false,
     coverage: false,
@@ -209,7 +209,7 @@ export = (options: Options = {}) => {
                             { loader: 'postcss-loader', options: { plugins: postPlugins, sourceMap: false } },
                             { loader: 'sass-loader', options: { sourceMap: false } },
                         ];
-                        if (!options.vendorStyle) {
+                        if (!options.style) {
                             result.unshift({ loader: 'style-loader', options: { sourceMap: false } });
                         }
                         return result;
@@ -290,7 +290,7 @@ export = (options: Options = {}) => {
         })()
     };
 
-    if (options.vendorLibs) {
+    if (options.libs) {
         _.assign(config, {
             entry: _.pick(config.entry, ['libs']), // check name near DllReferencePlugin
             devtool: 'source-map',
@@ -307,7 +307,7 @@ export = (options: Options = {}) => {
             ]
         });
         config.module.rules = [];
-    } else if (options.vendorStyle) {
+    } else if (options.style) {
         const CssEntryPlugin = require('css-entry-webpack-plugin');
         const rules: any[] = config.module.rules;
         _.assign(config, {

@@ -40,8 +40,8 @@ TASKS
 |:-----------------------------|:-----------------------------------------------------------------------|
 | `npm run start`              | Prepare and start local dev server                                     |
 | `npm run build:vendors`      | Prepare npm dependencies for linking                                   |
-| `npm run build:vendor-libs`  | Prepare npm dependencies for linking (Scripts)                         |
-| `npm run build:vendor-style` | Prepare npm dependencies for linking (Design)                          |
+| `npm run build:libs`         | Prepare npm dependencies for linking (Scripts)                         |
+| `npm run build:style`        | Prepare npm dependencies for linking (Design)                          |
 | `npm run server`             | Local dev server                                                       |
 | `npm run server:dashboard`   | Local dev server in dashboard mode                                     |
 | `npm run clean`              | Clean generated folders                                                |
@@ -64,7 +64,7 @@ TASKS
 DEVELOPMENT TIPS
 ---
 * Do not disable cache in devtools (network tab): this improves speed significantly, use Ctrl + F5 to clean cache.
-* Try to add new external libraries (npm modules) to vendor libs list (`entry.list`) and do `npm run build:vendor-libs`
+* Try to add new external libraries (npm modules) to vendor libs list (`entry.libs`) and do `npm run build:libs`
 
 RESOURCES
 ---

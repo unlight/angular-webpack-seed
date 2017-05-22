@@ -48,7 +48,7 @@ gulp.task('server:prestart', done => {
     const readPkgUp = require('read-pkg-up');
     const { version, dependencies } = readPkgUp.sync().pkg;
     const currentLibsInfo = Object.assign({}, { version }, dependencies);
-    const libsInfoFile = Path.resolve('node_modules', '.vendor-libs.build.json');
+    const libsInfoFile = Path.resolve('node_modules', '.libs.build.json');
     if (fs.existsSync(`${buildPath}/libs.json`) && fs.existsSync(libsInfoFile)) {
         const prevLibsInfo = require(libsInfoFile);
         const d = objectDiff(prevLibsInfo, currentLibsInfo);
@@ -56,13 +56,13 @@ gulp.task('server:prestart', done => {
         if (!hasDifference) {
             return done();
         }
-        g.util.log(g.util.colors.yellow('Version changed or found changes in dependencies, rebuilding vendor libs'));
+        g.util.log(g.util.colors.yellow('Version changed or found changes in dependencies, rebuilding npm libs'));
         _.forEach(d, (version, pkname) => g.util.log(`${pkname} ${g.util.colors.cyan(version)}`));
     } else {
-        g.util.log(g.util.colors.yellow('Initial build of vendor libs'));
+        g.util.log(g.util.colors.yellow('Initial build of npm libs'));
     }
     let p = new Promise((resolve, reject) => {
-        const proc = spawn('npm', ['run', 'build:vendor-libs'], { stdio: 'inherit' });
+        const proc = spawn('npm', ['run', 'build:libs'], { stdio: 'inherit' });
         proc.on('error', reject);
         proc.once('exit', () => {
             fs.writeFileSync(libsInfoFile, JSON.stringify(currentLibsInfo));
@@ -72,8 +72,8 @@ gulp.task('server:prestart', done => {
     let [style] = glob.sync(`${buildPath}/style*.css`);
     if (!style) {
         p = p.then(() => new Promise((resolve, reject) => {
-            g.util.log(g.util.colors.yellow('Initial build of vendor style'));
-            const proc = spawn('npm', ['run', 'build:vendor-style'], { stdio: 'inherit' });
+            g.util.log(g.util.colors.yellow('Initial style build'));
+            const proc = spawn('npm', ['run', 'build:style'], { stdio: 'inherit' });
             proc.on('error', reject);
             proc.once('exit', resolve);
         }));
