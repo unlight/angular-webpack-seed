@@ -96,8 +96,7 @@ export = (options: Options = {}) => {
                     'style-loader/fixUrls',
                 ]);
             })(),
-            style: ['@blueprintjs/core/dist/blueprint.css'],
-            //style: ['./src/style.scss'],
+            style: ['./src/style.scss'],
         },
         output: {
             path: buildPath,
@@ -210,13 +209,7 @@ export = (options: Options = {}) => {
                             { loader: 'postcss-loader', options: { plugins: postPlugins, sourceMap: false } },
                             { loader: 'sass-loader', options: { sourceMap: false } },
                         ];
-                        if (options.prod) {
-                            result = ExtractTextPlugin.extract({
-                                // fallback: 'style-loader',
-                                // resolve-url-loader may be chained before sass-loader if necessary
-                                use: result
-                            });
-                        } else if (!options.vendorStyle) {
+                        if (!options.vendorStyle) {
                             result.unshift({ loader: 'style-loader', options: { sourceMap: false } });
                         }
                         return result;
@@ -330,7 +323,7 @@ export = (options: Options = {}) => {
     } else {
         config.entry = _.pick(config.entry, ['app']);
         if (options.test) {
-            config.entry = 'lodash/noop';
+            config.entry = false;
         }
         if (options.dev) {
             const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
