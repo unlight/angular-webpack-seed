@@ -146,6 +146,14 @@ export = (options: Options = {}) => {
             exprContextCritical: false,
             rules: [
                 {
+                    include: Path.resolve(sourcePath, 'main.ts'),
+                    enforce: 'pre',
+                    loader: 'ifdef-loader',
+                    options: (() => {
+                        return require('querystring').encode({ json: JSON.stringify(options) });
+                    })()
+                },
+                {
                     test: /\.ts$/,
                     use: (() => {
                         if (options.aot) {
@@ -264,7 +272,7 @@ export = (options: Options = {}) => {
                 }));
             }
             if (options.prod) {
-				const CopyWebpackPlugin = require('copy-webpack-plugin');
+                const CopyWebpackPlugin = require('copy-webpack-plugin');
                 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
                 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
                 const DefinePlugin = require('webpack/lib/DefinePlugin');
@@ -274,9 +282,6 @@ export = (options: Options = {}) => {
                         minimize: true,
                         debug: false,
                         options: { context }
-                    }),
-                    new DefinePlugin({
-                        'process.env.NODE_ENV': JSON.stringify('production')
                     }),
                     new CopyWebpackPlugin([
                         { from: 'src/i18n', to: 'i18n' } // `from` is relative to context, `to` is relative to output
