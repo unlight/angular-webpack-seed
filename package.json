@@ -40,7 +40,7 @@
     "yi": "yarn install --no-lockfile",
     "karma": "karma start",
     "coverage": "npm run karma -- --single-run --coverage",
-    "coverage:debug": "npm run karma coverage -- --log-level debug",
+    "coverage:debug": "npm run karma -- --single-run --coverage --log-level debug",
     "p": "concurrently",
     "dev2a": "npm run p -q -- \"npm run test:w\" \"npm run gulp eslint:watch\"",
     "dev3a": "npm run p -q -- \"npm run test:w\" \"npm run gulp eslint:watch\" \"npm run tschk:w\"",
