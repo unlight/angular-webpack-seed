@@ -1,9 +1,10 @@
 /// <reference path="node_modules/@types/node/index.d.ts" />
-import * as webpack from 'webpack';
 import * as fs from 'fs';
 import * as Path from 'path';
 import _ = require('lodash');
 
+const WatchIgnorePlugin = require('webpack/lib/WatchIgnorePlugin');
+const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const readPkgUp = require('read-pkg-up');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -236,7 +237,7 @@ export = (options: Options = {}) => {
         },
         plugins: (() => {
             const result: any[] = [
-                new webpack.WatchIgnorePlugin([
+                new WatchIgnorePlugin([
                     /node_modules/
                 ])
             ];
@@ -245,7 +246,7 @@ export = (options: Options = {}) => {
                 result.push(new DashboardPlugin());
             }
             if (options.hmr) {
-                result.push(new webpack.NamedModulesPlugin());
+                result.push(new NamedModulesPlugin());
             }
             if (!options.test) {
                 result.push(new HtmlWebpackPlugin({
@@ -264,14 +265,17 @@ export = (options: Options = {}) => {
             }
             if (options.prod) {
 				const CopyWebpackPlugin = require('copy-webpack-plugin');
+                const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+                const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+                const DefinePlugin = require('webpack/lib/DefinePlugin');
                 result.push(
-                    new webpack.optimize.UglifyJsPlugin({ sourceMap: true, comments: false }),
-                    new webpack.LoaderOptionsPlugin({
+                    new UglifyJsPlugin({ sourceMap: true, comments: false }),
+                    new LoaderOptionsPlugin({
                         minimize: true,
                         debug: false,
                         options: { context }
                     }),
-                    new webpack.DefinePlugin({
+                    new DefinePlugin({
                         'process.env.NODE_ENV': JSON.stringify('production')
                     }),
                     new CopyWebpackPlugin([
@@ -291,6 +295,7 @@ export = (options: Options = {}) => {
     };
 
     if (options.libs) {
+        const DllPlugin = require('webpack/lib/DllPlugin');
         _.assign(config, {
             entry: _.pick(config.entry, ['libs']), // check name near DllReferencePlugin
             devtool: 'source-map',
@@ -300,7 +305,7 @@ export = (options: Options = {}) => {
                 library: '[name]',
             },
             plugins: [
-                new webpack.DllPlugin({
+                new DllPlugin({
                     name: '[name]',
                     path: `${buildPath}/[name].json`
                 })
@@ -326,12 +331,13 @@ export = (options: Options = {}) => {
             config.entry = false;
         }
         if (options.dev) {
+            const DllReferencePlugin = require('webpack/lib/DllReferencePlugin');
             const libs = `${buildPath}/libs.json`; // check name in src/index.ejs
             if (!fs.existsSync(libs)) {
                 throw new Error(`Cannot link '${libs}', file do not exists.`);
             }
             config.plugins.push(
-                new webpack.DllReferencePlugin({
+                new DllReferencePlugin({
                     context: context,
                     manifest: require(libs)
                 })
