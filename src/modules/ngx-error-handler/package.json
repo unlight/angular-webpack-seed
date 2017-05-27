@@ -1,0 +1,10 @@
+{
+  "name": "ngx-error-handler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib",
+  "typings": "src/index.ts",
+  "scripts": {
+  },
+  "license": "MIT"
+}

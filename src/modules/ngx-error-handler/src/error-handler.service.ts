@@ -1,6 +1,5 @@
-import { Directive, Input, TemplateRef, ViewContainerRef, Injectable, EventEmitter, NgModule, ComponentFactoryResolver, Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-const { mapStackTrace } = require('sourcemapped-stacktrace');
 const StackTrace = require('stacktrace-js');
 
 const style = `
@@ -105,8 +104,6 @@ const template = `
 @Injectable()
 export class ErrorHandlerService {
 
-    errorEvent = new EventEmitter();
-
     handleError(err: any) {
         // const StacktraceGps = require('stacktrace-gps');
         // var gps = new StacktraceGps();
@@ -135,19 +132,3 @@ export class ErrorHandlerService {
         // });
     }
 }
-
-@NgModule({
-    declarations: [
-        // ErrorHandlerDirective,
-        // ErrorHandlerCompoment,
-    ],
-    providers: [
-        ErrorHandlerService,
-    ],
-    exports: [
-        // ErrorHandlerDirective,
-        // ErrorHandlerCompoment,
-    ],
-    entryComponents: []
-})
-export class ErrorHandlerModule { }
