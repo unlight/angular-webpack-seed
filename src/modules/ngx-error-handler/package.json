@@ -1,8 +1,10 @@
 {
   "name": "ngx-error-handler",
   "version": "1.0.0",
-  "description": "",
-  "main": "lib",
+  "description": "Angular's `ErrorHandler` implementation for development environment",
+  "main": "lib/main",
+  "es2015": "lib/es2015",
+  "module": "lib/module",
   "typings": "src/index.ts",
   "scripts": {
     "tsc": "tsc",
