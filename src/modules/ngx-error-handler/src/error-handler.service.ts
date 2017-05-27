@@ -105,13 +105,8 @@ const template = `
 export class ErrorHandlerService {
 
     handleError(err: any) {
-        // const StacktraceGps = require('stacktrace-gps');
-        // var gps = new StacktraceGps();
-        // debugger;
         StackTrace.fromError(err).then(stackFrames => {
             let [frame] = stackFrames;
-            (__webpack_require__);
-            (StackTrace);
             const stackTrace = stackFrames.map(s => s.toString());
             // debugger;
             let [message] = err.message.split('\n');
@@ -123,12 +118,6 @@ export class ErrorHandlerService {
                 .replace(/{{requestUri}}/g, location.href)
                 // TODO: escape
                 + `<style>${style}</style>`;
-        })
-        // mapStackTrace(err.stack, (stackTrace) => {
-        //     document.body.innerHTML = template
-        //         .replace('{{stackTrace}}', stackTrace.join('\n'))
-        //         .replace('{{header}}', err.message);
-        //     document.head.innerHTML += `<style>${style}</style>`;
-        // });
+        });
     }
 }
