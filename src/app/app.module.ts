@@ -6,7 +6,6 @@ import { APP_ROUTES } from './app.routes';
 import { HomeModule } from './home/home.module';
 import { WelcomeModule } from './welcome/welcome.module';
 import { HttpModule } from '@angular/http';
-import { ErrorHandlerModule } from '../modules/ngx-error-handler';
 
 @NgModule({
     imports: [
@@ -17,12 +16,13 @@ import { ErrorHandlerModule } from '../modules/ngx-error-handler';
 		HttpModule,
         APP_CONFIG,
         APP_TRANSLATION,
-        ErrorHandlerModule,
     ],
     declarations: [
         AppComponent,
     ],
     bootstrap: [AppComponent],
-    providers: APP_PROVIDERS
+    providers: [
+        ...APP_PROVIDERS,
+    ]
 })
 export class AppModule { }

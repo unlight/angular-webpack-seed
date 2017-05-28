@@ -86,9 +86,14 @@ const template = `
         <h2>{{message}}</h2>
         <!--<code>senderCode</code>-->
         <p>The error occurred on or near: <strong>{{filePath}}</strong></p>
-        <!--<div class="pre-container">errorCodeTrace</div>-->
+        <!-- wil content content of file...<div class="pre-container">errorCodeTrace</div>-->
         <h3><strong>Backtrace:</strong></h3>
         <div class="pre-container"><pre>{{stackTrace}}</pre></div>
+        <h3><strong>What people say?</strong></h3>
+        <ul>
+            <li><strong>StackOverflow:</strong> <a href="{{stackOverflowSearchLink}}" target="_blank">{{message}}</a></li>
+            <li><strong>Google:</strong> <a href="{{googleSearchLink}}" target="_blank">{{message}}</a></li>
+        </ul>
         <h3><strong>Additional information:</strong></h3>
         <ul>
             <li><strong>Error:</strong> {{message}}</li>
@@ -116,7 +121,10 @@ export class ErrorHandlerService {
                 .replace(/{{filePath}}/g, `${frame.fileName}:${frame.lineNumber}`)
                 .replace(/{{userAgent}}/g, `${navigator.appCodeName} ${navigator.appVersion}`)
                 .replace(/{{requestUri}}/g, location.href)
-                // TODO: escape
+                .replace(/{{googleSearchLink}}/g, `https://www.google.ru/search?q=${encodeURIComponent(message)}`)
+                .replace(/{{stackOverflowSearchLink}}/g, `https://stackoverflow.com/search?q=${encodeURIComponent(message)}`)
+                // TODO: escape href
+                // https://github.com/sindresorhus/escape-goat
                 + `<style>${style}</style>`;
         });
     }

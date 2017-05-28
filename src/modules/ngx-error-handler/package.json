@@ -2,15 +2,22 @@
   "name": "ngx-error-handler",
   "version": "1.0.0",
   "description": "Angular's `ErrorHandler` implementation for development environment",
+  "license": "MIT",
   "main": "lib/main",
   "es2015": "lib/es2015",
   "module": "lib/module",
   "typings": "src/index.ts",
   "scripts": {
-    "tsc": "tsc",
     "lib:main": "npm run tsc -- --module CommonJS --target ES5 --outDir lib/main",
     "lib:es2015": "npm run tsc -- --module ES2015 --target ES2015 --outDir lib/es2015",
     "lib:module": "npm run tsc -- --module ES2015 --target ES5 --outDir lib/module",
+    "lib:all": "npm run lib:main && npm run lib:es2015 && npm run lib:module",
+    "tsc": "tsc"
   },
-  "license": "MIT"
+  "devDependencies": {
+    "typescript": "^2.3.3"
+  },
+  "dependencies": {
+    "stacktrace-js": "^2.0.0"
+  }
 }
