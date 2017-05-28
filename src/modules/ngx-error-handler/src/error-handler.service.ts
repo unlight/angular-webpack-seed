@@ -36,10 +36,11 @@ body, pre, h2, h3, h4, ul {
 
 code {
     display: block;
-    padding: 5px 0 0 5px;
+    padding: 5px 0px;
     color: #ff0084;
     overflow: auto;
     white-space: pre;
+    box-shadow: none;
 }
 
 .pre-container {
@@ -81,23 +82,22 @@ ul {
 const template = `
 <div id="overlay">
 <div id="frame">
-    <h1>Fatal error in senderObject.senderMethod</h1>
+    <h1>Fatal error in {{functionName}}</h1>
     <div id="content">
         <h2>{{message}}</h2>
-        <!--<code>senderCode</code>-->
+        <code>{{errorCode}}</code>
         <p>The error occurred on or near: <strong>{{filePath}}</strong></p>
         <!-- wil content content of file...<div class="pre-container">errorCodeTrace</div>-->
-        <h3><strong>Backtrace:</strong></h3>
+        <h3>Backtrace:</h3>
         <div class="pre-container"><pre>{{stackTrace}}</pre></div>
-        <h3><strong>What people say?</strong></h3>
+        <h3>What people say?</h3>
         <ul>
             <li><strong>StackOverflow:</strong> <a href="{{stackOverflowSearchLink}}" target="_blank">{{message}}</a></li>
             <li><strong>Google:</strong> <a href="{{googleSearchLink}}" target="_blank">{{message}}</a></li>
         </ul>
-        <h3><strong>Additional information:</strong></h3>
+        <h3>Additional information:</h3>
         <ul>
             <li><strong>Error:</strong> {{message}}</li>
-            <!--<li><strong>Application:</strong> Application</li>-->
             <li><strong>User Agent:</strong> {{userAgent}} </li>
             <li><strong>Request Uri:</strong> {{requestUri}}</li>
         </ul>
@@ -110,11 +110,16 @@ const template = `
 export class ErrorHandlerService {
 
     handleError(err: any) {
+        let errorCode = (err && err.code) || (err && err.name);
         StackTrace.fromError(err).then(stackFrames => {
-            let [frame] = stackFrames;
+            const [frame] = stackFrames;
             const stackTrace = stackFrames.map(s => s.toString());
-            // debugger;
             let [message] = err.message.split('\n');
+            let functionName = frame.functionName || err.functionName || 'Unknown';
+            let args = frame.getArgs() || '';
+            if (err.objectName) {
+                functionName = `${err.objectName}.${functionName}`;
+            }
             document.body.innerHTML += template
                 .replace(/{{stackTrace}}/g, stackTrace.join('\n'))
                 .replace(/{{message}}/g, message)
@@ -123,6 +128,8 @@ export class ErrorHandlerService {
                 .replace(/{{requestUri}}/g, location.href)
                 .replace(/{{googleSearchLink}}/g, `https://www.google.ru/search?q=${encodeURIComponent(message)}`)
                 .replace(/{{stackOverflowSearchLink}}/g, `https://stackoverflow.com/search?q=${encodeURIComponent(message)}`)
+                .replace(/{{functionName}}/g, functionName)
+                .replace(/{{errorCode}}/g, errorCode)
                 // TODO: escape href
                 // https://github.com/sindresorhus/escape-goat
                 + `<style>${style}</style>`;
