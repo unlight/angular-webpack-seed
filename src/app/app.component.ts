@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
 
     title = 'App';
+    fn: any = undefined;
 
     constructor(
         configService: ConfigService,
@@ -20,6 +21,6 @@ export class AppComponent {
     }
 
     ngOnInit() {
-        throw new Error('test err');
+        this.fn();
     }
 }

@@ -6,11 +6,13 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ConfigStaticLoader, ConfigLoader, ConfigModule } from '@ngx-config/core';
 import { AppErrorHandler } from './app.errorhandler';
+import { DevErrorHandler } from './../modules/dev-error-handler';
 
 export const APP_PROVIDERS = [
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: ErrorHandler, useClass: AppErrorHandler },
+    { provide: ErrorHandler, useClass: DevErrorHandler },
+    // { provide: ErrorHandler, useClass: AppErrorHandler },
 ];
 
 export const APP_TRANSLATION = TranslateModule.forRoot({

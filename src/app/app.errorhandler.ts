@@ -1,6 +1,5 @@
 import { ErrorHandler, Inject, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { ErrorHandlerService } from './../modules/ngx-error-handler';
 
 export class AppErrorHandler extends ErrorHandler {
 
@@ -10,7 +9,6 @@ export class AppErrorHandler extends ErrorHandler {
         @Inject(Injector) private injector: Injector,
     ) {
         super();
-        this.errorHandlerService = new ErrorHandlerService();
     }
 
     private get router(): Router {
@@ -27,6 +25,5 @@ export class AppErrorHandler extends ErrorHandler {
      */
     handleError(err: any) { // eslint-disable-line
         console.error(err); // eslint-disable-line
-        this.errorHandlerService.handleError(err);
     }
 }
