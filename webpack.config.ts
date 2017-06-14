@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const CssEntryPlugin = require('css-entry-webpack-plugin');
-const aotLoader = require('@ultimate/aot-loader');
+const { AotPlugin } = require('@ngtools/webpack');
 // NormalModuleReplacementPlugin example https://github.com/mateuszmazurek/NormalModuleReplacementPlugin-test/blob/master/webpack.config.js
 
 const sourcePath = Path.join(__dirname, 'src');
@@ -134,7 +134,7 @@ export = (options: Options = {}) => {
                     test: /\.ts$/,
                     use: (() => {
                         if (options.aot) {
-                            return [{ loader: '@ultimate/aot-loader' }];
+                            return [{ loader: '@ngtools/webpack' }];
                         }
                         return [
                             ...(options.hmr ? [{ loader: '@angularclass/hmr-loader' }] : []),
@@ -239,9 +239,9 @@ export = (options: Options = {}) => {
                 }));
             }
             if (options.aot) {
-                result.push(new aotLoader.AotPlugin({
-                    tsConfig: './tsconfig.json',
-                    entryModule: `./src/app/app.module#AppModule` // path is relative to tsConfig above
+                result.push(new AotPlugin({
+                    tsConfigPath: './tsconfig.json',
+                    entryModule: './src/app/app.module#AppModule', // path is relative to tsConfig above
                 }));
             }
             if (options.prod) {
