@@ -240,8 +240,8 @@ export = (options: Options = {}) => {
             }
             if (options.aot) {
                 result.push(new AotPlugin({
-                    tsConfigPath: './tsconfig.json',
-                    entryModule: './src/app/app.module#AppModule', // path is relative to tsConfig above
+                    tsConfigPath: Path.resolve('tsconfig.json'),
+                    entryModule: Path.resolve('src/app/app.module#AppModule'), // path is relative to tsConfig above
                 }));
             }
             if (options.prod) {
